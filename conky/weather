@@ -1,0 +1,52 @@
+conky.config = {
+    use_xft = true,
+    xftalpha = 0.8,
+    override_utf8_locale = true,
+    alignment                = 'top_right',
+    background               = false,
+    border_width             = 30,
+    cpu_avg_samples          = 2,
+    default_color            = 'white',
+    default_outline_color    = 'white',
+    default_shade_color      = 'white',
+    double_buffer            = true,
+    draw_borders             = false,
+    draw_graph_borders       = true,
+    draw_outline             = false,
+    draw_shades              = false,
+    extra_newline            = false,
+    font                     = 'JetBrains Mono NL:size=12',
+    gap_x                    = 280,
+    gap_y                    = 230,  -- Push it below the clock widget
+    minimum_height           = 5,
+    minimum_width            = 200,
+    net_avg_samples          = 2,
+    no_buffers               = true,
+    out_to_console           = false,
+    out_to_ncurses           = false,
+    out_to_stderr            = false,
+    out_to_x                 = true,
+    own_window               = true,
+    own_window_class         = 'Conky',
+    own_window_type          = 'desktop',
+    own_window_transparent   = false,
+    own_window_argb_visual   = true,
+    own_window_argb_value    = 128,
+    own_window_hints         = 'below',
+    show_graph_range         = false,
+    show_graph_scale         = false,
+    stippled_borders         = 0,
+    update_interval          = 600.0,
+    uppercase                = false,
+    use_spacer               = 'none',
+    use_xft                  = true,
+
+    -- Colors
+    color1                   = '#ff6019',
+    color2                   = '#FFA300',
+}
+
+conky.text = [[
+${font JetBrains Mono NL:size=14}${color2}${alignc}Weather
+${font JetBrains Mono NL:size=16}${color}${alignc}${execi 600 curl -s 'wttr.in/?format=1'}
+]]

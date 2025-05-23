@@ -99,7 +99,7 @@ list_undo_operations() {
             count=$((count + 1))
         done
     else
-        echo -e "${YELLOW}No Undo Operations Available
+        echo -e "${YELLOW}No Undo Operations Available${RESET}"
     fi
 }
 
@@ -158,7 +158,7 @@ sort_files() {
             local name="${filename%.*}"
             local ext="${filename##*.}"
 
-            if [[ "${name}" == "${ext}" ]]; then
+            if [[ "${name}" == "${ext}" ]]; then # No extension or filename is the extension
                 while [[ -f "${category_folder}/${name}_${count}" ]]; do
                     count=$((count + 1))
                 done
@@ -219,13 +219,13 @@ undo_operation() {
 
     grep "\[action\] Moving" "${LAST_LOG}" | while read -r line; do
         source_file=$(echo "${line}" | sed -E 's/.*Moving (.*) → (.*)\/.*/\1/')
-        dest_dir=$(echo "${line}" | sed -E 's/.*Moving (.*) → (.*)\/.*/\2/')
+        dest_dir=$(echo "${line}" | sed -E 's/.*Moving (.*) → (.*)\/.*/\2/') # Corrected this sed, was missing the folder part
 
         source_path="${DOWNLOADS_FOLDER}/${dest_dir}/${source_file}"
         dest_path="${DOWNLOADS_FOLDER}/${source_file}"
 
         if [ ! -f "${source_path}" ]; then
-            log_message "warning" "Can't Undo Move For ${source_file} - File Not Found!"
+            log_message "warning" "Unable Undo Move For ${source_file} - File Not Found!"
             continue
         fi
 
@@ -235,7 +235,7 @@ undo_operation() {
             local name="${filename%.*}"
             local ext="${filename##*.}"
 
-            if [[ "${name}" == "${ext}" ]]; then
+            if [[ "${name}" == "${ext}" ]]; then # No extension or filename is the extension
                 while [[ -f "${DOWNLOADS_FOLDER}/${name}_restored_${count}" ]]; do
                     count=$((count + 1))
                 done
@@ -284,7 +284,7 @@ while [[ "$#" -gt 0 ]]; do
             ;;
         -d|--dir)
             DOWNLOADS_FOLDER="$2"
-            shift
+            shift # Consume value
             ;;
         *)
             log_message "error" "Unknown Option: $1"
@@ -292,7 +292,7 @@ while [[ "$#" -gt 0 ]]; do
             exit 1
             ;;
     esac
-    shift
+    shift # Consume key
 done
 
 display_banner

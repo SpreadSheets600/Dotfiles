@@ -1,10 +1,12 @@
 export ZSH="$HOME/.oh-my-zsh"
-ZSH_THEME="blokkzh"
+
+ZSH_THEME="robbyrussell"
 
 plugins=(
   z
   fzf
   git
+  dnf
   autoenv
   gitfast
   git-extras
@@ -15,21 +17,23 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
+[ -f ~/.autoenv/autoenv.zsh ] && source ~/.autoenv/autoenv.zsh
 
-globalias() {
-  if [[ $LBUFFER =~ '[a-zA-Z0-9]+$' ]]; then
-    zle _expand_alias
-    zle expand-word
-  fi
-  zle self-insert
-}
+pokemon-colorscripts --no-title -s -r | fastfetch -c $HOME/.config/fastfetch/config-pokemon.jsonc --logo-type file-raw --logo-height 10 --logo-width 5 --logo -
 
-zle -N globalias
-bindkey " " globalias
-bindkey "^ " magic-space
-bindkey "^[[Z" magic-space
-bindkey -M isearch " " magic-space
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
+source <(fzf --zsh)
 
-. ~/.zsh_aliases
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+
+setopt appendhistory
+
+alias ls='lsd'
+alias l='ls -l'
+alias la='ls -a'
+alias lla='ls -la'
+alias lt='ls --tree'
+
+alias code="flatpak run com.visualstudio.code"
+export PATH=$HOME/.local/bin:$PATH

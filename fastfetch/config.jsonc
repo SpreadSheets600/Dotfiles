@@ -1,118 +1,124 @@
 {
   "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
   "logo": {
-    "source": "~/.local/share/fastfetch/ascii/cat.txt",
-    "padding": {
-      "top": 2,
-      "right": 6
-    }
+    "source": "fastfetch/ascii/straw-hat.txt",
   },
   "display": {
-    "separator": " ➜  "
+    "separator": " 󰑃  ",
   },
   "modules": [
     "break",
-    "break",
-    {
-      "type": "title",
-      "color": {
-        "user": "32",
-        "at": "37",
-        "host": "32"
-      }
-    },
-    "break",
     {
       "type": "os",
-      "key": "OS           ",
-      "keyColor": "31"
+      "key": " DISTRO",
+      "keyColor": "yellow",
     },
     {
       "type": "kernel",
-      "key": " ├          ",
-      "keyColor": "31"
+      "key": "│ ├",
+      "keyColor": "yellow",
     },
     {
       "type": "packages",
-      "format": "{} (pacman)",
-      "key": " ├ 󰏖         ",
-      "keyColor": "31"
+      "key": "│ ├󰏖",
+      "keyColor": "yellow",
     },
     {
       "type": "shell",
-      "key": " └          ",
-      "keyColor": "31"
+      "key": "│ └",
+      "keyColor": "yellow",
     },
-    "break",
     {
       "type": "wm",
-      "key": "WM           ",
-      "keyColor": "32"
+      "key": " DE/WM",
+      "keyColor": "blue",
     },
     {
       "type": "wmtheme",
-      "key": " ├ 󰉼         ",
-      "keyColor": "32",
-      "format": "ColloidBase-Grey-Dark"
+      "key": "│ ├󰉼",
+      "keyColor": "blue",
     },
     {
       "type": "icons",
-      "key": " ├ 󰀻         ",
-      "keyColor": "32",
-      "format": "Palette-Adwaita-Light [GTK2/3/4]"
+      "key": "│ ├󰀻",
+      "keyColor": "blue",
     },
     {
       "type": "cursor",
-      "key": " └          ",
-      "keyColor": "32",
-      "format": "WhiteSur (24px)"
+      "key": "│ ├",
+      "keyColor": "blue",
     },
-    "break",
+    {
+      "type": "terminalfont",
+      "key": "│ ├",
+      "keyColor": "blue",
+    },
+    {
+      "type": "terminal",
+      "key": "│ └",
+      "keyColor": "blue",
+    },
+    {
+      "type": "host",
+      "key": "󰌢 SYSTEM",
+      "keyColor": "green",
+    },
     {
       "type": "cpu",
-      "format": "{1} ({3}) @ {7} GHz",
-      "key": "CPU          ",
-      "keyColor": "33"
+      "key": "│ ├󰻠",
+      "keyColor": "green",
     },
     {
       "type": "gpu",
-      "format": "{1} {2} @ {12} GHz",
-      "key": " ├ 󰢮         ",
-      "keyColor": "33"
+      "key": "│ ├󰻑",
+      "format": "{2}",
+      "keyColor": "green",
     },
     {
-      "type": "gpu",
-      "format": "{1} {2} @ {12} GHz",
-      "key": " ├ 󰢮         ",
-      "keyColor": "33"
-    },
-    {
-      "type": "memory",
-      "key": " ├          ",
-      "keyColor": "33"
-    },
-    {
-      "type": "swap",
-      "key": " ├ 󰓡         ",
-      "keyColor": "33"
+      "type": "display",
+      "key": "│ └󰍹",
+      "keyColor": "green",
     },
     {
       "type": "disk",
-      "key": " ├ 󰋊         ",
-      "keyColor": "33"
+      "key": "│ ├󰋊",
+      "keyColor": "green",
     },
     {
-      "type": "monitor",
-      "key": " └          ",
-      "keyColor": "33"
+      "type": "memory",
+      "key": "│ ├󰾆",
+      "keyColor": "green",
     },
-    "break",
     {
-      "type": "colors",
-      "symbol": "circle"
+      "type": "swap",
+      "key": "│ ├󰓡",
+      "keyColor": "green",
+    },
+    {
+      "type": "uptime",
+      "key": "│ ├󰅐",
+      "keyColor": "green",
+    },
+    {
+      "type": "sound",
+      "key": " AUDIO",
+      "format": "{2}",
+      "keyColor": "magenta",
+    },
+    {
+      "type": "player",
+      "key": "│ ├󰥠",
+      "keyColor": "magenta",
+    },
+    {
+      "type": "media",
+      "key": "│ └󰝚",
+      "keyColor": "magenta",
+    },
+    {
+      "type": "custom",
+      "format": "\u001b[90m  \u001b[31m  \u001b[32m  \u001b[33m  \u001b[34m  \u001b[35m  \u001b[36m  \u001b[37m  \u001b[38m  \u001b[39m  \u001b[39m    \u001b[38m  \u001b[37m  \u001b[36m  \u001b[35m  \u001b[34m  \u001b[33m  \u001b[32m  \u001b[31m  \u001b[90m ",
     },
     "break",
-    "break"
-  ]
+  ],
 }
-

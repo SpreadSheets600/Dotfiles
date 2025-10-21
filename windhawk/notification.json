@@ -1,0 +1,8 @@
+{
+    "theme": "TranslucentShell",
+    "controlStyles[0].target": "",
+    "controlStyles[0].styles[0]": "",
+    "styleConstants[0]": "CommonBgBrush=<WindhawkBlur BlurAmount=\"25\" TintColor=\"#000000\" TintOpacity=\"0.5\"/>",
+    "resourceVariables[0].variableKey": "",
+    "resourceVariables[0].value": ""
+}

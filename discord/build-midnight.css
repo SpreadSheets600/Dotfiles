@@ -15,7 +15,7 @@
 
 body {
     /* font options */
-    --font: 'figtree';
+    --font: '';
     /* change to '' for default discord font */
     --code-font: '';
     /* change to '' for default discord font */
@@ -51,13 +51,13 @@ body {
     /* off: default, on: hide the icon and use subtle text color (like old discord) */
 
     /* window controls */
-    --custom-window-controls: on;
+    --custom-window-controls: off;
     /* off: default window controls, on: custom window controls */
     --window-control-size: 14px;
     /* size of custom window controls */
 
     /* dms button options */
-    --custom-dms-icon: custom;
+    --custom-dms-icon: off;
     /* off: use default discord icon, hide: remove icon entirely, custom: use custom icon */
     --dms-icon-svg-url: url('https://refact0r.github.io/midnight-discord/assets/Font_Awesome_5_solid_moon.svg');
     /* icon svg url. MUST BE A SVG. */
@@ -77,9 +77,9 @@ body {
     /* fixed color/gradient (css background property) */
 
     /* background image options */
-    --background-image: off;
+    --background-image: on;
     /* off: no background image, on: enable background image (must set url variable below) */
-    --background-image-url: url('');
+    --background-image-url: url('https://raw.githubusercontent.com/SleepyCatHey/CozyPixels/refs/heads/main/One%20Dark/Nature%20%26%20Landscapes/od_autumn.jpg');
     /* url of the background image */
 
     /* transparency/blur options */

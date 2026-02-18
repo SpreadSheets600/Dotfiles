@@ -1,16 +1,37 @@
-# Widnows + Linux Configuration Files
+# Dotfiles - Windows & Linux Configurations
 
-Overall Look
-![image-1](.github/images/Image-1.jpg)
+A curated collection of configuration files and scripts to personalize and optimize Windows and Linux environments. This repository contains settings for various tools, shells, editors, and system utilities to create a consistent and efficient workflow across platforms.
 
-Notification Menu
-![image-2](.github/images/Image-2.jpg)
+## Overview
 
-Flow Launcher
-![image-3](.github/images/Image-3.jpg)
+This dotfiles repository includes configurations for:
 
-Start menu
-![image-4](.github/images/Image-4.jpg)
+- **Shell Environments**: Bash and Zsh configurations with custom aliases, functions, and prompts
+- **Terminal Tools**: Fastfetch for system information display, terminal settings
+- **Editors**: VS Code, Zed editor configurations
+- **Window Management**: Komorebi (Windows), Yasb bar
+- **System Monitoring**: Conky configurations
+- **Customization**: Discord themes, Rainmeter skins, Windhawk tweaks
+- **WSL**: Windows Subsystem for Linux settings
+- **Scripts**: Utility scripts for system maintenance and automation
 
-Fastfetch Config
-![image-5](.github/images/Image-5.jpg)
+## Structure
+
+- `bash/` - Bash shell configurations and scripts
+- `conky/` - Conky system monitor configurations
+- `discord/` - Discord theme files
+- `fastfetch/` - Fastfetch configuration and ASCII art
+- `komorebi/` - Komorebi window manager configuration
+- `rainmeter/` - Rainmeter skins
+- `scripts/` - Utility scripts (PowerShell, shell)
+- `terminal/` - Terminal emulator settings
+- `vscode/` - Visual Studio Code settings and extensions
+- `windhawk/` - Windhawk customization configurations
+- `wsl/` - Windows Subsystem for Linux settings
+- `yasb/` - Yasb status bar configuration
+- `zed/` - Zed editor settings
+- `zsh/` - Zsh shell configurations
+
+## Screenshots
+
+![Desktop Setup](.github/images/image.png)

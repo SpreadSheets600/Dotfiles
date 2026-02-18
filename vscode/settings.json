@@ -1,6 +1,9 @@
 {
 	"files.autoSave": "onFocusChange",
-	"editor.fontFamily": "JetBrainsMono Nerd Font Mono",
+	"editor.cursorStyle": "block",
+	"terminal.integrated.cursorStyle": "block",
+	"editor.fontFamily": "JetBrainsMonoNL Nerd Font Mono",
+	"editor.roundedSelection": true,
 	"workbench.startupEditor": "none",
 	"editor.mouseWheelZoom": true,
 	"terminal.integrated.mouseWheelZoom": true,
@@ -14,7 +17,7 @@
 		"editor.defaultFormatter": "vscode.css-language-features"
 	},
 	"[html]": {
-		"editor.defaultFormatter": "esbenp.prettier-vscode"
+		"editor.defaultFormatter": "vscode.html-language-features"
 	},
 	"[javascript]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -66,7 +69,10 @@
 		"**/.trunk/*logs/": true,
 		"**/.trunk/*notifications/": true,
 		"**/.trunk/*out/": true,
-		"**/.trunk/*plugins/": true
+		"**/.trunk/*plugins/": true,
+		".idea/**": true,
+		"**/__pycache__/**": true,
+		"**/.venv/**": true,
 	},
 	"files.watcherExclude": {
 		"**/.trunk/*actions/": true,
@@ -108,7 +114,6 @@
 	"editor.unicodeHighlight.ambiguousCharacters": false,
 	"breadcrumbs.enabled": false,
 	"notebook.cellExecutionTimeVerbosity": "verbose",
-	"workbench.iconTheme": "vscode-jetbrains-icon-theme-2023-dark",
 	"oneDarkPro.vivid": false,
 	"editor.cursorSmoothCaretAnimation": "on",
 	"emmet.includeLanguages": {
@@ -128,25 +133,13 @@
 	"prettier.printWidth": 500,
 	"prettier.experimentalTernaries": true,
 	"python.createEnvironment.trigger": "off",
-	"editor.codeLensFontFamily": "JetBrains Mono",
+	"editor.codeLensFontFamily": "JetBrainsMonoNL Nerd Font Mono",
 	"workbench.navigationControl.enabled": false,
 	"window.commandCenter": false,
 	"editor.stickyScroll.scrollWithEditor": false,
 	"workbench.tree.enableStickyScroll": false,
 	"editor.stickyScroll.enabled": false,
 	"chat.commandCenter.enabled": false,
-	"github.copilot.enable": {
-		"*": true,
-		"plaintext": true,
-		"markdown": false,
-		"scminput": false,
-		"python": true,
-		"sql": false,
-		"java": false,
-		"html": true,
-		"cpp": false,
-		"vue": true
-	},
 	"redhat.telemetry.enabled": false,
 	"vscode_custom_css.imports": [
 		"file:///home/soham/Documents/VSCode/style.css",
@@ -219,6 +212,45 @@
 				"extensions": []
 			},
 			"idleTimeout": 0
+		},
+		{
+			"connectionId": "gBeKU1Ev1BBEWnc7v_Tav",
+			"name": "KhelRatnaa",
+			"driver": "sqlite",
+			"connectionType": "socket",
+			"socket": "/home/wsl/Development/Project-KhelRatnaa/KhelRatna/instance/cricket.db",
+			"readOnly": false,
+			"postConnectionSqlType": "inline",
+			"driverOptions": {
+				"extensions": []
+			},
+			"idleTimeout": 0
+		},
+		{
+			"connectionId": "jJcixVSfGwhQmBM3B8Yef",
+			"name": "Frontpage Generator",
+			"driver": "sqlite",
+			"connectionType": "socket",
+			"socket": "/home/wsl/Development/Frontpage-Generator/instance/frontpage.db",
+			"readOnly": false,
+			"postConnectionSqlType": "inline",
+			"driverOptions": {
+				"extensions": []
+			},
+			"idleTimeout": 0
+		},
+		{
+			"connectionId": "7nQYSGKNqsZhFXKsePTS5",
+			"name": "Pora Hobe",
+			"driver": "sqlite",
+			"connectionType": "socket",
+			"socket": "/home/wsl/Development/PoraHobeBot/archive/notes.db",
+			"readOnly": false,
+			"postConnectionSqlType": "inline",
+			"driverOptions": {
+				"extensions": []
+			},
+			"idleTimeout": 0
 		}
 	],
 	"explorer.confirmPasteNative": false,
@@ -263,7 +295,6 @@
 	"[jinja-html]": {
 		"editor.defaultFormatter": "vscode.html-language-features"
 	},
-	"workbench.colorTheme": "One Dark Pro Night Flat",
 	"security.allowedUNCHosts": [
 		"wsl.localhost"
 	],
@@ -287,7 +318,7 @@
 	},
 	"terminal.integrated.defaultProfile.osx": "zsh",
 	"terminal.integrated.defaultProfile.linux": "zsh",
-	"workbench.activityBar.location": "bottom",
+	"workbench.activityBar.location": "top",
 	"[javascriptreact]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
@@ -303,7 +334,7 @@
 		"/tmp/postman-http-request-pre-request.instructions.md": true
 	},
 	"[vue]": {
-		"editor.defaultFormatter": "Vue.volar"
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
 	"chat.mcp.serverSampling": {
 		"Global in Code: imagesorcery": {
@@ -341,10 +372,142 @@
 	"indentRainbow.lightIndicatorStyleLineWidth": 3,
 	"indentRainbow.errorColor": "rgba(128,32,32,0.0)",
 	"indentRainbow.colors": [
-
 		"rgba(255,255,64,0.1)",
 		"rgba(127,255,127,0.1)",
 		"rgba(255,127,255,0.1)",
 		"rgba(79,236,236,0.1)"
 	],
+	"chat.mcp.gallery.enabled": true,
+	"window.menuBarVisibility": "compact",
+	"vscode-pets.petSize": "medium",
+	"vscode-pets.theme": "forest",
+	"vscode-pets.throwBallWithMouse": true,
+	"vscode-pets.petColor": "orange",
+	"[yaml]": {
+		"editor.defaultFormatter": "redhat.vscode-yaml"
+	},
+	"sonarlint.connectedMode.connections.sonarcloud": [
+		{
+			"organizationKey": "novatrax",
+			"connectionId": "novatrax",
+			"region": "EU"
+		}
+	],
+	"sonarlint.automaticAnalysis": true,
+	"workbench.iconTheme": "symbols",
+	"workbench.colorTheme": "Cursor Dark",
+	"custom-ui-style.stylesheet": {
+		".composite-bar-container": {
+			"align-items": "center",
+			"justify-content": "center",
+			"transform": "scale(1.1)"
+		},
+		".monaco-workbench .part>.title, .monaco-workbench .part>.header-or-footer": {
+			"height": "35px!important"
+		}
+	},
+	"git.ignoreRebaseWarning": true,
+	"remote.autoForwardPortsSource": "hybrid",
+	"gitlens.ai.model": "vscode",
+	"gitlens.ai.vscode.model": "copilot:gpt-4.1",
+	"chat.mcp.autostart": "never",
+	"[mdx]": {
+		"editor.defaultFormatter": "unifiedjs.vscode-mdx"
+	},
+	"githubLocalActions.dockerDesktopPath": "C:/Program Files/Docker/Docker/Docker Desktop.exe",
+	"github.copilot.chat.codesearch.enabled": true,
+	"vscord.status.details.idle.enabled": false,
+	"vscord.status.idle.check": false,
+	"vscord.status.idle.enabled": false,
+	"vscord.status.problems.text": "- {problems_count} {problems_pluralize} Found",
+	"vscord.status.details.text.notInFile": "Got Lost Finding A File!",
+	"vscord.status.details.text.noWorkSpaceText": "No Workspace",
+	"vscord.status.state.text.debugging": "Debugging : {workspace}",
+	"vscord.status.state.text.editing": "Working On {file_name}{file_extension}:{current_line}:{current_column}",
+	"vscord.status.state.text.noWorkspaceFound": "No Workspace",
+	"vscord.status.image.large.debugging.text": "Debugging A {LANG} File",
+	"vscord.status.image.large.editing.text": "Editing A {LANG} File",
+	"vscord.status.image.large.viewing.text": "Viewing A {LANG} File",
+	"editor.largeFileOptimizations": false,
+	"editor.inlayHints.fontFamily": "JetBrainsMonoNL Nerd Font Mono",
+	"editor.inlineSuggest.fontFamily": "JetBrainsMonoNL Nerd Font Propo",
+	"terminal.integrated.fontFamily": "JetBrainsMonoNL Nerd Font Propo",
+	"notebook.markup.fontFamily": "JetBrainsMonoNL Nerd Font Propo",
+	"notebook.output.fontFamily": "JetBrainsMonoNL Nerd Font Propo",
+	"chat.tools.terminal.autoApprove": {
+		"/^cd /home/linux/Development/UIDAI-Hackathon && source venv/bin/activate && python load_data\\.py$/": {
+			"approve": true,
+			"matchCommandLine": true
+		},
+		"/^cd /home/linux/Development/UIDAI-Hackathon && source venv/bin/activate && python aggregate_by_state\\.py$/": {
+			"approve": true,
+			"matchCommandLine": true
+		},
+		"pip": true,
+		"/^cd /root/Novatra/Website && uv run manage\\.py check$/": {
+			"approve": true,
+			"matchCommandLine": true
+		},
+		"/^cd /root/Development/mgb-astro && git remote -v$/": {
+			"approve": true,
+			"matchCommandLine": true
+		},
+		"git commit": true,
+		"git push": true,
+		"git add": true,
+		"/^gzip -dc /home/debian/Test/674c4e95e24c0e08e4579039\\.json \\| head -20$/": {
+			"approve": true,
+			"matchCommandLine": true
+		}
+	},
+	"liveServer.settings.useLocalIp": true,
+	"js/ts.implicitProjectConfig.module": "System",
+	"claudeCode.preferredLocation": "panel",
+	"typescript.tsserver.log": "off",
+	"[typescript]": {
+		"editor.defaultFormatter": "vscode.typescript-language-features"
+	},
+	"editor.wordWrap": "wordWrapColumn",
+	"editor.wordWrapColumn": 140,
+	"terminal.integrated.fontSize": 13,
+	"diffEditor.ignoreTrimWhitespace": false,
+	"amp.url": "https://ampcode.com/",
+	"editor.wordBasedSuggestions": "off",
+	"amp.tab.enabled": false,
+	"amp.mcpServers": {
+		"playwright": {
+			"command": "npx",
+			"args": [
+				"-y",
+				"@playwright/mcp@latest",
+				"--headless",
+				"--isolated"
+			]
+		}
+	},
+	"amp.tools.disable": [],
+	"chat.useAgentSkills": true,
+	"chat.customAgentInSubagent.enabled": true,
+	"chat.useNestedAgentsMdFiles": true,
+	"chat.viewSessions.orientation": "stacked",
+	"playwright.runGlobalSetupOnEachRun": true,
+	"python.analysis.typeCheckingMode": "standard",
+	"[shellscript]": {
+		"editor.defaultFormatter": "lumirelle.shell-format-rev"
+	},
+	"github.copilot.enable": {
+		"*": true,
+		"plaintext": false,
+		"markdown": true,
+		"scminput": false
+	},
+	"workbench.editor.editorActionsLocation": "titleBar",
+	"geminicodeassist.project": "scientific-province-j5tpm",
+	"kilo-code.debug": false,
+	"kilo-code.allowedCommands": [
+		"git log",
+		"git diff",
+		"git show"
+	],
+	"kilo-code.deniedCommands": [],
 }

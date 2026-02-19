@@ -36,7 +36,7 @@
 
 ## Style Stack
 
-- [Custom Theme](#custom-theme)
+- Custom Theme TT
 - [JetBrains Mono Nerd Font](#jetbrains-mono-nerd-font)
 
 ## YASB

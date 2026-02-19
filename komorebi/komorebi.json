@@ -9,23 +9,17 @@
   "border_width": 2,
   "border_offset": 0,
   "border_colours": {
-    "single": "#494b4e",     
-    "stack": "#27282b",      
-    "floating": "#272729",   
-    "monocle": "#1b1b1d",    
+    "single": "#494b4e",
+    "stack": "#27282b",
+    "floating": "#272729",
+    "monocle": "#1b1b1d",
     "unfocused": "#151618"
   },
   "mouse_follows_focus": false,
-  "transparency": true,
   "transparency_alpha": 250,
+  "transparency": true,
   "animation": {
-    "enabled": true,
-    "duration": 300,
-    "fps": 75,
-    "style": {
-      "movement": "EaseOutSine",
-      "transparency": "Linear"
-    }
+    "enabled": false
   },
   "stackbar": {
     "height": 24,
@@ -36,20 +30,11 @@
       "font_size": 16
     }
   },
-  "monitors": [
+  "ignore_rules": [
     {
-      "workspaces": [
-        {
-          "name": "I",
-          "layout": "Scrolling",
-          "layout_options": {
-            "scrolling": {
-              "columns": 2,
-              "center_focused_column": true
-            }
-          }
-        }
-      ]
+      "kind": "Exe",
+      "id": "Pomotroid.exe",
+      "matching_strategy": "Contains"
     }
   ]
 }

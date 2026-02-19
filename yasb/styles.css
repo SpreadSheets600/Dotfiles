@@ -597,6 +597,41 @@
     height: 4px;
 }
 
+.komorebi-control-widget .widget-container .icon {
+    font-size: 16px;
+    color: var(--text);
+}
+
+.komorebi-control-widget .label {
+    font-size: 14px;
+    color: #cdd6f4;
+    font-weight: 600;
+}
+.komorebi-control-menu {
+    background-color: rgba(17, 17, 27, 0.2);
+}
+.komorebi-control-menu .button {
+    color: rgba(162, 177, 199, 0.4);
+    padding: 8px 16px;
+    font-size: 24px;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.04);
+}
+.komorebi-control-menu .button.active {
+    color: rgb(228, 228, 228);
+    background-color: rgba(255, 255, 255, 0.04);
+}
+.komorebi-control-menu .button:disabled,
+.komorebi-control-menu .button.active:disabled {
+    background-color: rgba(255, 255, 255, 0.01);
+    color: rgba(255, 255, 255, 0.2);
+}
+.komorebi-control-menu .footer .text {
+    font-size: 12px;
+    color: #6c7086;
+}
+
+
 .cava-widget {
     padding-left: 8;
     padding-right: 4;

@@ -3,9 +3,9 @@ watch_config: true
 debug: false
 update_check: true
 komorebi:
-  start_command: "komorebic start --whkd"
-  stop_command: "komorebic stop --whkd"
-  reload_command: "komorebic stop --whkd && komorebic start --whkd"
+  start_command: "\"C:\\Program Files\\komorebi\\bin\\komorebic.exe\" start && \"C:\\Program Files\\whkd\\bin\\whkd.exe\""
+  stop_command: "\"C:\\Program Files\\komorebi\\bin\\komorebic.exe\" stop && taskkill /IM whkd.exe /F"
+  reload_command: "taskkill /IM whkd.exe /F && \"C:\\Program Files\\komorebi\\bin\\komorebic.exe\" stop && \"C:\\Program Files\\komorebi\\bin\\komorebic.exe\" start && \"C:\\Program Files\\whkd\\bin\\whkd.exe\""
 bars:
   primary-bar:
     enabled: true
@@ -39,6 +39,7 @@ bars:
       left:
         - "home"
         - "wallpapers"
+        - "komorebi_control"
         - "grouped_widgets_3"
         - "grouped_widgets_2"
       center:
@@ -48,6 +49,26 @@ bars:
         - "grouped_widgets_1"
         - "power_menu"
 widgets:
+  komorebi_control:
+      type: "komorebi.control.KomorebiControlWidget"
+      options:
+        label: "<span>\ueb7f</span>"
+        icons:
+          start: "\uead3"
+          stop: "\uead7"
+          reload: "\uead2"
+        run_ahk: false
+        run_whkd: true
+        run_masir: false
+        show_version: true
+        komorebi_menu:
+          blur: true
+          round_corners: true
+          round_corners_type: "normal"
+          border_color: "None"
+          alignment: "right"
+          direction: "down"
+          offset_top: 1
   komorebi_workspaces:
     type: "komorebi.workspaces.WorkspaceWidget"
     options:

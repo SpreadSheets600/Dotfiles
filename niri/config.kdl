@@ -258,7 +258,34 @@ window-rule {
     match app-id=r#"org.quickshell$"#
     match app-id=r#"com.danklinux.dms$"#
     open-floating true
+
+    opacity 0.85
+
+    background-effect {
+        blur true
+        xray false
+    }
 }
+
+window-rule {
+    opacity 0.95
+
+    background-effect {
+        blur true
+        xray false
+    }
+}
+
+window-rule {
+    match app-id="^(steam|heroic|gamescope|wine)$"
+    opacity 1.0
+}
+
+window-rule {
+    match title=".*(Steam|Heroic|Wine|Proton|DXVK).*"
+    opacity 1.0
+}
+
 debug {
     honor-xdg-activation-with-invalid-serial
 }
@@ -280,3 +307,4 @@ include "dms/alttab.kdl"
 include "dms/binds.kdl"
 include "dms/outputs.kdl"
 include "dms/cursor.kdl"
+include "dms/windowrules.kdl"

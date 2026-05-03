@@ -1,112 +1,78 @@
+// Inspired by Catnap
 {
-  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
-  "logo": {
-    "source": "C:\\Users\\SOHAM\\.config\\fastfetch\\ascii\\straw-hat.txt",
-  },
-  "display": {
-    "separator": " 󰑃  ",
-  },
-  "modules": [
-    "break",
-    {
-      "type": "title",
-      "key": "󰀄 TITLE",
-      "keyColor": "yellow",
-    },
-    {
-      "type": "os",
-      "key": "󰍹 OS",
-      "keyColor": "yellow",
-    },
-    {
-      "type": "kernel",
-      "key": "│ ├",
-      "keyColor": "yellow",
-    },
-    {
-      "type": "packages",
-      "key": "│ ├󰏖",
-      "keyColor": "yellow",
-    },
-    {
-      "type": "shell",
-      "key": "│ └",
-      "keyColor": "yellow",
-    },
-    "break",
-    {
-      "type": "host",
-      "key": "󰌢 SYSTEM",
-      "keyColor": "green",
-    },
-    {
-      "type": "cpu",
-      "key": "│ ├󰻠",
-      "keyColor": "green",
-    },
-    {
-      "type": "gpu",
-      "key": "│ ├󰻑",
-      "format": "{2}",
-      "keyColor": "green",
-    },
-    {
-      "type": "display",
-      "key": "│ ├󰍹",
-      "keyColor": "green",
-    },
-    {
-      "type": "disk",
-      "key": "│ ├󰋊",
-      "keyColor": "green",
-    },
-    {
-      "type": "memory",
-      "key": "│ ├󰾆",
-      "keyColor": "green",
-    },
-    {
-      "type": "swap",
-      "key": "│ ├󰓡",
-      "keyColor": "green",
-    },
-    {
-      "type": "uptime",
-      "key": "│ ├󰅐",
-      "keyColor": "green",
-    },
-    {
-      "type": "battery",
-      "key": "│ ├󰂎",
-      "keyColor": "green",
-    },
-    {
-      "type": "datetime",
-      "key": "│ └󰃭",
-      "keyColor": "green",
-    },
-    "break",
-    {
-      "type": "sound",
-      "key": " AUDIO",
-      "format": "{2}",
-      "keyColor": "magenta",
-    },
-    {
-      "type": "player",
-      "key": "│ ├󰥠",
-      "keyColor": "magenta",
-    },
-    {
-      "type": "media",
-      "key": "│ └󰝚",
-      "keyColor": "magenta",
-    },
-    "break",
-    {
-      "type": "custom",
-      "format": "\u001b[90m  \u001b[31m  \u001b[32m  \u001b[33m  \u001b[34m  \u001b[35m  \u001b[36m  \u001b[37m  \u001b[38m  \u001b[39m  \u001b[39m    \u001b[38m  \u001b[37m  \u001b[36m  \u001b[35m  \u001b[34m  \u001b[33m  \u001b[32m  \u001b[31m  \u001b[90m ",
-    },
-    "break",
-  ],
+	"$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+	"logo": {
+		"type": "small",
+		"padding": {
+			"top": 3,
+			"right": 2
+		}
+	},
+	"display": {
+		"separator": " ",
+		"key": {
+			"width": 16
+		}
+	},
+	"modules": [
+		{
+			"key": "╭───────────╮",
+			"type": "custom"
+		},
+		{
+			"key": "│           │\u001b[11D{#31} user",
+			"type": "title",
+			"format": "{1}"
+		},
+		{
+			"key": "├───────────┤",
+			"type": "custom"
+		},
+		{
+			"key": "│           │\u001b[11D{#34}󰟾 distro",
+			"type": "os"
+		},
+		{
+			"key": "│           │\u001b[11D{#35} kernel",
+			"type": "kernel"
+		},
+		{
+			"key": "│           │\u001b[11D{#36} pkgs",
+			"type": "packages"
+		},
+		{
+			"key": "│           │\u001b[11D{#36}󰇄 desktop",
+			"type": "de"
+		},
+		{
+			"key": "│           │\u001b[11D{#31} term",
+			"type": "terminal"
+		},
+		{
+			"key": "│           │\u001b[11D{#31} wm",
+			"type": "wm"
+		},
+		{
+			"key": "│           │\u001b[11D{#32} shell",
+			"type": "shell"
+		},
+		{
+			"key": "│           │\u001b[11D{#35} memory",
+			"type": "memory"
+		},
+
+		{
+			"key": "├───────────┤",
+			"type": "custom"
+		},
+		{
+			"key": "│           │\u001b[11D{#40} colors",
+			"type": "colors",
+			"symbol": "circle"
+		},
+		{
+			"key": "╰───────────╯",
+			"type": "custom"
+		}
+	]
 }

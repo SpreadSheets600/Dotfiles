@@ -1,0 +1,645 @@
+gh auth login
+cd Projects
+mkdir Novatra
+git clone github.com:novatrax/website Website
+git clone git@github.com:NovatraX/website.git Website
+z Novatra
+zoxide novatra
+$SHELL
+git clone git@github.com:NovatraX/database.git Database
+git clone git@github.com:NovatraX/quiz-data.git Quiz-Data
+cd Projects/Novatra
+nvim .env
+curl -fsSL https://opencode.ai/install | bash
+cd Projects/Novatra/Keys
+nvim /home/spreadsheets600/.config/zsh/.zshrc
+nvim ~/.zshrc
+cd Projects/Novatra/Database
+ls -la
+source /home/spreadsheets600/.config/zsh/.zshrc
+opencode
+uv sync
+mv Quiz-Data Novatra/Quiz-Data
+cd Novatra
+cd Website
+yazi
+uv run manage.py tailwind runserver
+z novatra
+cd We
+cat docs/data-import.md | wl-clip-persist
+cat docs/data-import.md | wl-clip-persist --clipboard
+cat docs/data-import.md
+zed docs/data-import.md
+cd Quiz-Data
+ls
+zed neet.json
+z website
+nvim docs/data-import.md
+tmuz
+tmux
+clear
+code .
+ssh -i /home/spreadsheets600/Projects/Novatra/Keys/id_ed25519 root@novatra.in
+cd Downloads
+chmod +x ./installer.sh
+./installer.sh
+cd Games/Elden\ Ring\ Nightreign
+cd Mod\ Engine\ 3
+./launch-nightreign-mods.sh
+cd Games/Mod\ Engine\ 3
+./bin/me3
+./bin/me3 -g nightreign -e /home/spreadsheets600/Games/Elden Ring Nightreign/ELDEN RING NIGHTREIGN/nrsc_launcher.exe
+./bin/me3 launch -g nightreign -e /home/spreadsheets600/Games/Elden Ring Nightreign/ELDEN RING NIGHTREIGN/nrsc_launcher.exe
+./bin/me3 launch -g nightreign -e '/home/spreadsheets600/Games/Elden Ring Nightreign/ELDEN RING NIGHTREIGN/nrsc_launcher.exe'
+cd ..
+codex
+: 1777299709:0;codexsd
+: 1777299712:0;codex
+: 1777300094:0;sudo systemctl disable --now ly@tty2.service\
+ sudo pacman -Rns gnome-control-center gnome-shell gnome-session xdg-desktop-portal-gnome\
+ tela-icon-theme ly
+: 1777300474:0;codex
+: 1777310888:0;z website
+: 1777310894:0;git status
+: 1777310899:0;code .
+: 1777310980:0;curl -fsSL https://raw.githubusercontent.com/udit-001/cursor-theme-vscode/main/scripts/install-theme.sh | bash -s -- udit-001 cursor-theme-vscode
+: 1777310993:0;code .
+: 1777344836:0;z novatra
+: 1777345343:0;git clone git@github.com:NovatraX/exam-clountdown-extension
+: 1777345367:0;git clone git@github.com:NovatraX/exam-countdown-extension Extension
+: 1777345382:0;code .
+: 1777345390:0;cd Extension
+: 1777345391:0;zed .
+: 1777345427:0;curl -fsSL https://raw.githubusercontent.com/SpreadSheets600/cursor-theme-zed/main/scripts/install-themes.sh | bash -s -- --yes
+: 1777345480:0;git clone https://github.com/SpreadSheets600/cursor-theme-zed.git\
+cd cursor-theme-zed
+: 1777345489:0;./scripts/install-themes.sh
+: 1777345498:0;./scripts/install-themes.sh --dest "$HOME/.config/zed/themes"
+: 1777345503:0;yazi
+: 1777345545:0;./scripts/install-themes.sh --dest "$HOME/.config/zed"
+: 1777345550:0;./scripts/install-themes.sh --dest "$HOME/.config/zed/themes"
+: 1777345557:0;codez
+: 1777345561:0;codex
+: 1777345601:0;clear
+: 1777345602:0;opencode
+: 1777347089:0;zed .
+: 1777347105:0;clear
+: 1777347283:0;bun i
+: 1777347289:0;npm u
+: 1777347291:0;npm i
+: 1777347324:0;npm run dev
+: 1777347340:0;cd ..
+: 1777347344:0;rm -rf cursor-theme-zed
+: 1777347350:0;z extension
+: 1777347356:0;opencode
+: 1777347701:0;npm run build
+: 1777347794:0;git switch main
+: 1777347798:0;npm run build
+: 1777349080:0;sudo pacman -S xdg-desktop-portal-gnome
+: 1777349104:0;xdg-desktop-portal-gnome
+: 1777349126:0;systemctl --user status xdg-desktop-portal-gnome\
+
+: 1777349142:0;systemctl --user restart xdg-desktop-portal-gnome.service
+: 1777349144:0;systemctl --user status xdg-desktop-portal-gnome\
+
+: 1777349154:0;systemctl --user status xdg-desktop-portal-gnome
+: 1777349187:0;systemctl --user restart xdg-desktop-portal-gnome
+: 1777349189:0;systemctl --user status xdg-desktop-portal-gnome
+: 1777349193:0;systemctl --user restart xdg-desktop-portal-gnome.service
+: 1777349196:0;systemctl --user status xdg-desktop-portal-gnome
+: 1777349206:0;opencode
+: 1777349399:0;systemctl --user status xdg-desktop-portal-gnome
+: 1777350370:0;systemctl --user restart xdg-desktop-portal-gnome.service
+: 1777350371:0;systemctl --user status xdg-desktop-portal-gnome
+: 1777357931:0;codex
+: 1777358376:0;git add .
+: 1777358390:0;git commit -m "feat: lcoal image upload"
+: 1777358412:0;eval "$(ssh-agent -s)"\
+ssh-add ~/.ssh/id_rsa\
+
+: 1777358418:0;gh auth login
+: 1777358450:0;git commit -m "feat: lcoal image upload"
+: 1777358458:0;codex
+: 1777359243:0;npm run build
+: 1777379709:0;zed .
+: 1777389142:0;npm run build
+: 1777399391:0;yay
+: 1777432497:0;cd Downloads
+: 1777432501:0;./EquilotlCli-linux\ \(1\)
+: 1777432512:0;sudo ./EquilotlCli-linux\ \(1\)
+: 1777432559:0;sudo ./EquilotlCli-linux
+: 1777432561:0;clear
+: 1777432950:0;yay -S equicord-installer-bin
+: 1777432990:0;equilotl
+: 1777433002:0;sudo equilotl
+: 1777433603:0;z extension
+: 1777433605:0;zed .
+: 1777433731:0;npm run build
+: 1777475609:0;fastfetch
+: 1777476527:0;npm run build
+: 1777481296:0;archclean full
+: 1777484755:0;mangohud
+: 1777484861:0;yay -S goverlay
+: 1777484877:0;goverlay
+: 1777485509:0;brave
+: 1777485515:0;mangohud brave
+: 1777485600:0;sudo pacman -S lib32-mangohud
+: 1777485644:0;sudo pacman -S libxnvctrl0
+: 1777485709:0;mangohud steam steam://rungameid/3513350/
+: 1777485898:0;sudo pacman -S mangohud lib32-mangohud gamescope
+: 1777485911:0;sudo pacman -S gamemode lib32-gamemode
+: 1777485920:0;mangohud glxgears
+: 1777486031:0;ls ~/steam-*.log
+: 1777486056:0;ls ~/
+: 1777486064:0;ls ~/.steam
+: 1777486071:0;ls ~/.steam/steam
+: 1777486110:0;mangohud vkcube
+: 1777486120:0;sudo pacman -S vulkan-tools lib32-vulkan-tools
+: 1777486140:0;vulkaninfo | grep "GPU id"
+: 1777486156:0;vulkaninfo
+: 1777486215:0;~/.local/share/Steam/steamapps/compatdata/3513350/pfx/
+: 1777486217:0;ls
+: 1777520329:0;z .var
+: 1777520332:0;Z NOVATRA
+: 1777520338:0;z novatra
+: 1777520390:0;mkdir BET
+: 1777520394:0;cd BET
+: 1777520397:0;zed .
+: 1777520427:0;npm i -g @llamaindex/liteparse
+: 1777520455:0;lit parse Papers/2024.pdf
+: 1777520464:0;liy
+: 1777520466:0;lit
+: 1777520488:0;lit parse document.pdf -o output.md
+: 1777520498:0;cd Papers
+: 1777520502:0;lit parse 2024.pdf
+: 1777520512:0;lit parse document.pdf --no-ocr
+: 1777520534:0;cd ..
+: 1777520536:0;node main.js
+: 1777520552:0;npm i @llamaindex/liteparse
+: 1777520585:0;node main.js
+: 1777523291:0;node main.js output.md output.md questions.json\
+
+: 1777526601:0;npm install -g @pspdfkit/pdf-to-markdown
+: 1777526613:0;cd Papers
+: 1777526617:0;pdf-to-markdown 2024.pdf
+: 1777526629:0;pdf-to-markdown 2024.pdf output.md
+: 1777531605:0;cd ..
+: 1777531610:0;npm i axios
+: 1777532130:0;node main.js
+: 1777532488:0;sudo reboot
+: 1777532579:0;z BET
+: 1777532584:0;node main.js
+: 1777532938:0;zed .
+: 1777533142:0;clear
+: 1777533146:0;node main.js output.md output.md questions.json cleaned-questions.json
+: 1777533414:0;STREAM=true node main.js output.md output.md questions.json cleaned-questions.json\
+
+: 1777534085:0;codex
+: 1777534228:0;z projects
+: 1777535994:0;git clone https://github.com/pingdotgg/t3code
+: 1777536052:0;mv t3code T3Code
+: 1777536055:0;cd T3Code
+: 1777536062:0;git switch Jgratton24:josh/desktop-wsl-backend
+: 1777536092:0;git switch josh/desktop-wsl-backend
+: 1777536094:0;cd ..
+: 1777536098:0;rm -rf T3Code
+: 1777536101:0;git clone Jgratton24:josh/desktop-wsl-backend
+: 1777536281:0;git clone https://github.com/Jgratton24/t3code.git
+: 1777536961:0;mv t3code T3Code
+: 1777536963:0;cd T3Code
+: 1777536991:0;codex
+: 1777537043:0;clear
+: 1777538362:0;cd Projects
+: 1777538364:0;git clone git@github.com:Sheets-PokeHakz/PokeFier-V3.git9;6u
+: 1777538383:0;git clone git@github.com:Sheets-PokeHakz/PokeFier-V3.git
+: 1777538397:0;rm -rf PokeFier-V3
+: 1777538502:0;git clone git@github.com:Sheets-PokeHakz/PokeFier-V3.git
+: 1777538675:0;cd PokeFier-V3
+: 1777538676:0;codex
+: 1777538963:0;z poke
+: 1777538966:0;git status
+: 1777538972:0;git add main.py
+: 1777538985:0;git commit -m "fix: multiple acc not catching"
+: 1777538993:0;gh auth login
+: 1777539031:0;git commit -m "fix: multiple acc not catching"
+: 1777539225:0;z bet
+: 1777539227:0;codex
+: 1777554494:0;yay -S lmstudio-bin
+: 1777555128:0;uv init
+: 1777555169:0;uv add requests
+: 1777555634:0;nvidia-smi
+: 1777558757:0;z extension
+: 1777558764:0;code .
+: 1777558797:0;zed .
+: 1777558851:0;npm run build
+: 1777560165:0;cd Projects
+: 1777560173:0;git clone git@github.com:SpreadSheets600/TidyTabs.git
+: 1777560266:0;cd TidyTabs
+: 1777560295:0;zed ,
+: 1777560299:0;zed .
+: 1777560309:0;npm run build
+: 1777560314:0;npm i
+: 1777560363:0;npm run build
+: 1777560371:0;yay -S zip
+: 1777560381:0;npm run build
+: 1777562377:0;z t3
+: 1777562383:0;git switch josh/desktop-wsl-backend
+: 1777562389:0;git status
+: 1777562398:0;git discard .
+: 1777562401:0;git --help
+: 1777562406:0;git reset
+: 1777562410:0;git switch josh/desktop-wsl-backend
+: 1777562415:0;git statsh .
+: 1777562419:0;git stash .
+: 1777562422:0;git stash
+: 1777562425:0;git switch josh/desktop-wsl-backend
+: 1777562428:0;codex
+: 1777562511:0;z bet
+: 1777562513:0;codex
+: 1777562587:0;z bet
+: 1777562591:0;zed.
+: 1777562593:0;zed .
+: 1777562598:0;codex
+: 1777562602:0;z bet
+: 1777562604:0;codex
+: 1777568786:0;python main.py Papers/2024.pdf --context-length 8192
+: 1777568802:0;clear
+: 1777568867:0;python preview_images.py Papers/2024.pdf --pages 1-4 --clea
+: 1777568892:0;python main.py Papers/2024.pdf --context-length 8192
+: 1777569767:0;ping ip18.range.ncr.gbnodes.host:25601
+: 1777569794:0;ping yggdrasil.gbnodes.host9
+: 1777569796:0;ping yggdrasil.gbnodes.host
+: 1777569814:0;ping ip18.range.ncr.gbnodes.host:
+: 1777569816:0;ping ip18.range.ncr.gbnodes.host
+: 1777570421:0;clear
+: 1777570748:0;python main.py Papers/2024.pdf --pages 1
+: 1777570937:0;python main.py Papers/2024.pdf
+: 1777601642:0;z bet
+: 1777601644:0;zed .
+: 1777601957:0;python main.py Papers/2024.pdf
+: 1777602122:0;clear
+: 1777602123:0;python main.py Papers/2024.pdf
+: 1777602496:0;uv run preview_images.py
+: 1777605089:0;python main.py Papers/2024.pdf
+: 1777606964:0;uv add paddleocr[all]
+: 1777606973:0;uv add "paddleocr[all]"
+: 1777607029:0;uv run paddleORC.py
+: 1777607117:0;source /home/spreadsheets600/Projects/Novatra/BET/.venv/bin/activate
+: 1777607117:0;clear
+: 1777607145:0;uv run paddleocr ocr "Processes/previews/2024/page-02.png"
+: 1777607157:0;uv run paddleocr ocr -i "Processes/previews/2024/page-02.png"
+: 1777607187:0;uv add paddlepaddle
+: 1777607334:0;uv run paddleocr ocr -i "Processes/previews/2024/page-02.png"
+: 1777607890:0;uv run python test_paddleocr.py Processes/previews/2024/page-02.png --no-doc-unwarping --no-doc-orientation --no-textline-orientation\
+
+: 1777607950:0;nvidia-smi
+: 1777607986:0;uv pip uninstall paddlepaddle\
+uv pip install paddlepaddle-gpu==3.2.0 -i https://www.paddlepaddle.org.cn/packages/stable/cu126/\
+
+: 1777608637:0;source /home/spreadsheets600/Projects/Novatra/BET/.venv/bin/activate
+: 1777608637:0;clear
+: 1777608639:0;PADDLE_PDX_DISABLE_MODEL_SOURCE_CHECK=True uv run paddleocr ocr -i "Processes/previews/2024/page-02.png" --enable_mkldnn False --use_doc_orientation_classify False --use_doc_unwarping False --use_textline_orientation False --text_detection_model_name PP-OCRv4_mobile_det --text_recognition_model_name PP-OCRv4_mobile_rec\
+
+: 1777608826:0;clear
+: 1777610193:0;uv run test_lmstudio_paddleocr_vl.py Papers/2024.pdf --pages 4
+: 1777610862:0;uv run test_lmstudio_paddleocr_vl.py Papers/2024.pdf --pages 3
+: 1777611450:0;uv run python ocr.py Papers/2024.pdf --keep-images\
+
+: 1777616806:0;source /home/spreadsheets600/Projects/Novatra/BET/.venv/bin/activate
+: 1777616806:0;clear
+: 1777616813:0;uv run python ocr.py Papers/2023.pdf --keep-images\
+
+: 1777617004:0;uv run test_lmstudio_paddleocr_vl.py Papers/2023.pdf --pages13
+: 1777617006:0;uv run test_lmstudio_paddleocr_vl.py Papers/2023.pdf --pages 1
+: 1777617394:0;source /home/spreadsheets600/Projects/Novatra/BET/.venv/bin/activate
+: 1777617394:0;clear
+: 1777617399:0;uv run test_lmstudio_paddleocr_vl.py Papers/2023.pdf --pages 1
+: 1777617469:0;uv run ocr.py Papers/2023.pdf --pages 1
+: 1777617546:0;uv run ocr.py Papers/2023.pdf
+: 1777619652:0;clear
+: 1777619660:0;uv run ocr.py Papers/2023.pdf
+: 1777620330:0;cd Projects
+: 1777620335:0;mkdir DiscordUsernames
+: 1777620338:0;cd DiscordUsernames
+: 1777620340:0;codex
+: 1777620470:0;z usernam,es
+: 1777620476:0;cd Projects/DiscordUsernames
+: 1777620479:0;zed .
+: 1777620762:0;uv run fill_usernames.py
+: 1777620941:0;uv run check_usernames.py -f usernames.txt
+: 1777621714:0;uv run fill_usernames.py -c 10
+: 1777621735:0;uv run check_usernames.py -f usernames.txt
+: 1777621738:0;uv run fill_usernames.py -c 10
+: 1777621740:0;uv run check_usernames.py -f usernames.txt
+: 1777621751:0;uv run fill_usernames.py -c 1
+: 1777621752:0;uv run check_usernames.py -f usernames.txt
+: 1777621796:0;clear
+: 1777629299:0;curl -sSL https://raw.githubusercontent.com/wuwatracker/wuwatracker/refs/heads/main/import.sh | bash
+: 1777635346:0;z novatra
+: 1777635349:0;cd BET
+: 1777635351:0;zed .
+: 1777635352:0;source /home/spreadsheets600/Projects/Novatra/BET/.venv/bin/activate
+: 1777635352:0;clear
+: 1777635624:0;uv run main.py
+: 1777636445:0;z bet
+: 1777636467:0;codex
+: 1777637323:0;uv run main.py
+: 1777638359:0;bash -c "$(curl -fsSL https://raw.githubusercontent.com/ilyamiro/imperative-dots/master/install.sh)"
+: 1777645097:0;sudo pacman -S mutagen-bin
+: 1777645106:0;sudo pacman -S matugen-bin
+: 1777645115:0;yay -S matugen-bin
+: 1777645618:0;z bet
+: 1777645624:0;z website
+: 1777645627:0;git status
+: 1777645630:0;git add .
+: 1777645646:0;git commit -m "feat: bet 2024 data"
+: 1777645776:0;git push
+: 1777645786:0;ssh -i /home/spreadsheets600/Projects/Novatra/Keys/id_ed25519 root@novatra.in
+: 1777645810:0;clear
+: 1777645814:0;git pull
+: 1777645828:0;git push
+: 1777645847:0;tmux
+: 1777645849:0;ssh -i /home/spreadsheets600/Projects/Novatra/Keys/id_ed25519 root@novatra.in
+: 1777647309:0;tmux
+: 1777647310:0;ssh -i /home/spreadsheets600/Projects/Novatra/Keys/id_ed25519 root@novatra.in
+: 1777648135:0;zed .
+: 1777648214:0;clear
+: 1777648563:0;tmux
+: 1777648565:0;ssh -i /home/spreadsheets600/Projects/Novatra/Keys/id_ed25519 root@novatra.in
+: 1777648656:0;z website
+: 1777648658:0;codex
+: 1777649785:0;uv run manage.py tailwind runserver
+: 1777649791:0;clear
+: 1777650976:0;fastfetch
+: 1777650987:0;btop
+: 1777652116:0;uv run manage.py tailwind runserver
+: 1777652623:0;uv run manage.py migrate
+: 1777652633:0;uv run manage.py tailwind runserver
+: 1777654727:0;npm i -g copilot
+: 1777654796:0;copilot
+: 1777654804:0;z website
+: 1777654807:0;copilot
+: 1777655336:0;tmux
+: 1777655350:0;ssh -i /home/spreadsheets600/Projects/Novatra/Keys/id_ed25519 root@novatra.in
+: 1777656811:0;z website
+: 1777656813:0;uv run manage.py tailwind runserver
+: 1777657920:0;uv run manage.py createsuperuser
+: 1777657940:0;uv run manage.py tailwind runserver
+: 1777658043:0;uv run manage.py load_exam_safe data
+: 1777658058:0;uv run manage.py tailwind runserver
+: 1777658105:0;uv run manage.py migrtate
+: 1777658114:0;uv run manage.py migrate
+: 1777689473:0;codex
+: 1777690007:0;sudo pacman -Rns hyperland hyperidle
+: 1777690020:0;yay -Rns hyperland hyperidle
+: 1777690028:0;copilot
+: 1777691101:0;yay -Rns hyperland
+: 1777691109:0;yay -Rns kitty
+: 1777691130:0;yay -Rns hyperland
+: 1777691136:0;sudo pacman -Rns hyperland
+: 1777691143:0;copi
+: 1777691144:0;copilot
+: 1777691229:0;pacman -Qs hyprland
+: 1777691239:0;pacman -Qs hypr
+: 1777691250:0;yay -Qs hypr
+: 1777691557:0;pkgs=$(pacman -Qq | grep '^hypr' || true); if\
+[ -n "$pkgs" ]; then sudo pacman -Rns $pkgs; else echo "No hypr packages installed"; f
+: 1777691563:0;pkgs=$(pacman -Qq | grep '^hypr' || true); if\
+[ -n "$pkgs" ]; then sudo pacman -Rns $pkgs; else echo "No hypr packages installed"; fi
+: 1777691658:0;archclean full
+: 1777691757:0;copilot
+: 1777691831:0;yay -Scc
+: 1777691843:0;clear
+: 1777691864:0;du -sh ~/.cache/* | sort -h
+: 1777691909:0;curl -fsSL https://install.danklinux.com | sh
+: 1777691969:0;yay -Qs mut
+: 1777691974:0;yay -Qs m
+: 1777692019:0;yay -Qs mat
+: 1777692022:0;yay -Qs matugen
+: 1777692029:0;yay -Rns matugen-bin
+: 1777692036:0;curl -fsSL https://install.danklinux.com | sh
+: 1777692179:0;nvim .config/niri/dms/windowrules.kdl
+: 1777692203:0;nvim .config/niri/dms/
+: 1777692215:0;nvim .config/niri/
+: 1777692293:0;nvim ~/.zshrc
+: 1777693272:0;nvim Projects/Novatra/BET
+: 1777693334:0;z bet
+: 1777693345:0;python main.py
+: 1777693348:0;uv sync
+: 1777693440:0;curl -LsSf https://astral.sh/uv/install.sh | sh
+: 1777693455:0;source $HOME/.local/share/../bin/env
+: 1777693457:0;uv sync
+: 1777693462:0;uv run main.py
+: 1777694659:0;yay -S discord
+: 1777694683:0;yay -Rns discord
+: 1777694695:0;yay -S equibob
+: 1777694700:0;yay -S equibob-bin
+: 1777694757:0;yay -S equibop-bin
+: 1777695104:0;uv run main.py
+: 1777699485:0;nvim ~/.zshrc
+: 1777699512:0;copilor
+: 1777699517:0;copilot
+: 1777699523:0;.copilot
+: 1777699526:0;cd ..
+: 1777699529:0;npm i -g copilot
+: 1777699564:0;npm
+: 1777699569:0;npm i copilot
+: 1777699580:0;ls
+: 1777699585:0;rm -rf node_modules
+: 1777699591:0;rm -rf package.json
+: 1777699595:0;rm -rf package-lock.json
+: 1777699601:0;copilot
+: 1777699613:0;yay -S github-copilot-cli
+: 1777699642:0;uv run main.py
+: 1777699987:0;copilot
+: 1777700180:0;sudo find /usr/bin -maxdepth 1 -type f ( ! -user root -o -perm /g+w -o -perm /o+w )\
+-exec chown root:root {} + -exec chmod 755 {} +
+: 1777700254:0;sudo find /usr/bin -maxdepth 1 -type f ( ! -user root -o -perm /g+w -o -perm /o+w ) \
+-ls
+: 1777700260:0;sudo find /usr/bin -maxdepth 1 -type f ( ! -user root -o -perm /g+w -o -perm /o+w )-ls
+: 1777700263:0;sudo find /usr/bin -maxdepth 1 -type f ( ! -user root -o -perm /g+w -o -perm /o+w ) -ls
+: 1777700297:0;bash
+#1777700298
+sudo find /usr/bin -maxdepth 1 -type f ( ! -user root -o -perm /g+w -o -perm /o+w )
+#1777700301
+sudo find /usr/bin -maxdepth 1 -type f ( ! -user root -o -perm /g+w -o -perm /o+w ) -ls
+: 1777700312:0;sudo find /usr/bin -maxdepth 1 -type f '(' '!' -user root -o -perm /g+w -o -perm /o+w \
+')' -ls
+: 1777700326:0;bash
+#1777700329
+sudo find /usr/bin -maxdepth 1 -type f '(' '!' -user root -o -perm /g+w -o -perm /o+w ')' -ls
+#1777700337
+sudo find
+#1777700344
+/usr/bin -maxdepth 1 -type f ( ! -user root -o -perm /g+w -o -perm /o+w ) -exec chown
+#1777700344
+root:root {} + -exec chmod 755 {} +
+#1777700360
+npm doctor
+: 1777700438:0;ls -l /usr/bin/cupsd /usr/bin/groupmems /usr/bin/nfs-cat /usr/bin/nfs-cp /usr/bin/nfs-ls /usr/bin/nfs-stat && sudo chmod 755 /usr/bin/cupsd /usr/bin/groupmems /usr/bin/nfs-cat /usr/bin/nfs-cp /usr/bin/nfs-ls /usr/bin/nfs-stat && npm doctor
+: 1777700584:0;sudo reboot
+#1777700305
+zsh
+#1777700379
+zsh
+: 1777700929:0;copilot
+: 1777701694:0;source ~/.zshrc
+: 1777701705:0;yay -Rns networkmanager_dmenu
+: 1777701801:0;yay -Q networkmanager
+: 1777701818:0;yay -Rns networkmanager
+: 1777701827:0;yay -Rns networkmanager networkmanager-dmu-git
+: 1777701835:0;yay -Rns networkmanager networkmanager-demnu-git
+: 1777701851:0;yay -Rns networkmanager-dmenu-git
+: 1777701862:0;yay -Rns networkmanager
+: 1777701882:0;yay -Qs ikal
+: 1777701888:0;sudo pacman -Qs ikal
+: 1777702155:0;yay -S gpu-screen-recoder
+: 1777702185:0;yay -S gpu-screen-recoder-bin
+: 1777702232:0;yay -S gpu-screen-recorder-gtk
+: 1777702261:0;yay -S gpu-screen-recorder-git
+: 1777702272:0;yay -S gpu-screen-recorder-ui-git
+: 1777702379:0;cd /home/spreadsheets600/.local/share/applications
+: 1777702390:0;chmod 700 seanime-denshi-3.7.0_linux_x86_64.desktop
+: 1777702400:0;sudo chmod 700 seanime-denshi-3.7.0_linux_x86_64.desktop
+: 1777702455:0;sudo chmod a+rw seanime-denshi-3.7.0_linux_x86_64.desktop
+: 1777702507:0;source ~/.zshrc
+: 1777702629:0;cat docs/data-import.md
+: 1777702630:0;clear
+: 1777702638:0;cd Applications
+: 1777702639:0;ls
+: 1777703679:0;sudo pacman -Syu --noconfirm git neovim ripgrep fd exa fzf tmux starship zoxide nodejs npm pnpm docker python base-devel bat && sudo systemctl enable --now docker.service && sudo usermod -aG docker "$USER" && sudo -H npm i -g pnpm@latest
+: 1777703987:0;source ~/.zshrc
+: 1777704001:0;clear
+: 1777704002:0;ls
+: 1777704014:0;nvim ~/.zshrc
+: 1777705313:0;source ~/.zshrc
+: 1777705319:0;pg-start
+: 1777705329:0;nvim ~/.zshrc
+: 1777705364:0;cat ~/.zshrc
+: 1777705372:0;yay -S bat
+: 1777705385:0;bat ~/.zshrc
+: 1777705394:0;bat ~/.zshrc | wl-copy
+: 1777705772:0;rm -rf ~/.zshrc
+: 1777705776:0;nvim ~/.zshrc
+: 1777705784:0;source ~/.zshrc
+: 1777705791:0;nvim ~/.zshrc
+: 1777705798:0;source ~/.zshrc
+: 1777706077:0;source /home/spreadsheets600/Projects/Novatra/BET/.venv/bin/activate
+: 1777706077:0;clear
+: 1777706348:0;cd ocr-output
+: 1777706354:0;uv run processing.py
+: 1777708721:0;zocr
+: 1777708723:0;z ocr
+: 1777708727:0;codex
+: 1777708732:0;npm i -g codex
+: 1777708740:0;npm doctor
+: 1777708753:0;clear
+: 1777708757:0;codex
+: 1777708761:0;yay -S codex
+: 1777708768:0;clear
+: 1777708794:0;uv run processing.py
+: 1777711780:0;copilot
+: 1777711786:0;code
+: 1777711795:0;npm i -g codex
+: 1777724623:0;ls
+: 1777724811:0;history
+: 1777724822:0;history -n 100
+: 1777724908:0;sudo pacman -Qkk | grep -v ', 0 altered files'
+: 1777724959:0;/var/cache/pacman/pkg/
+: 1777725010:0;cd
+: 1777725021:0;sudo pacman -Qnq | sudo pacman -S -
+: 1777725047:0;ls /var/cache/pacman/pkg | wc -l
+: 1777725096:0;su -
+: 1777725437:0;pacman -Syu
+: 1777725445:0;sudo pacman -Syu
+: 1777725459:0;sudo pacman -Qnq | pacman -S -
+: 1777725471:0;sudo pacman -Qnq | sudo pacman -S -
+: 1777731905:0;yay -Rns equibop-bin
+: 1777731920:0;yay -S discord
+: 1777731962:0;cd Downloads
+: 1777731963:0;ls
+: 1777731968:0;./EquilotlCli-linux\ \(1\)
+: 1777731989:0;sudo ./EquilotlCli-linux\ \(1\)
+: 1777734042:0;z mlp
+: 1777734046:0;code .
+: 1777743338:0;fastfetch
+: 1777743347:0;yay -S neofetch
+: 1777743361:0;newofetch
+: 1777743364:0;neofetch
+: 1777791289:0;nvim ~/.zshrc
+: 1777791481:0;ls
+: 1777791550:0;source ~/.zshrc
+: 1777792594:0;nvim ~/.config/MControlCenter.conf
+: 1777792842:0;fsh
+: 1777792849:0;source ~/.zshrc
+: 1777792863:0;yay -Qs fsh
+: 1777792875:0;sudo pacman -Qs fsh
+: 1777793209:0;nvim /home/spreadsheets600/.config/fsh/catppuccin-mocha.ini
+: 1777793253:0;sudo nvim /home/spreadsheets600/.config/fsh/catppuccin-mocha.ini
+: 1777793265:0;nvim /home/spreadsheets600/.config/fsh/catppuccin-mocha.ini
+: 1777793287:0;zed /home/spreadsheets600/.config/fsh/catppuccin-mocha.ini
+: 1777793292:0;nvim /home/spreadsheets600/.config/fsh/catppuccin-mocha.ini
+: 1777793313:0;source ~/.zshrc~
+: 1777793315:0;source ~/.zshrc
+: 1777793407:0;cd Dotfiles
+: 1777793412:0;nvim \
+set -e\
+CONFIG_DIR="$HOME/.config"\
+BACKUP_DIR="$(pwd)"\
+DATE=$(date +%Y-%m-%d)\
+COMMIT_MSG="feat: dotfiles update $DATE"\
+#\
+ITEMS=(\
+ "autostart"\
+ "cava"\
+ "starship.toml"\
+ "fastfetch"\
+ "MangoHud" \
+ "goverlay"\
+ "niri"\
+)\
+#\
+mkdir -p "$BACKUP_DIR/.config"\
+echo "Backing up dotfiles..."\
+for item in "${ITEMS[@]}"; do\
+ SRC="$CONFIG_DIR/$item"\
+ DEST="$BACKUP_DIR/.config/$item"\
+ \
+ if [ -e "$SRC" ]; then\
+ rm -rf "$DEST" \
+ cp -a "$SRC" "$DEST"\
+ echo "âƒ¼ƒ³ $item"\
+ else\
+ echo "âƒºƒ€ $item not found in ~/.config (skipped)"\
+ fi\
+done\
+echo "Committing changes..."\
+git add .config/\
+git commit -m "$COMMIT_MSG"\
+echo "Pushing to remote..."\
+git push\
+echo "Done! Dotfiles updated and pushed."
+: 1777793428:0;cd Dotfiles
+: 1777793451:0;nvim backup-script.sh
+: 1777793630:0;chmod +x Dotfiles/backup-script.sh
+: 1777793639:0;./Dotfiles/backup-script.sh
+: 1777793647:0;clear
+: 1777793660:0;ls ~/.config
+: 1777793667:0;source ~/.zshrc
+: 1777794395:0;ls
+: 1777794515:0;echo $ZDOTDIR\
+echo $ZSH_VERSION
+: 1777794539:0;ls /etc
+: 1777794549:0;ls /etc/zsh/zprofile
+: 1777794554:0;cat /etc/zsh/zprofile
+: 1777794563:0;cat /etc/profile
+: 1777794645:0;~/.zshenv
+: 1777794650:0;cat ~/.zshenv
+: 1777794664:0;grep -R "zshrc" ~
+: 1777794692:0;clear
+: 1777794695:0;nvim ~/.zprofil
+: 1777794699:0;nvim ~/.zprofile
+: 1777794710:0;ls
+: 1777794713:0;ls -la
+: 1777794726:0;rm -rf ~/.zshprofil
+: 1777794740:0;[[ -f ~/.zshrc ]] && source ~/.zshrc

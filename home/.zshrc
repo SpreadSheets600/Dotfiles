@@ -19,32 +19,35 @@ source "$ZINIT_HOME/zinit.zsh"
 # ---------------------------------------------------
 # PLUGINS 
 # ---------------------------------------------------
-zinit ice wait lucid depth=1
-
 # Autosuggestions
-zinit light zsh-users/zsh-autosuggestions
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#6c7086"
+zinit light zsh-users/zsh-autosuggestions
 
 # History Search
+zinit ice wait lucid depth=1
 zinit light zsh-users/zsh-history-substring-search
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
 # Syntax Highlighting
+zinit ice wait lucid depth=1
 zinit light zdharma-continuum/fast-syntax-highlighting
 
 # Completions
+zinit ice wait lucid depth=1
 zinit light zsh-users/zsh-completions
 autoload -Uz compinit && compinit -d "$ZSH_CACHE_HOME/.zcompdump"
 
 # Fuzzy Tab Completion
+zinit ice wait lucid depth=1
 zinit light Aloxaf/fzf-tab
 zstyle ':fzf-tab:*' use-fzf-default-opts yes
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza --tree --color=always $realpath | head -200'
 
 # LS Colors Theme
 vivid_theme="catppuccin-mocha"
+zinit ice wait lucid depth=1
 zinit light ryanccn/vivid-zsh
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 
@@ -164,4 +167,4 @@ export PATH="$HOME/.opencode/bin:$PATH"
 # ---------------------------------------------------
 # Autorun
 # ---------------------------------------------------
-fastfetch
+"${XDG_CONFIG_HOME:-$HOME/.config}/fastfetch/run-fastfetch.sh"

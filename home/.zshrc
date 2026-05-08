@@ -168,3 +168,10 @@ export PATH="$HOME/.opencode/bin:$PATH"
 # Autorun
 # ---------------------------------------------------
 "${XDG_CONFIG_HOME:-$HOME/.config}/fastfetch/run-fastfetch.sh"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# Amp CLI
+export PATH="$HOME/.local/bin:$PATH"

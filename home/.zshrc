@@ -151,6 +151,7 @@ alias pg-status='systemctl status postgresql.service'
 alias ref='exec zsh'
 
 alias backup='./Dotfiles/backup-script.sh'
+alias phonecam='./Dotfiles/scripts/VirtualPhoneCam.sh'
 
 # ---------------------------------------------------
 # PROMPT (Starship)

@@ -176,3 +176,7 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 # Amp CLI
 export PATH="$HOME/.local/bin:$PATH"
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/spreadsheets600/.local/bin:$PATH"

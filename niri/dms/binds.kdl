@@ -12,6 +12,9 @@ binds {
     Mod+Space hotkey-overlay-title="Application Launcher" { spawn "dms" "ipc" "call" "spotlight" "toggle"; }
     Mod+V hotkey-overlay-title="Clipboard Manager" { spawn "dms" "ipc" "call" "clipboard" "toggle"; }
     Mod+Y hotkey-overlay-title="Browse Wallpapers" { spawn "dms" "ipc" "call" "dankdash" "wallpaper"; }
+    Print { spawn "sh" "-c" "dms ipc screenCaptureToolbar open"; }
+    Super+G { spawn "dms" "ipc" "call" "screenRecorder" "toggleRecording"; }
+    Super+Shift+S { spawn "sh" "-c" "dms ipc screenCaptureToolbar open"; }
     Super+X hotkey-overlay-title="Power Menu: Toggle" { spawn "dms" "ipc" "call" "powermenu" "toggle"; }
     XF86AudioLowerVolume allow-when-locked=true { spawn "dms" "ipc" "call" "audio" "decrement" "3"; }
     XF86AudioMicMute allow-when-locked=true { spawn "dms" "ipc" "call" "audio" "micmute"; }
@@ -57,8 +60,6 @@ binds {
     Mod+U { focus-workspace-down; }
     Mod+WheelScrollDown cooldown-ms=150 { focus-workspace-down; }
     Mod+WheelScrollUp cooldown-ms=150 { focus-workspace-up; }
-    Alt+Print { screenshot-window; }
-    Alt+XF86Launch1 { screenshot-window; }
     Mod+BracketLeft { consume-or-expel-window-left; }
     Mod+BracketRight { consume-or-expel-window-right; }
     Mod+C { center-column; }
@@ -121,11 +122,6 @@ binds {
     Mod+WheelScrollLeft { focus-column-left; }
     Mod+WheelScrollRight { focus-column-right; }
     Mod+Shift+P { power-off-monitors; }
-    Ctrl+Print { screenshot-screen; }
-    Ctrl+XF86Launch1 { screenshot-screen; }
-    Print { screenshot; }
-    Super+Shift+S { screenshot; }
-    XF86Launch1 { screenshot; }
     Mod+Shift+E { quit; }
     Mod+T hotkey-overlay-title="Open Terminal" { spawn "ghostty"; }
     Mod+D repeat=false { toggle-overview; }

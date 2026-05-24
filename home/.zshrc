@@ -152,6 +152,7 @@ alias ref='exec zsh'
 
 alias backup='./Dotfiles/backup-script.sh'
 alias phonecam='./Dotfiles/scripts/VirtualPhoneCam.sh'
+alias ce='./Dotfiles/scripts/cheatenginelaunch.sh'
 
 # ---------------------------------------------------
 # PROMPT (Starship)
@@ -176,7 +177,6 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 # Amp CLI
 export PATH="$HOME/.local/bin:$PATH"
-
 
 # Added by Antigravity CLI installer
 export PATH="/home/spreadsheets600/.local/bin:$PATH"

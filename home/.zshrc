@@ -153,6 +153,7 @@ alias ref='exec zsh'
 alias backup='./Dotfiles/backup-script.sh'
 alias phonecam='./Dotfiles/scripts/VirtualPhoneCam.sh'
 alias ce='./Dotfiles/scripts/cheatenginelaunch.sh'
+alias game='./Dotfiles/scripts/game.sh'
 
 # ---------------------------------------------------
 # PROMPT (Starship)

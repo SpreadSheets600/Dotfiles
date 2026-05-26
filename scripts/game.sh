@@ -8,9 +8,10 @@ LAUNCH_DELAY="${LAUNCH_DELAY:-2}"
 # Display Settings
 RES_WIDTH="${RES_WIDTH:-1920}"
 RES_HEIGHT="${RES_HEIGHT:-1080}"
-REFRESH_RATE="${REFRESH_RATE:-144}"
+REFRESH_RATE="${REFRESH_RATE:-60}"
 
 # Flags
+ENABLE_GAMEMODE="${ENABLE_GAMEMODE:-1}"
 ENABLE_FULLSCREEN="${ENABLE_FULLSCREEN:-1}"
 ENABLE_CURSOR_GRAB="${ENABLE_CURSOR_GRAB:-1}"
 ENABLE_MANGOHUD="${ENABLE_MANGOHUD:-1}"
@@ -21,7 +22,7 @@ sleep "$LAUNCH_DELAY"
 CMD=()
 
 # Gamemode
-if command -v gamemoderun >/dev/null 2>&1; then
+if [[ "$ENABLE_GAMEMODE" == "1" ]] && command -v gamemoderun >/dev/null 2>&1; then
     CMD+=(gamemoderun)
 fi
 

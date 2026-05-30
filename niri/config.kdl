@@ -213,12 +213,14 @@ window-rule {
     match app-id=r#"^org\.wezfurlong\.wezterm$"#
     default-column-width {}
 }
+
 window-rule {
     match app-id=r#"^org\.gnome\."#
     draw-border-with-background false
     geometry-corner-radius 12
     clip-to-geometry true
 }
+
 window-rule {
     match app-id=r#"^gnome-control-center$"#
     match app-id=r#"^pavucontrol$"#
@@ -226,6 +228,7 @@ window-rule {
     default-column-width { proportion 0.5; }
     open-floating false
 }
+
 window-rule {
     match app-id=r#"^org\.gnome\.Calculator$"#
     match app-id=r#"^gnome-calculator$"#
@@ -240,31 +243,38 @@ window-rule {
 
     default-floating-position x=100 y=100 relative-to="top-left"
 }
+
 window-rule {
     match app-id=r#"^steam$"# title=r#"^notificationtoasts_\d+_desktop$"#
     default-floating-position x=10 y=10 relative-to="bottom-right"
     open-focused false
 }
+
 window-rule {
     match app-id=r#"^org\.wezfurlong\.wezterm$"#
-    match app-id="Alacritty"
-    match app-id="zen"
     match app-id="com.mitchellh.ghostty"
-    match app-id="kitty"
     draw-border-with-background false
+
+    opacity 0.85
+
+    background-effect {
+	    blur true
+	    xray false
+    }
 }
+
 window-rule {
     match app-id=r#"firefox$"# title="^Picture-in-Picture$"
     match app-id="zoom"
     open-floating true
 }
+
 // Open dms windows as floating by default
 window-rule {
     match app-id=r#"org.quickshell$"#
-    match app-id=r#"com.danklinux.dms$"#
     open-floating true
 
-    opacity 0.85
+    opacity 0.65
 
     background-effect {
         blur true

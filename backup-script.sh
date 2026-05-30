@@ -11,21 +11,22 @@ DATE=$(date +%Y-%m-%d)
 COMMIT_MSG="feat: dotfiles update $DATE"
 
 CONFIG_ITEMS=(
-    "autostart"
-    "cava"
-    "starship.toml"
-    "fastfetch"
-    "MangoHud"  
-    "goverlay"
-    "niri"
-    "zsh"
-    "shell"
+  "autostart"
+  "cava"
+  "starship.toml"
+  "fastfetch"
+  "MangoHud"
+  "goverlay"
+  "niri"
+  "zsh"
+  "shell"
+  "zed"
 )
 
 HOME_ITEMS=(
-    ".zshrc"
-    ".zshenv"
-    ".zprofile"
+  ".zshrc"
+  ".zshenv"
+  ".zprofile"
 )
 
 mkdir -p "$BACKUP_DIR"
@@ -35,7 +36,7 @@ echo "Backing Up Dotfiles ..."
 for item in "${CONFIG_ITEMS[@]}"; do
   SRC="$CONFIG_DIR/$item"
   DEST="$BACKUP_DIR/$item"
-  
+
   if [ -e "$SRC" ]; then
     rm -rf "$DEST"
     cp -a "$SRC" "$DEST"

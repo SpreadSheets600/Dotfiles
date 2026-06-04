@@ -11,18 +11,19 @@ DATE=$(date +%Y-%m-%d)
 COMMIT_MSG="feat: dotfiles update $DATE"
 
 CONFIG_ITEMS=(
-  "autostart"
-  "cava"
-  "starship.toml"
-  "fastfetch"
-  "MangoHud"
-  "goverlay"
-  "niri"
-  "zsh"
-  "shell"
-  "zed"
+"autostart"
+"cava"
+"starship.toml"
+"fastfetch"
+"MangoHud"
+"goverlay"
+"niri"
+"zsh"
+"shell"
+"zed"
 "kitty"
 "lazygit"
+"code"
 )
 
 HOME_ITEMS=(

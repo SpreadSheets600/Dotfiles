@@ -5,6 +5,13 @@
 config-notification {
     disable-failed
 }
+// Outputs from existing configuration
+/-output "eDP-2" {
+    mode "2560x1600@239.998993"
+    position x=2560 y=0
+    variable-refresh-rate
+}
+
 
 gestures {
     hot-corners {
@@ -83,11 +90,7 @@ input {
 // Find more information on the wiki:
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Outputs
 // Remember to uncomment the node by removing "/-"!
-/-output "eDP-2" {
-    mode "2560x1600@239.998993"
-    position x=2560 y=0
-    variable-refresh-rate
-}
+
 // Settings that influence how windows are positioned and sized.
 // Find more information on the wiki:
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Layout
@@ -148,6 +151,7 @@ layer-rule {
     match namespace="^quickshell$"
     place-within-backdrop true
 }
+
 overview {
     workspace-shadow {
         off
@@ -203,6 +207,13 @@ animations {
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Window-Rules
 // Work around WezTerm's initial configure bug
 // by setting an empty default-column-width.
+
+window-rule {
+    background-effect {
+        xray true
+    }
+}
+
 window-rule {
     // This regular expression is intentionally made as specific as possible,
     // since this is the default config, and we want no false positives.
@@ -255,7 +266,23 @@ window-rule {
     match app-id=r#"org.quickshell$"#
     match app-id=r#"com.danklinux.dms$"#
     open-floating true
+
+    opacity 0.90
+
+    background-effect {
+        blur true
+        xray false
+    }
 }
+
+layer-rule {
+    match namespace="^dms"
+
+    background-effect {
+        xray false
+    }
+}
+
 debug {
     honor-xdg-activation-with-invalid-serial
 }
@@ -277,5 +304,3 @@ include "dms/alttab.kdl"
 include "dms/binds.kdl"
 include "dms/outputs.kdl"
 include "dms/cursor.kdl"
-
-include "dms/windowrules.kdl"

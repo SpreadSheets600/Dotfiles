@@ -21,6 +21,8 @@ CONFIG_ITEMS=(
   "zsh"
   "shell"
   "zed"
+"kitty"
+"lazygit"
 )
 
 HOME_ITEMS=(

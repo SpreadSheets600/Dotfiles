@@ -5,5 +5,5 @@
 
 cursor {
     xcursor-theme "macOS"
-    xcursor-size 32
+    xcursor-size 34
 }

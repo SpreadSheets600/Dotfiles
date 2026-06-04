@@ -23,7 +23,6 @@ CONFIG_ITEMS=(
 "zed"
 "kitty"
 "lazygit"
-"code"
 )
 
 HOME_ITEMS=(

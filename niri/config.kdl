@@ -151,6 +151,7 @@ layer-rule {
     match namespace="^quickshell$"
     place-within-backdrop true
 }
+
 overview {
     workspace-shadow {
         off
@@ -206,6 +207,25 @@ animations {
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Window-Rules
 // Work around WezTerm's initial configure bug
 // by setting an empty default-column-width.
+
+window-rule {
+    background-effect {
+        xray true
+    }
+}
+
+
+window-rule {
+    match app-id=r#"kitty"#
+
+    opacity 0.85
+
+    background-effect {
+        blur true
+        xray false
+    }
+}
+
 window-rule {
     // This regular expression is intentionally made as specific as possible,
     // since this is the default config, and we want no false positives.
@@ -213,14 +233,12 @@ window-rule {
     match app-id=r#"^org\.wezfurlong\.wezterm$"#
     default-column-width {}
 }
-
 window-rule {
     match app-id=r#"^org\.gnome\."#
     draw-border-with-background false
     geometry-corner-radius 12
     clip-to-geometry true
 }
-
 window-rule {
     match app-id=r#"^gnome-control-center$"#
     match app-id=r#"^pavucontrol$"#
@@ -228,7 +246,6 @@ window-rule {
     default-column-width { proportion 0.5; }
     open-floating false
 }
-
 window-rule {
     match app-id=r#"^org\.gnome\.Calculator$"#
     match app-id=r#"^gnome-calculator$"#
@@ -237,44 +254,32 @@ window-rule {
     match app-id=r#"^org\.gnome\.Nautilus$"#
     match app-id=r#"^xdg-desktop-portal$"#
     open-floating true
-
-    min-width 1250
-    min-height 800
-
-    default-floating-position x=100 y=100 relative-to="top-left"
 }
-
 window-rule {
     match app-id=r#"^steam$"# title=r#"^notificationtoasts_\d+_desktop$"#
     default-floating-position x=10 y=10 relative-to="bottom-right"
     open-focused false
 }
-
 window-rule {
     match app-id=r#"^org\.wezfurlong\.wezterm$"#
+    match app-id="Alacritty"
+    match app-id="zen"
     match app-id="com.mitchellh.ghostty"
+    match app-id="kitty"
     draw-border-with-background false
-
-    opacity 0.85
-
-    background-effect {
-	    blur true
-	    xray false
-    }
 }
-
 window-rule {
     match app-id=r#"firefox$"# title="^Picture-in-Picture$"
     match app-id="zoom"
     open-floating true
 }
-
 // Open dms windows as floating by default
 window-rule {
     match app-id=r#"org.quickshell$"#
+    match app-id=r#"com.danklinux.dms$"#
     open-floating true
 
-    opacity 0.65
+    opacity 0.90
 
     background-effect {
         blur true
@@ -282,23 +287,12 @@ window-rule {
     }
 }
 
-window-rule {
-    opacity 0.95
+layer-rule {
+    match namespace="^dms"
 
     background-effect {
-        blur true
         xray false
     }
-}
-
-window-rule {
-    match app-id="^(steam|heroic|gamescope|wine)$"
-    opacity 1.0
-}
-
-window-rule {
-    match title=".*(Steam|Heroic|Wine|Proton|DXVK).*"
-    opacity 1.0
 }
 
 debug {
@@ -322,4 +316,5 @@ include "dms/alttab.kdl"
 include "dms/binds.kdl"
 include "dms/outputs.kdl"
 include "dms/cursor.kdl"
+
 include "dms/windowrules.kdl"

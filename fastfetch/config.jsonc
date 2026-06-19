@@ -1,101 +1,91 @@
-// Current style with a dynamic pokeget sprite in the logo slot.
 {
-  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
-  "logo": {
-    "type": "file-raw",
-    "source": "/home/spreadsheets600/.cache/fastfetch/pokemon-logo.ansi",
-    "padding": {
-      "top": 1,
-      "right": 2
+    "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
+    "display": {
+        "separator": " ",
+        "key": {
+            "width": 18
+        }
     },
-    "printRemaining": true
-  },
-  "display": {
-    "separator": " ",
-    "key": {
-      "width": 16
-    }
-  },
-  "modules": [
-    {
-      "key": "╭───────────╮",
-      "type": "custom"
-    },
-    {
-      "key": "│           │\u001b[11D{#31} user",
-      "type": "title",
-      "format": "{1}"
-    },
-    {
-      "key": "├───────────┤",
-      "type": "custom"
-    },
-    {
-      "key": "│           │\u001b[11D{#34}󰟾 distro",
-      "type": "os"
-    },
-    {
-      "key": "│           │\u001b[11D{#36}󰌢 host",
-      "type": "host"
-    },
-    {
-      "key": "│           │\u001b[11D{#35} kernel",
-      "type": "kernel"
-    },
-    {
-      "key": "│           │\u001b[11D{#32}󱦟 uptime",
-      "type": "uptime"
-    },
-    {
-      "key": "│           │\u001b[11D{#36} pkgs",
-      "type": "packages"
-    },
-    {
-      "key": "│           │\u001b[11D{#31} shell",
-      "type": "shell"
-    },
-    {
-      "key": "│           │\u001b[11D{#31} term",
-      "type": "terminal"
-    },
-    {
-      "key": "│           │\u001b[11D{#35}󰍹 display",
-      "type": "display",
-      "compactType": "original"
-    },
-    {
-      "key": "│           │\u001b[11D{#31} wm",
-      "type": "wm"
-    },
-    {
-      "key": "│           │\u001b[11D{#32}󰾆 cpu",
-      "type": "cpu"
-    },
-    {
-      "key": "│           │\u001b[11D{#32}󰢮 gpu",
-      "type": "gpu"
-    },
-    {
-      "key": "│           │\u001b[11D{#35} memory",
-      "type": "memory"
-    },
-    {
-      "key": "│           │\u001b[11D{#33}󰋊 disk",
-      "type": "disk",
-      "folders": "/"
-    },
-    {
-      "key": "├───────────┤",
-      "type": "custom"
-    },
-    {
-      "key": "│           │\u001b[11D{#40} colors",
-      "type": "colors",
-      "symbol": "circle"
-    },
-    {
-      "key": "╰───────────╯",
-      "type": "custom"
-    }
-  ]
+    "modules": [
+        {
+            "key": "╭────────────────╮",
+            "type": "custom"
+        },
+        {
+            "key": "│                │\u001b[16D{#31} user",
+            "type": "title",
+            "format": "{1}"
+        },
+        {
+            "key": "├────────────────┤",
+            "type": "custom"
+        },
+        {
+            "key": "│                │\u001b[16D{#34}󰟾 distro",
+            "type": "os"
+        },
+        {
+            "key": "│                │\u001b[16D{#36}󰌢 host",
+            "type": "host"
+        },
+        {
+            "key": "│                │\u001b[16D{#35} kernel",
+            "type": "kernel"
+        },
+        {
+            "key": "│                │\u001b[16D{#32}󱦟 uptime",
+            "type": "uptime"
+        },
+        {
+            "key": "│                │\u001b[16D{#36} pkgs",
+            "type": "packages"
+        },
+        {
+            "key": "│                │\u001b[16D{#31} shell",
+            "type": "shell"
+        },
+        {
+            "key": "│                │\u001b[16D{#31} term",
+            "type": "terminal"
+        },
+        {
+            "key": "│                │\u001b[16D{#35}󰍹 display",
+            "type": "display",
+            "compactType": "original"
+        },
+        {
+            "key": "│                │\u001b[16D{#31} wm",
+            "type": "wm"
+        },
+        {
+            "key": "│                │\u001b[16D{#32}󰾆 cpu",
+            "type": "cpu"
+        },
+        {
+            "key": "│                │\u001b[16D{#32}󰢮 gpu",
+            "type": "gpu"
+        },
+        {
+            "key": "│                │\u001b[16D{#35} memory",
+            "type": "memory"
+        },
+        {
+            "key": "│                │\u001b[16D{#33}󰋊 disk",
+            "type": "disk",
+            "folders": "/"
+        },
+        {
+            "key": "├────────────────┤",
+            "type": "custom"
+        },
+        {
+            "key": "│                │\u001b[16D{#40} colors",
+            "type": "colors",
+            "symbol": "circle"
+        },
+        {
+            "key": "╰────────────────╯",
+            "type": "custom"
+        }
+    ]
 }

@@ -250,7 +250,12 @@ window-rule {
     draw-border-with-background false
 }
 window-rule {
-    match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+    // Browser picture-in-picture (Firefox, Brave/Chromium, etc.)
+    match title=r#"(?i)^picture[- ]in[- ]picture$"#
+    // Google Meet in a browser tab or installed web app
+    match title=r#"(?i)^(google )?meet(\s*[-–—].*)?$"#
+    match app-id=r#"(?i)meet\.google\.com"#
+    // Zoom
     match app-id="zoom"
     open-floating true
 }

@@ -13,6 +13,9 @@ export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
 # --- Locale -------------------------------------------------------------------
 export LANG="${LANG:-en_US.UTF-8}"
 
+# Make child processes see the correct shell even in sessions started before chsh.
+export SHELL=/usr/bin/zsh
+
 # --- PATH (unique, user-first) ------------------------------------------------
 typeset -U path PATH
 path=(

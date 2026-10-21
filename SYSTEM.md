@@ -607,15 +607,18 @@ DMS also writes a Discord CSS theme to
 
 ### Web apps (Brave app mode)
 
-`webapp.sh` turns any URL into an app window: no tabs, no address bar, and a
-separate profile so each site keeps its own login. It also writes a desktop
-entry, so the site appears in the app menu.
+`webapp.sh` turns any URL into an app window: no tabs, no address bar, and it
+writes a desktop entry so the site appears in the app menu. By default it uses
+your **normal browser profile**, so links open in the browser/profile you
+already use. Pass `--isolated` (or set `WEBAPP_ISOLATED=1`) only when a site
+needs its own cookies/session/profile.
 
 ```bash
 webapp.sh <url> [name]              # launch + create/update the menu entry
+webapp.sh --isolated <url> [name]   # same, with a separate profile
 webapp.sh --install <url> [name]    # create/update the entry only
 webapp.sh --list                    # show installed web apps
-webapp.sh --remove <name> [--purge] # remove entry; --purge also deletes its profile
+webapp.sh --remove <name> [--purge] # remove entry; --purge also deletes its isolated profile
 ```
 
 WhatsApp is installed as:
@@ -624,10 +627,14 @@ WhatsApp is installed as:
 webapp.sh https://web.whatsapp.com WhatsApp
 ```
 
+Close any app window that was launched before switching profile modes, then
+reopen it from the app menu.
+
 Each app gets:
 
-- profile: `~/.local/share/webapps/<slug>`
 - launcher: `~/.local/share/applications/webapp-<slug>.desktop`
+- default profile: the browser's normal profile (links stay in your session)
+- isolated profile, with `--isolated`: `~/.local/share/webapps/<slug>`
 - Wayland app ID: `brave-<host>__-Default` (or the Chromium equivalent), written
   to `StartupWMClass` so niri associates the window with the launcher
 - X11 class: `webapp-<slug>` (passed as `--class`)

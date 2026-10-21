@@ -108,11 +108,13 @@ paru -S fzf-tab numix-square-icon-theme-git   # AUR
   updates. DMS also generates a Discord CSS theme, linked into Equicord as
   `dank-discord.css` (enable it under Equicord → Themes).
 - **Any website** can run in a Brave app window with no tabs or address bar:
-  `webapp.sh <url> [name]`. It creates a menu entry and a dedicated profile at
-  `~/.local/share/webapps/<slug>`, then launches the app.
+  `webapp.sh <url> [name]`. It uses your normal Brave profile by default, so
+  links open in the browser/profile you already use, and creates a menu entry.
+  Add `--isolated` only when a site needs its own separate profile.
   ```bash
   webapp.sh https://web.whatsapp.com WhatsApp
-  webapp.sh --install https://web.telegram.org Telegram
+  webapp.sh --isolated https://web.telegram.org Telegram
+  webapp.sh --install https://example.com Example
   webapp.sh --list
   webapp.sh --remove Telegram --purge
   ```

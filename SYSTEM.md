@@ -526,6 +526,10 @@ The live niri config was imported as-is into `linux/.config/niri/`:
 
 - `config.kdl` plus `dms/*.kdl` includes (`colors`, `layout`, `alttab`, `binds`,
   `outputs`, `cursor`, `input`).
+- User window rules live in `custom/windowrules.kdl`, included after the DMS
+  files. This currently floats browser picture-in-picture windows, Google Meet
+  browser tabs, and the Meet web app. Keep overrides out of `dms/` so a DMS
+  regeneration cannot remove them.
 - DMS owns the generated `dms/` files and the kitty theme files. Editing them
   manually is fine, but DMS may overwrite them on a theme change.
 - DMS is set to `currentThemeName: "dynamic"`; matugen derives every palette

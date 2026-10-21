@@ -39,7 +39,11 @@ setup changes.
     and removed the ASCII box around the info.
 11. Installed Node.js/npm plus `tree-sitter-cli`, `stylua`, and `shfmt`, and set
     up **LazyVim** in `linux/.config/nvim` with Python/TypeScript/JSON/YAML/
-    TOML/Markdown/Docker/Git extras and a Catppuccin Mocha theme.
+    TOML/Markdown/Docker/Git extras.
+12. Added **DMS → Neovim** color sync through the `base46` plugin, a generic
+    **Brave web-app launcher** (`webapp.sh`), an on-demand **matugen refresh**
+    helper, and installed **Spotify**, **Discord** (with **Equicord** patched on
+    top).
 
 ---
 
@@ -71,7 +75,7 @@ Dotfiles/
 │   │   ├── goverlay/
 │   │   ├── MangoHud/
 │   │   └── autostart/
-│   └── scripts/            # Linux helper scripts (linked into ~/.local/bin)
+│   └── scripts/            # Linux helpers (linked into ~/.local/bin)
 ├── windows/                # Windows 11 configs
 │   ├── terminal/           # Windows Terminal settings.json
 │   ├── komorebi/           # tiling WM + whkd keybinds
@@ -123,8 +127,11 @@ Current links:
 | `~/.zprofile` | `linux/.zprofile` |
 | `~/.p10k.zsh` | `linux/.p10k.zsh` |
 | `~/.gitconfig` | `linux/.gitconfig` |
-| `~/.config/{kitty,niri,paru,fastfetch,lazygit,cava,conky,goverlay,MangoHud,autostart}` | `linux/.config/...` |
-| `~/.local/bin/{game.sh,VirtualPhoneCam.sh,cheatenginelaunch.sh}` | `linux/scripts/...` |
+| `~/.config/{kitty,niri,paru,fastfetch,lazygit,cava,conky,goverlay,MangoHud,autostart,nvim}` | `linux/.config/...` |
+| `~/.local/bin/{game.sh,VirtualPhoneCam.sh,cheatenginelaunch.sh,webapp.sh,dms-theme-refresh.sh}` | `linux/scripts/...` |
+
+Website app-menu entries are generated (not tracked) by `webapp.sh` at
+`~/.local/share/applications/webapp-<slug>.desktop`.
 
 To check for broken links:
 
@@ -352,6 +359,9 @@ kitty @ --to unix:/tmp/kitty-$USER set-colors --all --configured ~/.config/kitty
 | `nodejs` / `npm` | LSP servers and Mason packages |
 | `tree-sitter-cli` | Treesitter parsers |
 | `stylua` / `shfmt` | Lua / shell formatting |
+| `jq` | reads DMS session/wallpaper state in `dms-theme-refresh.sh` |
+| `discord` | Discord desktop client (Equicord patched in) |
+| `spotify-launcher` | official Spotify client with self-updates |
 | `paru` | AUR helper |
 
 Fonts: `ttf-zed-mono-nerd`, `ttf-iosevka-nerd`, `ttf-jetbrains-mono-nerd`,
@@ -407,6 +417,10 @@ The live niri config was imported as-is into `linux/.config/niri/`:
   `outputs`, `cursor`, `input`).
 - DMS owns the generated `dms/` files and the kitty theme files. Editing them
   manually is fine, but DMS may overwrite them on a theme change.
+- DMS is set to `currentThemeName: "dynamic"`; matugen derives every palette
+  from the current wallpaper (`~/.local/state/DankMaterialShell/session.json`).
+  `dms-theme-refresh.sh` re-runs all enabled templates from that wallpaper
+  without changing the theme.
 - Old `config.d/` modules and timestamped `config.kdl.backup*` files were
   removed; git history still contains them.
 - niri output config is currently for the laptop panel (`1920x1080@120`,
@@ -469,8 +483,17 @@ pokemon-logo.sh | head -3
 fastfetch --config ~/.config/fastfetch/config.jsonc
 
 # neovim / lazyvim
-nvim --headless "+lua print(vim.g.colors_name)" +qa   # catppuccin
+nvim --headless "+lua print(vim.g.colors_name)" +qa   # dms (base46)
 nvim --headless "+checkhealth lazyvim" +qa
+
+# apps
+spotify-launcher --version
+discord --version
+test -f ~/.config/Equicord/equicord.asar && echo "Equicord patched"
+command -v webapp.sh
+webapp.sh --list
+desktop-file-validate ~/.local/share/applications/webapp-whatsapp.desktop
+dms-theme-refresh.sh   # re-theme every matugen template from the wallpaper
 
 # config links
 ls -l ~/.zshrc ~/.p10k.zsh ~/.config/kitty ~/.config/niri ~/.config/nvim
@@ -505,6 +528,10 @@ kitty --config ~/.config/kitty/kitty.conf sh -c 'sleep 0.2'
 | Neovim plugins missing after pull | `nvim --headless "+Lazy! sync" +qa`, then restart `nvim`. |
 | LSP/tool not found in Neovim | Open `:Mason`, install it, or `pacman -S` the binary (for example `tree-sitter-cli`). |
 | Treesitter parser fails to build | Confirm `gcc`, `make`, and `tree-sitter` are installed; rerun `:TSUpdate`. |
+| Neovim stays Catppuccin | Check `~/.config/nvim/colors/dms.lua` exists; change the DMS wallpaper/theme once so matugen regenerates it, then restart `nvim`. |
+| A web app has no icon | `update-desktop-database ~/.local/share/applications`; the script uses the first matching `web-<slug>` icon, otherwise `web-browser`. |
+| Discord lost Equicord after an update | Re-run the Equilotl command in §14. |
+| DMS Discord theme not visible | Enable it under Equicord → Themes; the file is `~/.config/Equicord/themes/dank-discord.css`. |
 
 ---
 
@@ -516,9 +543,13 @@ The config lives in `linux/.config/nvim` and is symlinked to `~/.config/nvim` by
 - **Base:** LazyVim starter (`init.lua`, `lua/config/`, `lua/plugins/`).
 - **Extras:** Python, TypeScript, JSON, YAML, TOML, Markdown, Docker, and Git.
   Browse or add more with `:LazyExtras`.
-- **Theme:** Catppuccin Mocha with a transparent background, matching the
-  DMS/kitty purple palette. `<leader>w` saves, `<leader>W` saves all buffers,
-  and `<leader>qq` quits everything.
+- **Theme:** `base46` + the colorscheme generated by DMS. DankMaterialShell
+  writes `~/.config/nvim/colors/dms.lua` and
+  `~/.config/nvim/lua/lualine/themes/dms.lua` on wallpaper/theme changes; the
+  generated colorscheme hot-reloads inside Neovim. Catppuccin Mocha is kept only
+  as a fallback for sessions where DMS has not generated the files yet.
+  `<leader>w` saves, `<leader>W` saves all buffers, and `<leader>qq` quits
+  everything.
 - **Editing:** system clipboard, `scrolloff=8`, no wrap, cursorline, and a
   100-column guide. Undo history persists between sessions.
 - **Tooling:** LSP servers, formatters, and linters are managed by Mason and
@@ -526,7 +557,8 @@ The config lives in `linux/.config/nvim` and is symlinked to `~/.config/nvim` by
   `stylua`, `shfmt`, `gcc`, `make`, `rg`, and `fd`.
 - **Data:** plugins, Mason packages, and parser builds live in
   `~/.local/share/nvim` and are intentionally **not** tracked. The repo holds
-  only the configuration.
+  only the configuration; the DMS-generated `colors/dms.lua` and lualine theme
+  are gitignored too.
 
 Useful commands: `:Lazy` (plugins), `:LazyExtras` (language packs),
 `:Mason` (LSP/formatters), `:checkhealth` (diagnostics).
@@ -536,7 +568,73 @@ symlinks) and `nvim` — LazyVim picks up changes on the next start.
 
 ---
 
-## 14. Next steps / ideas
+## 14. Apps & web apps
+
+### Spotify
+
+Installed with `spotify-launcher` (official client, self-updating). The client
+was pre-downloaded with `spotify-launcher --no-exec`, so the first launch is
+instant.
+
+```bash
+spotify-launcher
+```
+
+### Discord + Equicord
+
+`discord` is the normal Arch package, patched with **Equicord** using the
+official Equilotl CLI. Equicord lives in `~/.config/Equicord/equicord.asar`;
+Discord's original `app.asar` is preserved as `_app.asar`.
+
+After a Discord update, re-apply Equicord:
+
+```bash
+curl -fsSL -o /tmp/EquilotlCli-linux \
+  https://github.com/Equicord/Equilotl/releases/latest/download/EquilotlCli-linux
+chmod +x /tmp/EquilotlCli-linux
+sudo env "XDG_CONFIG_HOME=$HOME/.config" /tmp/EquilotlCli-linux -install -branch stable
+```
+
+DMS also writes a Discord CSS theme to
+`~/.config/Vencord/themes/dank-discord.css`; it is linked into Equicord as
+`~/.config/Equicord/themes/dank-discord.css`. Enable **DMS** under
+**Equicord → Themes** to use it.
+
+### Web apps (Brave app mode)
+
+`webapp.sh` turns any URL into an app window: no tabs, no address bar, and a
+separate profile so each site keeps its own login. It also writes a desktop
+entry, so the site appears in the app menu.
+
+```bash
+webapp.sh <url> [name]              # launch + create/update the menu entry
+webapp.sh --install <url> [name]    # create/update the entry only
+webapp.sh --list                    # show installed web apps
+webapp.sh --remove <name> [--purge] # remove entry; --purge also deletes its profile
+```
+
+WhatsApp is installed as:
+
+```bash
+webapp.sh https://web.whatsapp.com WhatsApp
+```
+
+Each app gets:
+
+- profile: `~/.local/share/webapps/<slug>`
+- launcher: `~/.local/share/applications/webapp-<slug>.desktop`
+- Wayland app ID: `brave-<host>__-Default` (or the Chromium equivalent), written
+  to `StartupWMClass` so niri associates the window with the launcher
+- X11 class: `webapp-<slug>` (passed as `--class`)
+
+The default browser is `brave-origin`; override it with
+`WEBAPP_BROWSER=brave` (or another Chromium binary). To theme the shell and
+apps from the current wallpaper, run `dms-theme-refresh.sh`; DMS normally does
+this automatically when the wallpaper changes.
+
+---
+
+## 15. Next steps / ideas
 
 - Add `zellij` layouts and a `tmux`-style workflow if needed.
 - Set up `atuin` if you want searchable, syncable shell history.

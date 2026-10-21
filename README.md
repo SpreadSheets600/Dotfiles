@@ -142,8 +142,8 @@ paru -S fzf-tab numix-square-icon-theme-git   # AUR
 - **Cursors:** **WCursor** converts the Camellya and Chisa Windows packs into
   six Xcursor themes (24/32/48/64 px). DMS owns the active theme/size; a
   systemd path unit mirrors DMS changes to GTK, X11, GSettings, and niri so
-  apps do not end up with different cursors. Current: **Camellya Red** at
-  **32 px**. See
+  apps do not end up with different cursors. The active theme/size is whatever
+  DMS has selected; run `wcursor current` to see it. See
   [SYSTEM.md §5](SYSTEM.md#5-terminal-fonts--icons-kitty--desktop).
 - `install.sh` re-applies the font and icon theme on every install.
 

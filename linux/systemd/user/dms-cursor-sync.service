@@ -1,6 +1,7 @@
 [Unit]
 Description=Sync DMS cursor theme to GTK, X11, GSettings, and niri
 After=dms.service
+StartLimitIntervalSec=0
 
 [Service]
 Type=oneshot

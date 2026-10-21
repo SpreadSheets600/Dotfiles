@@ -37,6 +37,9 @@ setup changes.
    system-wide, and made ZedMono the kitty font.
 10. Replaced the CachyOS fastfetch logo with a random `pokeget` Pokémon sprite
     and removed the ASCII box around the info.
+11. Installed Node.js/npm plus `tree-sitter-cli`, `stylua`, and `shfmt`, and set
+    up **LazyVim** in `linux/.config/nvim` with Python/TypeScript/JSON/YAML/
+    TOML/Markdown/Docker/Git extras and a Catppuccin Mocha theme.
 
 ---
 
@@ -60,6 +63,7 @@ Dotfiles/
 │   │   ├── fontconfig/     # ZedMono as default monospace
 │   │   ├── gtk-3.0/        # GTK font + Numix-Square icon theme
 │   │   ├── gtk-4.0/
+│   │   ├── nvim/           # LazyVim (init.lua + lua/config + lua/plugins)
 │   │   ├── fastfetch/      # random Pokémon logo + modules
 │   │   ├── lazygit/
 │   │   ├── cava/
@@ -345,6 +349,9 @@ kitty @ --to unix:/tmp/kitty-$USER set-colors --all --configured ~/.config/kitty
 | `pkgfile` | command-not-found package hints |
 | `zellij` | terminal multiplexer |
 | `neovim` | editor (`EDITOR`/`VISUAL`/`MANPAGER`) |
+| `nodejs` / `npm` | LSP servers and Mason packages |
+| `tree-sitter-cli` | Treesitter parsers |
+| `stylua` / `shfmt` | Lua / shell formatting |
 | `paru` | AUR helper |
 
 Fonts: `ttf-zed-mono-nerd`, `ttf-iosevka-nerd`, `ttf-jetbrains-mono-nerd`,
@@ -461,8 +468,12 @@ ls /usr/share/icons/Numix-Square
 pokemon-logo.sh | head -3
 fastfetch --config ~/.config/fastfetch/config.jsonc
 
+# neovim / lazyvim
+nvim --headless "+lua print(vim.g.colors_name)" +qa   # catppuccin
+nvim --headless "+checkhealth lazyvim" +qa
+
 # config links
-ls -l ~/.zshrc ~/.p10k.zsh ~/.config/kitty ~/.config/niri
+ls -l ~/.zshrc ~/.p10k.zsh ~/.config/kitty ~/.config/niri ~/.config/nvim
 
 # git / gh
 gh auth status
@@ -491,10 +502,41 @@ kitty --config ~/.config/kitty/kitty.conf sh -c 'sleep 0.2'
 | paru cannot build an AUR package | Read the PKGBUILD (`paru --review`), then `paru -S --rebuild <pkg>`. |
 | DMS theme changed kitty | Reload kitty or `kitty @ set-colors --all --configured ~/.config/kitty/dank-theme.conf`. |
 | Broken symlink in `~/.config` | Re-run `./install.sh`; restore from `~/.local/state/dotfiles-backups/`. |
+| Neovim plugins missing after pull | `nvim --headless "+Lazy! sync" +qa`, then restart `nvim`. |
+| LSP/tool not found in Neovim | Open `:Mason`, install it, or `pacman -S` the binary (for example `tree-sitter-cli`). |
+| Treesitter parser fails to build | Confirm `gcc`, `make`, and `tree-sitter` are installed; rerun `:TSUpdate`. |
 
 ---
 
-## 13. Next steps / ideas
+## 13. Neovim + LazyVim
+
+The config lives in `linux/.config/nvim` and is symlinked to `~/.config/nvim` by
+`install.sh`.
+
+- **Base:** LazyVim starter (`init.lua`, `lua/config/`, `lua/plugins/`).
+- **Extras:** Python, TypeScript, JSON, YAML, TOML, Markdown, Docker, and Git.
+  Browse or add more with `:LazyExtras`.
+- **Theme:** Catppuccin Mocha with a transparent background, matching the
+  DMS/kitty purple palette. `<leader>w` saves, `<leader>W` saves all buffers,
+  and `<leader>qq` quits everything.
+- **Editing:** system clipboard, `scrolloff=8`, no wrap, cursorline, and a
+  100-column guide. Undo history persists between sessions.
+- **Tooling:** LSP servers, formatters, and linters are managed by Mason and
+  install on demand. Required host tools: `nodejs`/`npm`, `tree-sitter-cli`,
+  `stylua`, `shfmt`, `gcc`, `make`, `rg`, and `fd`.
+- **Data:** plugins, Mason packages, and parser builds live in
+  `~/.local/share/nvim` and are intentionally **not** tracked. The repo holds
+  only the configuration.
+
+Useful commands: `:Lazy` (plugins), `:LazyExtras` (language packs),
+`:Mason` (LSP/formatters), `:checkhealth` (diagnostics).
+
+After changing the config in the repo, run `./install.sh` (only needed for new
+symlinks) and `nvim` — LazyVim picks up changes on the next start.
+
+---
+
+## 14. Next steps / ideas
 
 - Add `zellij` layouts and a `tmux`-style workflow if needed.
 - Set up `atuin` if you want searchable, syncable shell history.

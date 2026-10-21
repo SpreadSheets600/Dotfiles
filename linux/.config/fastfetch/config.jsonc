@@ -11,67 +11,67 @@
     "display": {
         "separator": "  ",
         "key": {
-            "width": 14
+            "width": 15
         }
     },
     "modules": [
         {
             "type": "title",
-            "key": "󰀄 User",
+            "key": "󰀄  User",
             "format": "{1}"
         },
         {
             "type": "os",
-            "key": "󰟾 Distro"
+            "key": "󰟾  Distro"
         },
         {
             "type": "host",
-            "key": "󰌢 Host"
+            "key": "󰌢  Host"
         },
         {
             "type": "kernel",
-            "key": " Kernel"
+            "key": "  Kernel"
         },
         {
             "type": "uptime",
-            "key": "󱦟 Uptime"
+            "key": "󱦟  Uptime"
         },
         {
             "type": "packages",
-            "key": "󰏗 Packages"
+            "key": "󰏗  Packages"
         },
         {
             "type": "shell",
-            "key": " Shell"
+            "key": "  Shell"
         },
         {
             "type": "terminal",
-            "key": " Terminal"
+            "key": "  Terminal"
         },
         {
             "type": "display",
-            "key": "󰍹 Display",
+            "key": "󰍹  Display",
             "compactType": "original"
         },
         {
             "type": "wm",
-            "key": "󰖲 WM"
+            "key": "󰖲  WM"
         },
         {
             "type": "cpu",
-            "key": "󰻠 CPU"
+            "key": "󰻠  CPU"
         },
         {
             "type": "gpu",
-            "key": "󰢮 GPU"
+            "key": "󰢮  GPU"
         },
         {
             "type": "memory",
-            "key": "󰍛 Memory"
+            "key": "󰍛  Memory"
         },
         {
             "type": "disk",
-            "key": "󰋊 Disk",
+            "key": "󰋊  Disk",
             "folders": "/"
         },
         {
@@ -79,7 +79,7 @@
         },
         {
             "type": "colors",
-            "key": "󰏘 Colors",
+            "key": "󰏘  Colors",
             "symbol": "circle"
         }
     ]

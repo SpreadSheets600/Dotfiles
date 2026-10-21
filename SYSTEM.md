@@ -386,6 +386,8 @@ wcursor set "<theme>" --size <size> --no-dms
 ```
 
 This updates the remaining consumers and reloads niri without restarting DMS.
+DMS rewrites `cursor.kdl` several times while the cursor picker is open, so the
+service debounces rapid changes and only applies the final selection.
 `install.sh` links the units and enables the path unit. Check it with:
 
 ```bash
@@ -393,20 +395,20 @@ systemctl --user status dms-cursor-sync.path
 journalctl --user -u dms-cursor-sync.service -n 20
 ```
 
-The current cursor is **Camellya Red** at **32 px**:
+The active cursor is whatever DMS has selected. Check the full state with:
 
 ```bash
 wcursor list
 wcursor current
-wcursor set 'Camellya Red' --size 32
 ```
 
 Switch variants from the DMS cursor settings or with `wcursor set`, for
 example:
 
 ```bash
+wcursor set 'Camellya Red' --size 32
 wcursor set 'Camellya White' --size 32
-wcursor set Chisa --size 32
+wcursor set 'Chisa' --size 32
 wcursor set 'Chisa Static' --size 32
 ```
 
@@ -414,8 +416,9 @@ All six themes include 24/32/48/64 px; use `--size 24` for a smaller cursor.
 `wcursor set` may restart DMS when it has to rewrite DMS's files; the sync
 service always passes `--no-dms`. Other targets are backed up once as
 `<file>.wcursor-bak`. The source ZIPs (~11 MB) stay in `~/Downloads` and are
-not committed. The sync helper skips **System Default** because WCursor only
-manages installed themes.
+not committed. The sync helper skips **System Default** and system-only themes
+such as **Adwaita**, because WCursor only manages themes installed under
+`~/.local/share/icons`.
 
 ### fastfetch greeting
 

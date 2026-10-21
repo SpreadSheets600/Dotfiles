@@ -44,6 +44,9 @@ setup changes.
     **Brave web-app launcher** (`webapp.sh`), an on-demand **matugen refresh**
     helper, and installed **Spotify**, **Discord** (with **Equicord** patched on
     top).
+13. Set up **WCursor** in `~/Projects/wcursor`, converted and installed the
+    **Camellya** and **Chisa** Windows cursor packs (six themes), and applied
+    **Camellya White** at 32 px through DMS, niri, X11, GTK, and GSettings.
 
 ---
 
@@ -315,6 +318,77 @@ GTK 3/4 settings also point at it (`gtk-icon-theme-name=Numix-Square`), so apps
 that read `settings.ini` instead of dconf pick it up too. Restart running apps
 after changing the theme.
 
+### Cursors (WCursor)
+
+**WCursor** (private repo `SpreadSheets600/WCursor`) converts Windows `.ani` /
+`.cur` packs to Linux Xcursor themes, adds the 24/32/48/64 px sizes, installs
+them under `~/.local/share/icons`, and applies the theme + size consistently to
+DMS, niri, X11, GTK 3/4, and GSettings.
+
+Setup (requires an authenticated `gh` account):
+
+```bash
+gh auth status
+gh repo clone SpreadSheets600/WCursor ~/Projects/wcursor
+cd ~/Projects/wcursor
+python3 -m venv .venv
+.venv/bin/pip install -e .
+ln -sfn ~/Projects/wcursor/.venv/bin/wcursor ~/.local/bin/wcursor
+wcursor doctor
+```
+
+The source packs are the two VSTHEMES downloads in `~/Downloads`:
+
+- `camellya_fbd4ebf39e_VSTHEMES-ORG.zip`
+  - `Cursors/Red`, `Cursors/White` — animated
+  - `Static/Red`, `Static/White` — static
+- `chibi-chisa-wuwa_dd9b80d3fb_VSTHEMES-ORG.zip`
+  - `Windows` — animated
+  - `Static` — static
+
+Extract and install every variant:
+
+```bash
+mkdir -p ~/Projects/cursor-packs/{camellya,chisa}
+unzip -q -o ~/Downloads/camellya_fbd4ebf39e_VSTHEMES-ORG.zip \
+  -d ~/Projects/cursor-packs/camellya
+unzip -q -o ~/Downloads/chibi-chisa-wuwa_dd9b80d3fb_VSTHEMES-ORG.zip \
+  -d ~/Projects/cursor-packs/chisa
+
+wcursor install ~/Projects/cursor-packs/camellya/Cursors/Red \
+  --name 'Camellya Red' --sizes 24,32,48,64
+wcursor install ~/Projects/cursor-packs/camellya/Cursors/White \
+  --name 'Camellya White' --sizes 24,32,48,64
+wcursor install ~/Projects/cursor-packs/camellya/Static/Red \
+  --name 'Camellya Red Static' --sizes 24,32,48,64
+wcursor install ~/Projects/cursor-packs/camellya/Static/White \
+  --name 'Camellya White Static' --sizes 24,32,48,64
+wcursor install ~/Projects/cursor-packs/chisa/Windows \
+  --name Chisa --sizes 24,32,48,64
+wcursor install ~/Projects/cursor-packs/chisa/Static \
+  --name 'Chisa Static' --sizes 24,32,48,64
+```
+
+The active cursor is **Camellya White** at **32 px**:
+
+```bash
+wcursor list
+wcursor set 'Camellya White' --size 32
+wcursor current
+```
+
+Switch variants with `wcursor set`, for example:
+
+```bash
+wcursor set 'Camellya Red' --size 32
+wcursor set Chisa --size 32
+wcursor set 'Chisa Static' --size 32
+```
+
+`wcursor set` stops and restarts DMS so it can rewrite `settings.json`; the
+other targets are backed up once as `<file>.wcursor-bak`. The source ZIPs
+(~11 MB) stay in `~/Downloads` and are not committed.
+
 ### fastfetch greeting
 
 - Random sprite: `pokeget random --hide-name` (installed from the signed
@@ -367,6 +441,7 @@ kitty @ --to unix:/tmp/kitty-$USER set-colors --all --configured ~/.config/kitty
 | `jq` | reads DMS session/wallpaper state in `dms-theme-refresh.sh` |
 | `discord` | Discord desktop client (Equicord patched in) |
 | `spotify-launcher` | official Spotify client with self-updates |
+| `wcursor` | Windows cursor pack conversion/install + system-wide switching |
 | `paru` | AUR helper |
 
 Fonts: `ttf-zed-mono-nerd`, `ttf-iosevka-nerd`, `ttf-jetbrains-mono-nerd`,
@@ -477,11 +552,16 @@ eza --version && bat --version && zoxide --version && yazi --version
 fzf --version && vivid --version && paru --version
 tldr tar
 
-# fonts / icons
+# fonts / icons / cursors
 gsettings get org.gnome.desktop.interface font-name
 gsettings get org.gnome.desktop.interface icon-theme
+gsettings get org.gnome.desktop.interface cursor-theme
+gsettings get org.gnome.desktop.interface cursor-size
 fc-match monospace
 ls /usr/share/icons/Numix-Square
+wcursor list
+wcursor current
+wcursor doctor
 
 # fastfetch logo
 pokemon-logo.sh | head -3
@@ -523,6 +603,9 @@ kitty --config ~/.config/kitty/kitty.conf sh -c 'sleep 0.2'
 | Icons show as boxes | `fc-cache -f`, confirm `ZedMono Nerd Font` in `fc-list`, restart kitty. |
 | System font did not change | `gsettings set …` again, restart the app; GTK apps may need a re-login. |
 | Icon theme did not change | `gsettings get … icon-theme`, then restart the app; some Qt/Flatpak apps need their own override. |
+| Cursor theme did not change | `wcursor set '<theme>' --size 32` (it restarts DMS), then restart the app; check `wcursor current` for mismatched targets. |
+| Cursor is too small or too large | Switch size with `wcursor set '<theme>' --size 24` (or 32/48/64); the theme includes all four sizes. |
+| WCursor cannot map a pack | Point it at the folder containing the `.ani`/`.cur` files and `install.inf`, e.g. `camellya/Cursors/White` — not the ZIP root. |
 | Prompt looks wrong | `p10k configure`, or check `~/.p10k.zsh` is linked. |
 | “Instant prompt” warning | Some program prints before `.zshrc`; move it later or set `POWERLEVEL9K_INSTANT_PROMPT=off`. |
 | `zsh: command not found` after install | Open a new terminal; login shell changes need a re-login. |

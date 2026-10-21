@@ -47,8 +47,8 @@ anything. Previous files go to `~/.local/state/dotfiles-backups/<timestamp>/`.
 sudo pacman -S --needed zsh zsh-completions zsh-autosuggestions \
   zsh-syntax-highlighting zsh-history-substring-search zsh-theme-powerlevel10k \
   kitty bat eza fzf fd ripgrep zoxide vivid yazi direnv stow lazygit btop \
-  fastfetch cava neovim nodejs npm tree-sitter-cli stylua shfmt \
-  zellij git-delta duf dust procs glow pkgfile \
+  fastfetch cava neovim nodejs npm tree-sitter-cli stylua shfmt jq \
+  discord spotify-launcher zellij git-delta duf dust procs glow pkgfile \
   ttf-zed-mono-nerd ttf-iosevka-nerd ttf-jetbrains-mono-nerd \
   ttf-nerd-fonts-symbols-mono
 
@@ -69,10 +69,11 @@ paru -S fzf-tab numix-square-icon-theme-git   # AUR
 | Bar | DMS | YASB |
 | Taskbar | — | Windhawk |
 | Editor | Neovim (LazyVim), Zed, VS Code | Zed, VS Code |
+| Apps | Spotify, Discord + Equicord, any site as a Brave web app | — |
 | Monitor | btop / Conky | — |
 | Font | ZedMono Nerd Font (system + kitty) | — |
 | Icons | Numix-Square | — |
-| Theme | Catppuccin Mocha + DMS palette | Custom / Rainmeter |
+| Theme | DMS matugen (base46 in Neovim) | Custom / Rainmeter |
 
 ### Shell
 
@@ -88,14 +89,40 @@ paru -S fzf-tab numix-square-icon-theme-git   # AUR
 
 - **LazyVim** with Python, TypeScript, JSON, YAML, TOML, Markdown, Docker, and
   Git extras (`:LazyExtras` to add more).
-- Catppuccin Mocha with a transparent background, matched to the DMS purple
-  palette.
+- Colors follow **DankMaterialShell** through the
+  [base46](https://github.com/AvengeMedia/base46) plugin. DMS writes
+  `colors/dms.lua` and the lualine theme, and Neovim hot-reloads them when the
+  wallpaper or theme changes. Catppuccin Mocha is only an offline fallback.
 - LSPs, formatters, and linters install on demand through Mason (`:Mason`).
   Treesitter parsers use the system `tree-sitter` CLI.
 - `<leader>w` saves, `<leader>W` saves all, `<leader>qq` quits everything.
 - Config only is tracked; plugins and Mason packages live in
   `~/.local/share/nvim`. After pulling, run
   `nvim --headless "+Lazy! sync" +qa` if plugins are missing.
+
+### Apps & web apps
+
+- **Spotify** through `spotify-launcher` (official client, updates itself).
+- **Discord** with **Equicord** patched in by Equilotl. The original
+  `app.asar` is kept as `_app.asar`; re-run the installer after Discord
+  updates. DMS also generates a Discord CSS theme, linked into Equicord as
+  `dank-discord.css` (enable it under Equicord → Themes).
+- **Any website** can run in a Brave app window with no tabs or address bar:
+  `webapp.sh <url> [name]`. It creates a menu entry and a dedicated profile at
+  `~/.local/share/webapps/<slug>`, then launches the app.
+  ```bash
+  webapp.sh https://web.whatsapp.com WhatsApp
+  webapp.sh --install https://web.telegram.org Telegram
+  webapp.sh --list
+  webapp.sh --remove Telegram --purge
+  ```
+  WhatsApp is already installed this way. Set `WEBAPP_BROWSER` to use another
+  Chromium browser. The script writes a matching `StartupWMClass` (Chromium's
+  Wayland app ID) so niri associates the window with its launcher.
+- **Theme sync:** DMS generates matugen colours from the current wallpaper for
+  every detected template (Neovim, kitty, GTK, Discord CSS, niri). Run
+  `dms-theme-refresh.sh` to force a full regeneration after installing a new
+  themed app.
 
 ### Terminal
 

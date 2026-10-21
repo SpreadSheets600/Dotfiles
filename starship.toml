@@ -1,3 +1,0 @@
-# Minimal starship config to avoid unsupported keys
-add_newline = true
-# Keep other settings minimal to avoid 'Unknown key' errors in older starship versions

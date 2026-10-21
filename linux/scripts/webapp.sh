@@ -7,9 +7,13 @@
 #   webapp.sh --list                    list installed web apps
 #   webapp.sh --remove <name> [--purge] remove the entry (and optionally its profile)
 #
+# By default the app uses your normal browser profile, so links open in the
+# browser/profile you already use. Pass --isolated for a separate profile.
+#
 # Environment:
-#   WEBAPP_BROWSER  Chromium browser command (default: brave-origin, brave, chromium)
-#   WEBAPP_DATA_DIR profile directory (default: ${XDG_DATA_HOME:-~/.local/share}/webapps)
+#   WEBAPP_BROWSER   Chromium browser command (default: brave-origin, brave, chromium)
+#   WEBAPP_ISOLATED  1 = use a dedicated profile (same as --isolated)
+#   WEBAPP_DATA_DIR  isolated profile directory (default: ${XDG_DATA_HOME:-~/.local/share}/webapps)
 set -euo pipefail
 
 DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
@@ -20,14 +24,18 @@ SELF="$(readlink -f -- "${BASH_SOURCE[0]}")"
 usage() {
   cat <<'EOF'
 Usage:
-  webapp.sh <url> [name]              launch (and create/update the menu entry)
-  webapp.sh --install <url> [name]    only create/update the menu entry
-  webapp.sh --list                    list installed web apps
-  webapp.sh --remove <name> [--purge] remove the entry (and optionally its profile)
+  webapp.sh [--isolated] <url> [name]  launch (and create/update the menu entry)
+  webapp.sh --install <url> [name]     only create/update the menu entry
+  webapp.sh --list                     list installed web apps
+  webapp.sh --remove <name> [--purge]  remove the entry (and optionally its profile)
+
+Options:
+  -I, --isolated  use a dedicated profile instead of your normal browser profile
 
 Environment:
-  WEBAPP_BROWSER  Chromium browser command (default: brave-origin, brave, chromium)
-  WEBAPP_DATA_DIR profile directory (default: ${XDG_DATA_HOME:-~/.local/share}/webapps)
+  WEBAPP_BROWSER   Chromium browser command (default: brave-origin, brave, chromium)
+  WEBAPP_ISOLATED  1 = use a dedicated profile (same as --isolated)
+  WEBAPP_DATA_DIR  isolated profile directory (default: ${XDG_DATA_HOME:-~/.local/share}/webapps)
 EOF
 }
 
@@ -119,13 +127,17 @@ desktop_quote() {
 }
 
 write_desktop() {
-  local url=$1 name=$2 slug=$3
+  local url=$1 name=$2 slug=$3 isolated=${4:-0}
   local desktop="$DESKTOP_DIR/webapp-$slug.desktop"
   local browser icon exec_line host prefix wm_class
 
   browser="$(pick_browser)"
   icon="$(pick_icon "$slug")"
-  exec_line="$(desktop_quote "$SELF") $(desktop_quote "$url") $(desktop_quote "$name")"
+  if [[ $isolated == 1 ]]; then
+    exec_line="$(desktop_quote "$SELF") $(desktop_quote "--isolated") $(desktop_quote "$url") $(desktop_quote "$name")"
+  else
+    exec_line="$(desktop_quote "$SELF") $(desktop_quote "$url") $(desktop_quote "$name")"
+  fi
 
   # Chromium app windows on Wayland derive their app_id from the URL, not
   # from --class. Match it so niri associates the window with this launcher.
@@ -155,6 +167,7 @@ X-WebApp=true
 X-WebApp-Browser=$browser
 X-WebApp-URL=$url
 X-WebApp-WMClass=$wm_class
+X-WebApp-Isolated=$isolated
 EOF
 
   if command -v update-desktop-database >/dev/null 2>&1; then
@@ -164,23 +177,30 @@ EOF
 }
 
 launch_webapp() {
-  local url=$1 name=$2 slug=$3
+  local url=$1 name=$2 slug=$3 isolated=${4:-0}
   local browser profile desktop
+  local -a args
 
   browser="$(pick_browser)"
-  profile="$APP_DIR/$slug"
-  desktop="$(write_desktop "$url" "$name" "$slug")"
-  mkdir -p "$profile"
+  desktop="$(write_desktop "$url" "$name" "$slug" "$isolated")"
+
+  args=(
+    --app="$url"
+    --class="webapp-$slug"
+    --name="$name"
+    --window-size=1100,820
+    --no-first-run
+    --no-default-browser-check
+  )
+
+  if [[ $isolated == 1 ]]; then
+    profile="$APP_DIR/$slug"
+    mkdir -p "$profile"
+    args+=(--user-data-dir="$profile")
+  fi
 
   printf 'webapp: %s -> %s\n' "$name" "$desktop" >&2
-  exec "$browser" \
-    --app="$url" \
-    --user-data-dir="$profile" \
-    --class="webapp-$slug" \
-    --name="$name" \
-    --window-size=1100,820 \
-    --no-first-run \
-    --no-default-browser-check
+  exec "$browser" "${args[@]}"
 }
 
 remove_webapp() {
@@ -222,6 +242,11 @@ list_webapps() {
 
 mode="launch"
 purge=0
+isolated="${WEBAPP_ISOLATED:-0}"
+case $isolated in
+  1|true|yes) isolated=1 ;;
+  *) isolated=0 ;;
+esac
 url=""
 name=""
 
@@ -232,6 +257,7 @@ while (($# > 0)); do
     -l|--list) mode="list"; shift ;;
     -r|--remove) mode="remove"; shift ;;
     -p|--purge) purge=1; shift ;;
+    -I|--isolated) isolated=1; shift ;;
     --) shift; break ;;
     -*) die "unknown option: $1" ;;
     *)
@@ -263,9 +289,9 @@ case $mode in
     slug="$(slugify "$name")"
     [[ -n $slug ]] || die "could not derive a name; pass one explicitly"
     if [[ $mode == install ]]; then
-      write_desktop "$url" "$name" "$slug"
+      write_desktop "$url" "$name" "$slug" "$isolated"
     else
-      launch_webapp "$url" "$name" "$slug"
+      launch_webapp "$url" "$name" "$slug" "$isolated"
     fi
     ;;
 esac

@@ -234,6 +234,11 @@ reload sz                   restart zsh / re-source config
 `fd` is installed but `find` is intentionally **not** aliased, so scripts and
 muscle memory keep working.
 
+Icon spacing is standardized at **two spaces**: `.zshenv` exports
+`EZA_ICON_SPACING=2` for every `eza` call (including fzf previews), and the
+fastfetch keys use `icon + two spaces + label`. Keep both values in sync when
+adjusting the gap.
+
 ### Functions
 
 | Function | Purpose |

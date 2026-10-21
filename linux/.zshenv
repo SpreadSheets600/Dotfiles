@@ -48,5 +48,8 @@ export MANWIDTH=100
 export BAT_THEME="Catppuccin Mocha"
 export ZSH_COMPDUMP="$XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION"
 
+# Keep a visible gap between eza's file-type icon and the filename.
+export EZA_ICON_SPACING=2
+
 # Let programs write runtime state to the right place.
 export LESSHISTFILE="$XDG_STATE_HOME/lesshst"

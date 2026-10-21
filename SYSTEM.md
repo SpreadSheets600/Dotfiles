@@ -45,8 +45,9 @@ setup changes.
     helper, and installed **Spotify**, **Discord** (with **Equicord** patched on
     top).
 13. Set up **WCursor** in `~/Projects/wcursor`, converted and installed the
-    **Camellya** and **Chisa** Windows cursor packs (six themes), and applied
-    **Camellya White** at 24 px through DMS, niri, X11, GTK, and GSettings.
+    **Camellya** and **Chisa** Windows cursor packs (six themes), and added a
+    systemd path unit that mirrors DMS cursor changes to GTK, X11, GSettings,
+    and niri.
 
 ---
 
@@ -78,7 +79,8 @@ Dotfiles/
 │   │   ├── goverlay/
 │   │   ├── MangoHud/
 │   │   └── autostart/
-│   └── scripts/            # Linux helpers (linked into ~/.local/bin)
+│   ├── scripts/            # Linux helpers (linked into ~/.local/bin)
+│   └── systemd/user/       # user units (linked individually into ~/.config)
 ├── windows/                # Windows 11 configs
 │   ├── terminal/           # Windows Terminal settings.json
 │   ├── komorebi/           # tiling WM + whkd keybinds
@@ -131,7 +133,8 @@ Current links:
 | `~/.p10k.zsh` | `linux/.p10k.zsh` |
 | `~/.gitconfig` | `linux/.gitconfig` |
 | `~/.config/{kitty,niri,paru,fastfetch,lazygit,cava,conky,goverlay,MangoHud,autostart,nvim}` | `linux/.config/...` |
-| `~/.local/bin/{game.sh,VirtualPhoneCam.sh,cheatenginelaunch.sh,webapp.sh,dms-theme-refresh.sh}` | `linux/scripts/...` |
+| `~/.local/bin/{game.sh,VirtualPhoneCam.sh,cheatenginelaunch.sh,webapp.sh,dms-theme-refresh.sh,dms-cursor-sync.sh}` | `linux/scripts/...` |
+| `~/.config/systemd/user/dms-cursor-sync.{path,service}` | `linux/systemd/user/...` |
 
 Website app-menu entries are generated (not tracked) by `webapp.sh` at
 `~/.local/share/applications/webapp-<slug>.desktop`.
@@ -369,27 +372,50 @@ wcursor install ~/Projects/cursor-packs/chisa/Static \
   --name 'Chisa Static' --sizes 24,32,48,64
 ```
 
-The active cursor is **Camellya White** at **24 px** (the previous DMS size):
+**DMS is the source of truth for the active theme and size.** It writes
+`cursorSettings`, `niri/dms/cursor.kdl`, and `.Xresources`, and sets
+`XCURSOR_THEME`/`XCURSOR_SIZE` for apps it launches. It does **not** update
+GTK, GSettings, `~/.icons/default`, or reload niri, so changing the cursor only
+in DMS leaves some apps on the old cursor.
+
+`dms-cursor-sync.path` watches `~/.config/niri/dms/cursor.kdl`. When DMS
+changes it, the service runs:
+
+```bash
+wcursor set "<theme>" --size <size> --no-dms
+```
+
+This updates the remaining consumers and reloads niri without restarting DMS.
+`install.sh` links the units and enables the path unit. Check it with:
+
+```bash
+systemctl --user status dms-cursor-sync.path
+journalctl --user -u dms-cursor-sync.service -n 20
+```
+
+The current cursor is **Camellya Red** at **32 px**:
 
 ```bash
 wcursor list
-wcursor set 'Camellya White' --size 24
 wcursor current
+wcursor set 'Camellya Red' --size 32
 ```
 
-Switch variants with `wcursor set`, for example:
+Switch variants from the DMS cursor settings or with `wcursor set`, for
+example:
 
 ```bash
-wcursor set 'Camellya Red' --size 24
-wcursor set Chisa --size 24
-wcursor set 'Chisa Static' --size 24
+wcursor set 'Camellya White' --size 32
+wcursor set Chisa --size 32
+wcursor set 'Chisa Static' --size 32
 ```
 
-Use `--size 32` for a larger cursor; all six themes include 24/32/48/64 px.
-
-`wcursor set` stops and restarts DMS so it can rewrite `settings.json`; the
-other targets are backed up once as `<file>.wcursor-bak`. The source ZIPs
-(~11 MB) stay in `~/Downloads` and are not committed.
+All six themes include 24/32/48/64 px; use `--size 24` for a smaller cursor.
+`wcursor set` may restart DMS when it has to rewrite DMS's files; the sync
+service always passes `--no-dms`. Other targets are backed up once as
+`<file>.wcursor-bak`. The source ZIPs (~11 MB) stay in `~/Downloads` and are
+not committed. The sync helper skips **System Default** because WCursor only
+manages installed themes.
 
 ### fastfetch greeting
 
@@ -564,6 +590,8 @@ ls /usr/share/icons/Numix-Square
 wcursor list
 wcursor current
 wcursor doctor
+systemctl --user status dms-cursor-sync.path
+systemctl --user start dms-cursor-sync.service   # force one sync now
 
 # fastfetch logo
 pokemon-logo.sh | head -3
@@ -605,7 +633,8 @@ kitty --config ~/.config/kitty/kitty.conf sh -c 'sleep 0.2'
 | Icons show as boxes | `fc-cache -f`, confirm `ZedMono Nerd Font` in `fc-list`, restart kitty. |
 | System font did not change | `gsettings set …` again, restart the app; GTK apps may need a re-login. |
 | Icon theme did not change | `gsettings get … icon-theme`, then restart the app; some Qt/Flatpak apps need their own override. |
-| Cursor theme did not change | `wcursor set '<theme>' --size 24` (it restarts DMS), then restart the app; check `wcursor current` for mismatched targets. |
+| Cursor theme did not change | `wcursor set '<theme>' --size 32`, then restart the app; check `wcursor current` for mismatched targets. |
+| DMS cursor changed but GTK/X11 apps still use the old one | `systemctl --user start dms-cursor-sync.service`; check `wcursor current` and `journalctl --user -u dms-cursor-sync.service`. |
 | Cursor is too small or too large | Switch size with `wcursor set '<theme>' --size 24` (or 32/48/64); the theme includes all four sizes. |
 | WCursor cannot map a pack | Point it at the folder containing the `.ani`/`.cur` files and `install.inf`, e.g. `camellya/Cursors/White` — not the ZIP root. |
 | Prompt looks wrong | `p10k configure`, or check `~/.p10k.zsh` is linked. |

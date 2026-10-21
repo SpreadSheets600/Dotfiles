@@ -1,0 +1,9 @@
+[Unit]
+Description=Watch DMS cursor settings for changes
+
+[Path]
+PathChanged=%h/.config/niri/dms/cursor.kdl
+Unit=dms-cursor-sync.service
+
+[Install]
+WantedBy=default.target

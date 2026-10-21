@@ -140,8 +140,10 @@ paru -S fzf-tab numix-square-icon-theme-git   # AUR
 - **Numix-Square** is the GTK icon theme, applied through `gsettings` and
   `gtk-3.0/gtk-4.0 settings.ini`.
 - **Cursors:** **WCursor** converts the Camellya and Chisa Windows packs into
-  six Xcursor themes (24/32/48/64 px). Active: **Camellya White** at 24 px.
-  `wcursor list` shows all variants; see
+  six Xcursor themes (24/32/48/64 px). DMS owns the active theme/size; a
+  systemd path unit mirrors DMS changes to GTK, X11, GSettings, and niri so
+  apps do not end up with different cursors. Current: **Camellya Red** at
+  **32 px**. See
   [SYSTEM.md §5](SYSTEM.md#5-terminal-fonts--icons-kitty--desktop).
 - `install.sh` re-applies the font and icon theme on every install.
 

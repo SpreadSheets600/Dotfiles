@@ -73,6 +73,7 @@ paru -S fzf-tab numix-square-icon-theme-git   # AUR
 | Monitor | btop / Conky | — |
 | Font | ZedMono Nerd Font (system + kitty) | — |
 | Icons | Numix-Square | — |
+| Cursors | WCursor (Camellya / Chisa) | Windows cursor |
 | Theme | DMS matugen (base46 in Neovim) | Custom / Rainmeter |
 
 ### Shell
@@ -138,7 +139,11 @@ paru -S fzf-tab numix-square-icon-theme-git   # AUR
 - **ZedMono Nerd Font** is the UI + monospace font (`gsettings` + fontconfig).
 - **Numix-Square** is the GTK icon theme, applied through `gsettings` and
   `gtk-3.0/gtk-4.0 settings.ini`.
-- `install.sh` re-applies both on every install.
+- **Cursors:** **WCursor** converts the Camellya and Chisa Windows packs into
+  six Xcursor themes (24/32/48/64 px). Active: **Camellya White** at 32 px.
+  `wcursor list` shows all variants; see
+  [SYSTEM.md §5](SYSTEM.md#5-terminal-fonts--icons-kitty--desktop).
+- `install.sh` re-applies the font and icon theme on every install.
 
 ### Git
 

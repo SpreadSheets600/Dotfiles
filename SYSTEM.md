@@ -46,7 +46,7 @@ setup changes.
     top).
 13. Set up **WCursor** in `~/Projects/wcursor`, converted and installed the
     **Camellya** and **Chisa** Windows cursor packs (six themes), and applied
-    **Camellya White** at 32 px through DMS, niri, X11, GTK, and GSettings.
+    **Camellya White** at 24 px through DMS, niri, X11, GTK, and GSettings.
 
 ---
 
@@ -369,21 +369,23 @@ wcursor install ~/Projects/cursor-packs/chisa/Static \
   --name 'Chisa Static' --sizes 24,32,48,64
 ```
 
-The active cursor is **Camellya White** at **32 px**:
+The active cursor is **Camellya White** at **24 px** (the previous DMS size):
 
 ```bash
 wcursor list
-wcursor set 'Camellya White' --size 32
+wcursor set 'Camellya White' --size 24
 wcursor current
 ```
 
 Switch variants with `wcursor set`, for example:
 
 ```bash
-wcursor set 'Camellya Red' --size 32
-wcursor set Chisa --size 32
-wcursor set 'Chisa Static' --size 32
+wcursor set 'Camellya Red' --size 24
+wcursor set Chisa --size 24
+wcursor set 'Chisa Static' --size 24
 ```
+
+Use `--size 32` for a larger cursor; all six themes include 24/32/48/64 px.
 
 `wcursor set` stops and restarts DMS so it can rewrite `settings.json`; the
 other targets are backed up once as `<file>.wcursor-bak`. The source ZIPs
@@ -603,7 +605,7 @@ kitty --config ~/.config/kitty/kitty.conf sh -c 'sleep 0.2'
 | Icons show as boxes | `fc-cache -f`, confirm `ZedMono Nerd Font` in `fc-list`, restart kitty. |
 | System font did not change | `gsettings set …` again, restart the app; GTK apps may need a re-login. |
 | Icon theme did not change | `gsettings get … icon-theme`, then restart the app; some Qt/Flatpak apps need their own override. |
-| Cursor theme did not change | `wcursor set '<theme>' --size 32` (it restarts DMS), then restart the app; check `wcursor current` for mismatched targets. |
+| Cursor theme did not change | `wcursor set '<theme>' --size 24` (it restarts DMS), then restart the app; check `wcursor current` for mismatched targets. |
 | Cursor is too small or too large | Switch size with `wcursor set '<theme>' --size 24` (or 32/48/64); the theme includes all four sizes. |
 | WCursor cannot map a pack | Point it at the folder containing the `.ani`/`.cur` files and `install.inf`, e.g. `camellya/Cursors/White` — not the ZIP root. |
 | Prompt looks wrong | `p10k configure`, or check `~/.p10k.zsh` is linked. |

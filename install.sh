@@ -89,6 +89,25 @@ if [[ -d $LINUX_DIR/scripts ]]; then
   done
 fi
 
+# --- systemd user units -------------------------------------------------------
+# Link only the unit files, not the whole ~/.config/systemd directory.
+if [[ -d $LINUX_DIR/systemd/user ]]; then
+  for src in "$LINUX_DIR"/systemd/user/*; do
+    [[ -e $src ]] || continue
+    link_path "$src" "$CONFIG_HOME/systemd/user/$(basename -- "$src")"
+  done
+  if [[ $DRY_RUN == 0 ]] && command -v systemctl >/dev/null 2>&1; then
+    systemctl --user daemon-reload 2>/dev/null || true
+    for unit in "$LINUX_DIR"/systemd/user/*.path; do
+      [[ -e $unit ]] || continue
+      name=$(basename -- "$unit" .path)
+      systemctl --user enable --now "$name.path" 2>/dev/null || true
+      systemctl --user start "$name.service" 2>/dev/null || true
+    done
+    ok "systemd user path units enabled"
+  fi
+fi
+
 # --- desktop font / icon theme ------------------------------------------------
 # These are stored in dconf (gsettings), so they are applied per user at install
 # time. Safe to skip on systems without a desktop session.

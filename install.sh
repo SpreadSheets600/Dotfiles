@@ -89,6 +89,18 @@ if [[ -d $LINUX_DIR/scripts ]]; then
   done
 fi
 
+# --- desktop font / icon theme ------------------------------------------------
+# These are stored in dconf (gsettings), so they are applied per user at install
+# time. Safe to skip on systems without a desktop session.
+if [[ $DRY_RUN == 0 ]] && command -v gsettings >/dev/null 2>&1; then
+  gsettings set org.gnome.desktop.interface font-name 'ZedMono Nerd Font 11' 2>/dev/null || true
+  gsettings set org.gnome.desktop.interface monospace-font-name 'ZedMono Nerd Font 11' 2>/dev/null || true
+  gsettings set org.gnome.desktop.interface icon-theme 'Numix-Square' 2>/dev/null || true
+  gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark' 2>/dev/null || true
+  fc-cache -f >/dev/null 2>&1 || true
+  ok "desktop font: ZedMono Nerd Font / icons: Numix-Square"
+fi
+
 printf '\nDone. Open a new terminal (or run: exec zsh -l).\n'
 if [[ $DRY_RUN == 0 ]]; then
   printf 'Previous files are safe in: %s\n\n' "$BACKUP_DIR"

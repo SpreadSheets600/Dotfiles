@@ -1,91 +1,86 @@
 {
     "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
+    "logo": {
+        "type": "command-raw",
+        "source": "pokemon-logo.sh",
+        "padding": {
+            "top": 1,
+            "right": 4
+        }
+    },
     "display": {
-        "separator": " ",
+        "separator": "  ",
         "key": {
-            "width": 18
+            "width": 14
         }
     },
     "modules": [
         {
-            "key": "╭────────────────╮",
-            "type": "custom"
-        },
-        {
-            "key": "│                │\u001b[16D{#31} user",
             "type": "title",
+            "key": "󰀄 user",
             "format": "{1}"
         },
         {
-            "key": "├────────────────┤",
-            "type": "custom"
+            "type": "os",
+            "key": "󰟾 distro"
         },
         {
-            "key": "│                │\u001b[16D{#34}󰟾 distro",
-            "type": "os"
+            "type": "host",
+            "key": "󰌢 host"
         },
         {
-            "key": "│                │\u001b[16D{#36}󰌢 host",
-            "type": "host"
+            "type": "kernel",
+            "key": " kernel"
         },
         {
-            "key": "│                │\u001b[16D{#35} kernel",
-            "type": "kernel"
+            "type": "uptime",
+            "key": "󱦟 uptime"
         },
         {
-            "key": "│                │\u001b[16D{#32}󱦟 uptime",
-            "type": "uptime"
+            "type": "packages",
+            "key": "󰏗 pkgs"
         },
         {
-            "key": "│                │\u001b[16D{#36} pkgs",
-            "type": "packages"
+            "type": "shell",
+            "key": " shell"
         },
         {
-            "key": "│                │\u001b[16D{#31} shell",
-            "type": "shell"
+            "type": "terminal",
+            "key": " term"
         },
         {
-            "key": "│                │\u001b[16D{#31} term",
-            "type": "terminal"
-        },
-        {
-            "key": "│                │\u001b[16D{#35}󰍹 display",
             "type": "display",
+            "key": "󰍹 display",
             "compactType": "original"
         },
         {
-            "key": "│                │\u001b[16D{#31} wm",
-            "type": "wm"
+            "type": "wm",
+            "key": "󰖲 wm"
         },
         {
-            "key": "│                │\u001b[16D{#32}󰾆 cpu",
-            "type": "cpu"
+            "type": "cpu",
+            "key": "󰻠 cpu"
         },
         {
-            "key": "│                │\u001b[16D{#32}󰢮 gpu",
-            "type": "gpu"
+            "type": "gpu",
+            "key": "󰢮 gpu"
         },
         {
-            "key": "│                │\u001b[16D{#35} memory",
-            "type": "memory"
+            "type": "memory",
+            "key": "󰍛 memory"
         },
         {
-            "key": "│                │\u001b[16D{#33}󰋊 disk",
             "type": "disk",
+            "key": "󰋊 disk",
             "folders": "/"
         },
         {
-            "key": "├────────────────┤",
-            "type": "custom"
+            "type": "break"
         },
         {
-            "key": "│                │\u001b[16D{#40} colors",
             "type": "colors",
+            "key": "󰏘 colors",
             "symbol": "circle"
-        },
-        {
-            "key": "╰────────────────╯",
-            "type": "custom"
         }
     ]
 }

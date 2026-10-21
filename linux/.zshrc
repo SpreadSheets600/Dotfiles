@@ -333,6 +333,13 @@ fi
 # =============================================================================
 #  Greeting (only for the first shell in a terminal, opt out with NOFETCH=1)
 # =============================================================================
-if [[ -z $NOFETCH && -z $TMUX && -z $ZELLIJ && $SHLVL -eq 1 && -o interactive ]]; then
-  (( $+commands[fastfetch] )) && fastfetch --config "$XDG_CONFIG_HOME/fastfetch/config.jsonc" 2>/dev/null
+if [[ -z $NOFETCH && -z $TMUX && -z $ZELLIJ ]]; then
+  () {
+    emulate -L zsh
+    local marker="${XDG_RUNTIME_DIR:-/tmp}/dotfiles-fetch-${KITTY_WINDOW_ID:-$$}"
+    [[ -e $marker ]] && return
+    : > "$marker" 2>/dev/null
+    (( $+commands[fastfetch] )) &&
+      fastfetch --config "$XDG_CONFIG_HOME/fastfetch/config.jsonc" 2>/dev/null
+  }
 fi

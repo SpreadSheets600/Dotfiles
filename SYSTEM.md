@@ -230,8 +230,8 @@ muscle memory keep working.
 
 ### Greeting
 
-`fastfetch` runs only in the first interactive shell of a terminal (not inside
-tmux/zellij). Disable with:
+`fastfetch` runs once per kitty window/tab (tracked by `$KITTY_WINDOW_ID`) and
+is skipped inside tmux/zellij. Disable with:
 
 ```bash
 NOFETCH=1 zsh

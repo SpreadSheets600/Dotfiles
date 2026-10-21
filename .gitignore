@@ -1,0 +1,27 @@
+# ==== shell caches / state ====
+.zcompdump*
+.zcompdump
+.zsh_history
+.history
+*.zwc
+.zsh_sessions/
+.histfile
+
+# ==== editor / tool caches ====
+__pycache__/
+*.py[cod]
+node_modules/
+.venv/
+.cache/
+
+# ==== backups & logs ====
+*.bak
+*.backup
+*.backup.*
+*.old
+*.log
+
+# ==== OS junk ====
+.DS_Store
+Thumbs.db
+desktop.ini

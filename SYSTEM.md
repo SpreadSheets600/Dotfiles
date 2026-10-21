@@ -21,8 +21,8 @@ setup changes.
 
 1. Installed the terminal stack: `paru`, `zoxide`, `vivid`, `yazi`, `direnv`,
    `stow`, `lazygit`, `neovim`, `zellij`, `git-delta`, `duf`, `dust`, `procs`,
-   `glow`, `pkgfile`, `fzf-tab`, plus Nerd Fonts (`Iosevka`, `JetBrains Mono`,
-   `Symbols`).
+   `glow`, `pkgfile`, `fzf-tab`, plus Nerd Fonts (`ZedMono`, `Iosevka`,
+   `JetBrains Mono`, `Symbols`).
 2. Wrote a new zsh configuration from scratch using **Powerlevel10k** (no
    zinit / oh-my-zsh / network required at startup).
 3. Rebuilt the kitty config and pointed it at the DMS-generated colour files so
@@ -33,6 +33,10 @@ setup changes.
    caches/backups/duplicates, and added `install.sh` (symlink installer).
 7. Linked all Linux configs from the repo into `$HOME` (see §3).
 8. Added this file and rewrote the README; pushed everything to GitHub.
+9. Installed **ZedMono Nerd Font** and **Numix-Square** icons, set both
+   system-wide, and made ZedMono the kitty font.
+10. Replaced the CachyOS fastfetch logo with a random `pokeget` Pokémon sprite
+    and removed the ASCII box around the info.
 
 ---
 
@@ -53,7 +57,10 @@ Dotfiles/
 │   │   ├── kitty/          # terminal (kitty.conf + DMS colour files)
 │   │   ├── niri/           # compositor config + DMS includes
 │   │   ├── paru/
-│   │   ├── fastfetch/
+│   │   ├── fontconfig/     # ZedMono as default monospace
+│   │   ├── gtk-3.0/        # GTK font + Numix-Square icon theme
+│   │   ├── gtk-4.0/
+│   │   ├── fastfetch/      # random Pokémon logo + modules
 │   │   ├── lazygit/
 │   │   ├── cava/
 │   │   ├── conky/
@@ -241,11 +248,13 @@ NOFETCH=1 zsh
 
 ---
 
-## 5. Terminal (kitty)
+## 5. Terminal, fonts & icons (kitty + desktop)
+
+### kitty
 
 Config: `linux/.config/kitty/kitty.conf`
 
-- Font: **Iosevka Nerd Font** 12.5, line height 105%, ligatures on.
+- Font: **ZedMono Nerd Font** 12.5, line height 105%, ligatures on.
 - Padding 16 px, no server-side decorations, 96% opacity, 24 px blur.
 - DMS/ii-generated colours are included from `dank-theme.conf` and
   `dank-tabs.conf`. DMS rewrites these files; because the directory is a
@@ -254,6 +263,53 @@ Config: `linux/.config/kitty/kitty.conf`
 - Shell: `/usr/bin/zsh`.
 - `Ctrl+Shift+C/V` copy/paste, `Ctrl+C` copy-or-interrupt, `Ctrl+Shift+T/N`
   new tab/window in cwd, `Ctrl+Shift+F` scrollback search, `Ctrl +/-/0` zoom.
+
+### Desktop font
+
+**ZedMono Nerd Font** is installed from `ttf-zed-mono-nerd` and applied at three
+levels:
+
+1. `gsettings` — UI and monospace font:
+   ```bash
+   gsettings set org.gnome.desktop.interface font-name 'ZedMono Nerd Font 11'
+   gsettings set org.gnome.desktop.interface monospace-font-name 'ZedMono Nerd Font 11'
+   ```
+2. `fontconfig` — `~/.config/fontconfig/conf.d/60-zed-mono.conf` makes
+   `monospace` (and the `sans-serif` fallback) resolve to ZedMono.
+3. `kitty` — `font_family ZedMono Nerd Font`.
+
+`install.sh` applies the gsettings values automatically. Verify:
+
+```bash
+gsettings get org.gnome.desktop.interface font-name
+fc-match monospace
+```
+
+### Icon theme
+
+**Numix-Square** (AUR `numix-square-icon-theme-git`, depends on
+`numix-icon-theme-git`) is installed to `/usr/share/icons/Numix-Square` and set
+with:
+
+```bash
+gsettings set org.gnome.desktop.interface icon-theme 'Numix-Square'
+```
+
+GTK 3/4 settings also point at it (`gtk-icon-theme-name=Numix-Square`), so apps
+that read `settings.ini` instead of dconf pick it up too. Restart running apps
+after changing the theme.
+
+### fastfetch greeting
+
+- Random sprite: `pokeget random --hide-name` (installed from the signed
+  `pokeget-rs` v1.6.7 GitHub release to `~/.local/bin/pokeget`).
+- `linux/scripts/pokemon-logo.sh` remaps pokeget's pure-black pixels to the DMS
+  background (`#141218`) so the sprite blends into the terminal.
+- `linux/.config/fastfetch/config.jsonc` uses logo type `command-raw`, so a new
+  random Pokémon is drawn every time a new kitty window/tab opens.
+- The ASCII box was removed; modules are plain key/value lines.
+- Disable the greeting with `NOFETCH=1`, or call `fastfetch` manually with
+  `fetch`.
 
 If kitty does not pick up a new theme, reload it:
 
@@ -281,6 +337,7 @@ kitty @ --to unix:/tmp/kitty-$USER set-colors --all --configured ~/.config/kitty
 | `lazygit` | TUI git client |
 | `btop` | system monitor |
 | `fastfetch` | system info |
+| `pokeget` | random Pokémon sprite for fastfetch |
 | `direnv` | per-directory env |
 | `git-delta` | better git diffs |
 | `duf` / `dust` / `procs` / `glow` | disk / tree-size / process / markdown |
@@ -290,8 +347,9 @@ kitty @ --to unix:/tmp/kitty-$USER set-colors --all --configured ~/.config/kitty
 | `neovim` | editor (`EDITOR`/`VISUAL`/`MANPAGER`) |
 | `paru` | AUR helper |
 
-Fonts: `ttf-iosevka-nerd`, `ttf-jetbrains-mono-nerd`,
-`ttf-nerd-fonts-symbols-mono`.
+Fonts: `ttf-zed-mono-nerd`, `ttf-iosevka-nerd`, `ttf-jetbrains-mono-nerd`,
+`ttf-nerd-fonts-symbols-mono`. Icons: `numix-square-icon-theme-git` +
+`numix-icon-theme-git` (AUR).
 
 ---
 
@@ -393,6 +451,16 @@ eza --version && bat --version && zoxide --version && yazi --version
 fzf --version && vivid --version && paru --version
 tldr tar
 
+# fonts / icons
+gsettings get org.gnome.desktop.interface font-name
+gsettings get org.gnome.desktop.interface icon-theme
+fc-match monospace
+ls /usr/share/icons/Numix-Square
+
+# fastfetch logo
+pokemon-logo.sh | head -3
+fastfetch --config ~/.config/fastfetch/config.jsonc
+
 # config links
 ls -l ~/.zshrc ~/.p10k.zsh ~/.config/kitty ~/.config/niri
 
@@ -413,7 +481,9 @@ kitty --config ~/.config/kitty/kitty.conf sh -c 'sleep 0.2'
 
 | Symptom | Fix |
 |---|---|
-| Icons show as boxes | `fc-cache -f`, confirm `Iosevka Nerd Font` in `fc-list`, restart kitty. |
+| Icons show as boxes | `fc-cache -f`, confirm `ZedMono Nerd Font` in `fc-list`, restart kitty. |
+| System font did not change | `gsettings set …` again, restart the app; GTK apps may need a re-login. |
+| Icon theme did not change | `gsettings get … icon-theme`, then restart the app; some Qt/Flatpak apps need their own override. |
 | Prompt looks wrong | `p10k configure`, or check `~/.p10k.zsh` is linked. |
 | “Instant prompt” warning | Some program prints before `.zshrc`; move it later or set `POWERLEVEL9K_INSTANT_PROMPT=off`. |
 | `zsh: command not found` after install | Open a new terminal; login shell changes need a re-login. |

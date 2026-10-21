@@ -17,61 +17,61 @@
     "modules": [
         {
             "type": "title",
-            "key": "󰀄 user",
+            "key": "󰀄 User",
             "format": "{1}"
         },
         {
             "type": "os",
-            "key": "󰟾 distro"
+            "key": "󰟾 Distro"
         },
         {
             "type": "host",
-            "key": "󰌢 host"
+            "key": "󰌢 Host"
         },
         {
             "type": "kernel",
-            "key": " kernel"
+            "key": " Kernel"
         },
         {
             "type": "uptime",
-            "key": "󱦟 uptime"
+            "key": "󱦟 Uptime"
         },
         {
             "type": "packages",
-            "key": "󰏗 pkgs"
+            "key": "󰏗 Packages"
         },
         {
             "type": "shell",
-            "key": " shell"
+            "key": " Shell"
         },
         {
             "type": "terminal",
-            "key": " term"
+            "key": " Terminal"
         },
         {
             "type": "display",
-            "key": "󰍹 display",
+            "key": "󰍹 Display",
             "compactType": "original"
         },
         {
             "type": "wm",
-            "key": "󰖲 wm"
+            "key": "󰖲 WM"
         },
         {
             "type": "cpu",
-            "key": "󰻠 cpu"
+            "key": "󰻠 CPU"
         },
         {
             "type": "gpu",
-            "key": "󰢮 gpu"
+            "key": "󰢮 GPU"
         },
         {
             "type": "memory",
-            "key": "󰍛 memory"
+            "key": "󰍛 Memory"
         },
         {
             "type": "disk",
-            "key": "󰋊 disk",
+            "key": "󰋊 Disk",
             "folders": "/"
         },
         {
@@ -79,7 +79,7 @@
         },
         {
             "type": "colors",
-            "key": "󰏘 colors",
+            "key": "󰏘 Colors",
             "symbol": "circle"
         }
     ]

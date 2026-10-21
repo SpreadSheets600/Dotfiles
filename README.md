@@ -47,7 +47,8 @@ anything. Previous files go to `~/.local/state/dotfiles-backups/<timestamp>/`.
 sudo pacman -S --needed zsh zsh-completions zsh-autosuggestions \
   zsh-syntax-highlighting zsh-history-substring-search zsh-theme-powerlevel10k \
   kitty bat eza fzf fd ripgrep zoxide vivid yazi direnv stow lazygit btop \
-  fastfetch cava neovim zellij git-delta duf dust procs glow pkgfile \
+  fastfetch cava neovim nodejs npm tree-sitter-cli stylua shfmt \
+  zellij git-delta duf dust procs glow pkgfile \
   ttf-zed-mono-nerd ttf-iosevka-nerd ttf-jetbrains-mono-nerd \
   ttf-nerd-fonts-symbols-mono
 
@@ -67,7 +68,7 @@ paru -S fzf-tab numix-square-icon-theme-git   # AUR
 | WM | niri + DMS | Komorebi + WHKD |
 | Bar | DMS | YASB |
 | Taskbar | — | Windhawk |
-| Editor | Neovim, Zed, VS Code | Zed, VS Code |
+| Editor | Neovim (LazyVim), Zed, VS Code | Zed, VS Code |
 | Monitor | btop / Conky | — |
 | Font | ZedMono Nerd Font (system + kitty) | — |
 | Icons | Numix-Square | — |
@@ -82,6 +83,19 @@ paru -S fzf-tab numix-square-icon-theme-git   # AUR
 - Shared 100k history, substring search, fzf history (`Ctrl+R`).
 - `fastfetch` greets each new kitty window with a random Pokémon sprite
   (`NOFETCH=1` to skip).
+
+### Neovim
+
+- **LazyVim** with Python, TypeScript, JSON, YAML, TOML, Markdown, Docker, and
+  Git extras (`:LazyExtras` to add more).
+- Catppuccin Mocha with a transparent background, matched to the DMS purple
+  palette.
+- LSPs, formatters, and linters install on demand through Mason (`:Mason`).
+  Treesitter parsers use the system `tree-sitter` CLI.
+- `<leader>w` saves, `<leader>W` saves all, `<leader>qq` quits everything.
+- Config only is tracked; plugins and Mason packages live in
+  `~/.local/share/nvim`. After pulling, run
+  `nvim --headless "+Lazy! sync" +qa` if plugins are missing.
 
 ### Terminal
 

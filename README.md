@@ -42,7 +42,7 @@ exec zsh -l
 `install.sh` links `linux/` into `~/.config` and `$HOME`; it never deletes
 anything. Previous files go to `~/.local/state/dotfiles-backups/<timestamp>/`.
 It also links `~/Pictures/Wallpapers` to `wallpapers/` and enables the
-15-minute GitHub sync timer (setup configs only):
+15-minute GitHub sync timer (setup configs and wallpapers):
 
 ```bash
 dotfiles-sync.sh list      # paths included in the backup

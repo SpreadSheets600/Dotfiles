@@ -4,7 +4,7 @@
 #
 #  GitHub is the backup. Only the paths listed in
 #  linux/scripts/dotfiles-sync.paths are staged (Linux setup, installer, docs,
-#  shared editor configs) — not screenshots, wallpapers, or Windows files.
+#  shared editor configs, wallpapers) — not screenshots or Windows files.
 #
 #  Usage:
 #    dotfiles-sync.sh [run]      sync the manifest now (default; timer uses this)

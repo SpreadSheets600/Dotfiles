@@ -16,7 +16,8 @@ SYSTEM.md
 # Cross-platform editor/theme configs
 shared/
 
-# Optional assets — not needed to rebuild the setup:
-# wallpapers/
+# Optional assets:
+# Wallpapers you drop into ~/Pictures/Wallpapers (synced so you never lose them)
+wallpapers/
 # windows/
 # .github/

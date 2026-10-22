@@ -828,11 +828,12 @@ README.md
 SYSTEM.md
 .gitignore      repo ignore rules
 shared/         VS Code / Zed / Discord configs (cross-platform)
+wallpapers/     wallpaper collection (~/Pictures/Wallpapers)
 ```
 
-Deliberately **not** synced: `.github/images` (README screenshots),
-`wallpapers/`, and `windows/`. Add a line to the manifest to include any of
-them, or run `dotfiles-sync.sh run --all` for a one-off full sync.
+Deliberately **not** synced: `.github/images` (README screenshots) and
+`windows/`. Add a line to the manifest to include either of them, or run
+`dotfiles-sync.sh run --all` for a one-off full sync.
 
 The timer runs every 15 minutes, rebases on `origin/main`, and pushes. Offline
 runs keep the commit locally and retry on the next tick. Safety checks refuse
@@ -860,10 +861,8 @@ yet, add it under `linux/.config/` and run `install.sh` so it gets symlinked.
 ### Wallpapers
 
 The real files live in `wallpapers/` in this repo and are tracked, so
-`~/Pictures/Wallpapers` can be a symlink to them. Auto-sync leaves new images
-alone by default; uncomment `wallpapers/` in
-`linux/scripts/dotfiles-sync.paths` (or use `run --all`) if you want them
-pushed too.
+`~/Pictures/Wallpapers` can be a symlink to them. Drop an image into either
+path and the 15-minute sync commits and pushes it to GitHub automatically.
 
 ```text
 ~/Dotfiles/wallpapers/   <-- real files (tracked)

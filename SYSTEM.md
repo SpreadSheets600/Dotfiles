@@ -48,9 +48,9 @@ setup changes.
     **Camellya** and **Chisa** Windows cursor packs (six themes), linked them
     into `~/.icons` so niri can see them, and added a systemd path unit that
     mirrors DMS cursor changes to GTK, X11, GSettings, and niri.
-14. Added automatic hardlink-snapshot backups (`backup.sh` + a daily systemd
-    timer) and moved wallpapers into the repo (`wallpapers/`, symlinked from
-    `~/Pictures/Wallpapers`).
+14. Added automatic GitHub sync for the setup configs (`dotfiles-sync.sh` +
+    a 15-minute timer) and moved wallpapers into the repo (`wallpapers/`,
+    symlinked from `~/Pictures/Wallpapers`).
 
 ---
 
@@ -82,7 +82,6 @@ Dotfiles/
 │   │   ├── conky/
 │   │   ├── goverlay/
 │   │   ├── MangoHud/
-│   │   ├── backup/          # backup.sh settings
 │   │   └── autostart/
 │   ├── scripts/            # Linux helpers (linked into ~/.local/bin)
 │   └── systemd/user/       # user units (linked individually into ~/.config)
@@ -138,9 +137,8 @@ Current links:
 | `~/.p10k.zsh` | `linux/.p10k.zsh` |
 | `~/.gitconfig` | `linux/.gitconfig` |
 | `~/.config/{kitty,niri,paru,fastfetch,lazygit,cava,conky,goverlay,MangoHud,autostart,nvim}` | `linux/.config/...` |
-| `~/.local/bin/{game.sh,VirtualPhoneCam.sh,cheatenginelaunch.sh,webapp.sh,dms-theme-refresh.sh,dms-cursor-sync.sh,backup.sh}` | `linux/scripts/...` |
-| `~/.config/backup` | `linux/.config/backup/` |
-| `~/.config/systemd/user/{dms-cursor-sync.path,dms-cursor-sync.service,backup.service,backup.timer}` | `linux/systemd/user/...` |
+| `~/.local/bin/{game.sh,VirtualPhoneCam.sh,cheatenginelaunch.sh,webapp.sh,dms-theme-refresh.sh,dms-cursor-sync.sh,dotfiles-sync.sh}` | `linux/scripts/...` |
+| `~/.config/systemd/user/{dms-cursor-sync.path,dms-cursor-sync.service,dotfiles-sync.service,dotfiles-sync.timer}` | `linux/systemd/user/...` |
 | `~/Pictures/Wallpapers` | `wallpapers/` |
 
 Website app-menu entries are generated (not tracked) by `webapp.sh` at
@@ -162,7 +160,7 @@ git push
 ```
 
 `install.sh` never deletes user data: conflicts are moved to the timestamped
-backup dir above. Automatic home snapshots are covered in §16.
+backup dir above. Automatic GitHub sync of the setup configs is covered in §16.
 
 ---
 
@@ -815,53 +813,57 @@ this automatically when the wallpaper changes.
 
 ---
 
-## 16. Backups & wallpapers
+## 16. GitHub sync & wallpapers
 
-### Home snapshots (`backup.sh`)
+### Setup configs (`dotfiles-sync.sh`)
 
-`backup.sh` makes rsync **hardlink snapshots** of `$HOME`. Unchanged files are
-linked to the previous snapshot, so a daily run only stores what changed
-(the first snapshot is ~1.5 GB; later runs are a few MB unless a lot changed).
+GitHub is the backup. `dotfiles-sync.sh` commits and pushes only the paths in
+the manifest `linux/scripts/dotfiles-sync.paths` — the files needed to rebuild
+the Linux setup — instead of the whole repo:
+
+```text
+linux/          shell files, every app config install.sh links, scripts, units
+install.sh      installer
+README.md
+SYSTEM.md
+.gitignore      repo ignore rules
+shared/         VS Code / Zed / Discord configs (cross-platform)
+```
+
+Deliberately **not** synced: `.github/images` (README screenshots),
+`wallpapers/`, and `windows/`. Add a line to the manifest to include any of
+them, or run `dotfiles-sync.sh run --all` for a one-off full sync.
+
+The timer runs every 15 minutes, rebases on `origin/main`, and pushes. Offline
+runs keep the commit locally and retry on the next tick. Safety checks refuse
+known token formats, private keys, `.env`/`credentials` files, and files over
+95 MB.
 
 | Thing | Where |
 |---|---|
-| script | `linux/scripts/backup.sh` → `~/.local/bin/backup.sh` |
-| config | `linux/.config/backup/backup.conf` → `~/.config/backup/backup.conf` |
-| snapshots | `~/Backups/snapshots/<YYYY-MM-DD_HH-MM-SS>/{home,_system}` |
-| latest link | `~/Backups/latest` |
-| timer | `backup.timer` — daily, `Persistent=true`, ~15 min jitter |
-| logs | `journalctl --user -u backup.service` |
-
-Each snapshot holds the home tree (excluding rebuildable caches, Flatpak/
-Steam/web-app bundles, `node_modules`, `.venv`, and `~/Backups` itself) plus
-`_system/` with `pacman -Qqe`, AUR packages, enabled units, `fstab`,
-`pacman.conf`, and `system-info.txt`.
+| script | `linux/scripts/dotfiles-sync.sh` → `~/.local/bin/dotfiles-sync.sh` |
+| manifest | `linux/scripts/dotfiles-sync.paths` |
+| timer | `dotfiles-sync.timer` — every 15 min, `Persistent=true` |
+| logs | `journalctl --user -u dotfiles-sync.service` |
 
 ```bash
-backup.sh run            # snapshot now
-backup.sh list           # snapshots, newest first
-backup.sh status         # config + latest snapshot
-backup.sh restore latest .config/kitty/kitty.conf
-                         # -> ~/restore-<timestamp>/.config/kitty/kitty.conf
+dotfiles-sync.sh list          # paths included in the backup
+dotfiles-sync.sh status        # pending changes + ahead/behind
+dotfiles-sync.sh --dry-run     # preview
+dotfiles-sync.sh run           # commit + push now
+dotfiles-sync.sh run --all     # include wallpapers/windows/screenshots too
 ```
 
-`restore` never writes over the live file; it copies into a fresh directory.
-Retention is `KEEP_SNAPSHOTS` (default 7). Excludes are in `backup.sh`
-(`DEFAULT_EXCLUDES`) with per-machine additions in `EXTRA_EXCLUDES`.
-
-To use an external drive, point `BACKUP_ROOT` at its mount path and set
-`REQUIRE_MOUNT=1` so the timer skips cleanly when the disk is unplugged.
-
-> A snapshot on the same disk protects against mistakes and bad edits, not
-> disk failure. Move `BACKUP_ROOT` to another disk for real protection.
+Only files inside `~/Dotfiles` can be synced. If a config is not in the repo
+yet, add it under `linux/.config/` and run `install.sh` so it gets symlinked.
 
 ### Wallpapers
 
-The real files live in `wallpapers/` in this repo so git tracks and syncs
-them; `~/Pictures/Wallpapers` is a symlink to that folder. Drop an image into
-either path and it appears in both, and `git add wallpapers/` picks it up.
-(A symlink in the other direction would only store a path in git, not the
-images.)
+The real files live in `wallpapers/` in this repo and are tracked, so
+`~/Pictures/Wallpapers` can be a symlink to them. Auto-sync leaves new images
+alone by default; uncomment `wallpapers/` in
+`linux/scripts/dotfiles-sync.paths` (or use `run --all`) if you want them
+pushed too.
 
 ```text
 ~/Dotfiles/wallpapers/   <-- real files (tracked)

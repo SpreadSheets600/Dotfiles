@@ -117,7 +117,7 @@ cmd_run() {
   fi
 
   if git diff --cached --quiet; then
-    log "no changes in the synced paths"
+    log "no changes to commit"
   else
     scan_staged
     git commit -q -m "auto: dotfiles sync $(date '+%Y-%m-%d %H:%M')"

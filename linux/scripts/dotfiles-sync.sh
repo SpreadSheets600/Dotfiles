@@ -101,6 +101,32 @@ scan_staged() {
   fi
 }
 
+snapshot_configs() {
+  [[ -f $BACKUP_MANIFEST ]] || return 0
+
+  local line src dest count=0
+  while IFS= read -r line; do
+    line=${line%%#*}
+    line=${line#"${line%%[![:space:]]*}"}
+    line=${line%"${line##*[![:space:]]}"}
+    [[ -z $line ]] && continue
+    if [[ $line != *'|'* ]]; then
+      log "ignoring malformed snapshot line: $line"
+      continue
+    fi
+    src=${line%%|*}
+    dest=${line#*|}
+    src=${src/#\~/$HOME}
+    dest=${dest/#\~/$REPO}
+    [[ -f $src ]] || continue
+    mkdir -p -- "$(dirname -- "$dest")"
+    cp -f -- "$src" "$dest"
+    count=$((count + 1))
+  done <"$BACKUP_MANIFEST"
+
+  log "refreshed $count config snapshot(s)"
+}
+
 cmd_run() {
   local mode=${1:-}
 
@@ -108,6 +134,9 @@ cmd_run() {
     notify "merge/rebase already in progress in $REPO"
     die "merge/rebase in progress; finish or abort it first"
   fi
+
+  # Refresh the copies of configs that cannot be symlinked, then stage.
+  snapshot_configs
 
   # Start from a clean index so unrelated staged files never sneak in.
   git reset -q

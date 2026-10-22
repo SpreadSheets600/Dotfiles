@@ -1,0 +1,37 @@
+{
+  "lockfileVersion": 1,
+  "plugins": {
+    "dankCleaner": {
+      "repo": "https://github.com/NordicsSys/dankCleaner",
+      "commit": "bdf499182f39427ba0d720656e6fd131ddd57280"
+    },
+    "dankGifSearch": {
+      "repo": "https://github.com/duxlabs-dev/dux-plugins",
+      "path": "DankGifSearch",
+      "commit": "b827c2296cd45a73bf9318f16a261c9edeec8339"
+    },
+    "dankSoftwareDepot": {
+      "repo": "https://github.com/vinceecniv/DuxSoftwareDepot",
+      "commit": "468d8e7debb26a3832d040bd3c1ced81b5526797"
+    },
+    "emojiLauncher": {
+      "repo": "https://github.com/devnullvoid/dms-emoji-launcher",
+      "commit": "35ea4d653417840b9045c77a9adb0188a4900086"
+    },
+    "quickCapture": {
+      "repo": "https://github.com/hthienloc/dms-plugins",
+      "path": "quickCapture",
+      "commit": "193ececfed4a15128be0ff815ca50867e88f3307"
+    },
+    "systemMonitorPlus": {
+      "repo": "https://github.com/Dadangdut33/dms-plugins",
+      "path": "SystemMonitorPlus",
+      "commit": "63fe6b87c497f1f7c2ea61432716817db1c5c3a4"
+    },
+    "typingSounds": {
+      "repo": "https://github.com/hthienloc/dms-plugins",
+      "path": "typingSounds",
+      "commit": "193ececfed4a15128be0ff815ca50867e88f3307"
+    }
+  }
+}

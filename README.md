@@ -18,15 +18,23 @@
 ## Layout
 
 ```text
-linux/      CachyOS configs (installed by install.sh via symlinks)
-windows/    Windows 11 configs (copied manually)
-shared/     VS Code, Zed, Discord themes
-wallpapers/ images tracked in git; ~/Pictures/Wallpapers links here
-SYSTEM.md   what was done, how it works, troubleshooting
+linux/            CachyOS configs (installed by install.sh via symlinks)
+linux/snapshots/  live configs that cannot be symlinked, copied by the sync
+linux/screenshots/ desktop screenshots, synced with the rest of linux/
+windows/          Windows 11 configs (copied manually)
+shared/           VS Code, Zed, Discord themes
+wallpapers/       images tracked in git; ~/Pictures/Wallpapers links here
+SYSTEM.md         what was done, how it works, troubleshooting
 ```
 
 Full details — tool list, keybinds, aliases, install notes, Windows target
 paths — live in **[SYSTEM.md](SYSTEM.md)**.
+
+## Screenshots
+
+Current desktop: niri + DankMaterialShell on CachyOS.
+
+![Desktop](linux/screenshots/desktop-2026-10-22.png)
 
 ## Linux quick start
 

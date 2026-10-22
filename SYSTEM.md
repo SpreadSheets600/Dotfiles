@@ -822,7 +822,8 @@ the manifest `linux/scripts/dotfiles-sync.paths` — the files needed to rebuild
 the Linux setup — instead of the whole repo:
 
 ```text
-linux/          shell files, every app config install.sh links, scripts, units
+linux/          shell files, every app config install.sh links, scripts, units,
+                plus snapshots/ (live config copies) and screenshots/
 install.sh      installer
 README.md
 SYSTEM.md
@@ -831,9 +832,30 @@ shared/         VS Code / Zed / Discord configs (cross-platform)
 wallpapers/     wallpaper collection (~/Pictures/Wallpapers)
 ```
 
-Deliberately **not** synced: `.github/images` (README screenshots) and
+Deliberately **not** synced: `.github/images` (old README images) and
 `windows/`. Add a line to the manifest to include either of them, or run
 `dotfiles-sync.sh run --all` for a one-off full sync.
+
+### Configs that cannot be symlinked (`snapshots/`)
+
+Some apps keep large state next to their config, or rewrite the config file
+atomically (which replaces a symlink). Those live in `~/.config` as real files
+and are backed up by **copying** them into `linux/snapshots/` before every
+sync commit. The list is `linux/scripts/dotfiles-backup.paths` (format
+`<source under $HOME> | <destination in repo>`), currently:
+
+- `DankMaterialShell/` — `settings.json` (bar layout, widgets, theme),
+  `plugin_settings.json`, `plugins.lock.json`, `monitors.json`,
+  `clsettings.json`
+- `dankcal/`, `dsearch/`, `dgop/` — companion app settings
+- `environment.d/90-dms.conf`, `mimeapps.list`, `user-dirs.dirs`,
+  `xdg-terminals.list`, `pavucontrol.ini`, `qt5ct/`, `qt6ct/`, `fish/`
+
+To restore on a new machine, copy the files back into `~/.config` (or pick the
+ones you need), then recreate the DMS plugin checkouts with
+`dms plugins install <id>` — the 167 MB `DankMaterialShell/plugins/` directory
+is intentionally not tracked. Browser profiles, app caches and credentials
+(`~/.config/gh/hosts.yml`) are never copied.
 
 The timer runs every 15 minutes, rebases on `origin/main`, and pushes. Offline
 runs keep the commit locally and retry on the next tick. Safety checks refuse
@@ -856,7 +878,9 @@ dotfiles-sync.sh run --all     # include wallpapers/windows/screenshots too
 ```
 
 Only files inside `~/Dotfiles` can be synced. If a config is not in the repo
-yet, add it under `linux/.config/` and run `install.sh` so it gets symlinked.
+yet, either add it under `linux/.config/` and run `install.sh` so it gets
+symlinked, or add a line to `linux/scripts/dotfiles-backup.paths` so the sync
+copies it into `linux/snapshots/` (for apps that cannot be symlinked).
 
 ### Wallpapers
 

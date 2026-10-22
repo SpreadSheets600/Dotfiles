@@ -1,0 +1,11 @@
+[Unit]
+Description=Daily snapshot of $HOME
+
+[Timer]
+OnCalendar=daily
+Persistent=true
+RandomizedDelaySec=15m
+AccuracySec=1m
+
+[Install]
+WantedBy=timers.target

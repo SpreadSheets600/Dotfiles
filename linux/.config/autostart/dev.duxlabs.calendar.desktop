@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Dux Calendar
+Comment=Dux Calendar background service
+Exec=/usr/bin/dcal run -d --hidden
+Icon=dev.duxlabs.calendar
+Terminal=false
+X-GNOME-Autostart-enabled=true

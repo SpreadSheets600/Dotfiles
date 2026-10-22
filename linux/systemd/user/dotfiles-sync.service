@@ -1,0 +1,8 @@
+[Unit]
+Description=Commit and push Dotfiles to GitHub
+Documentation=file:%h/Dotfiles/SYSTEM.md
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/dotfiles-sync.sh run
+Nice=10

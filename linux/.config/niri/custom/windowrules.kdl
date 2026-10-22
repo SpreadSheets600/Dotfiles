@@ -1,19 +1,15 @@
-// User window rules. Kept outside dms/ so DMS can regenerate its own files
-// without removing these overrides.
-
-// Browser picture-in-picture windows (Firefox, Brave, Chromium, etc.).
 window-rule {
     match title=r#"(?i)^picture[- ]in[- ]picture$"#
     open-floating true
 }
 
-// Google Meet in a browser tab.
+
 window-rule {
     match title=r#"(?i)^(google )?meet(\s*[-–—].*)?$"#
     open-floating true
 }
 
-// Google Meet installed as a web app / PWA.
+
 window-rule {
     match app-id=r#"(?i)meet\.google\.com"#
     open-floating true

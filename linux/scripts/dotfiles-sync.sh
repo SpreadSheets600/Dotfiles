@@ -5,6 +5,8 @@
 #  GitHub is the backup. Only the paths listed in
 #  linux/scripts/dotfiles-sync.paths are staged (Linux setup, installer, docs,
 #  shared editor configs, wallpapers) — not screenshots or Windows files.
+#  Before staging, every entry in linux/scripts/dotfiles-backup.paths is copied
+#  into linux/snapshots/ (configs that cannot be symlinked into the repo).
 #
 #  Usage:
 #    dotfiles-sync.sh [run]      sync the manifest now (default; timer uses this)
@@ -27,6 +29,7 @@ export GIT_TERMINAL_PROMPT=0
 REPO="${DOTFILES_DIR:-$HOME/Dotfiles}"
 REMOTE="${DOTFILES_REMOTE:-origin}"
 MANIFEST="${DOTFILES_SYNC_PATHS:-$REPO/linux/scripts/dotfiles-sync.paths}"
+BACKUP_MANIFEST="${DOTFILES_BACKUP_PATHS:-$REPO/linux/scripts/dotfiles-backup.paths}"
 PATHS=()
 
 log()  { printf '[%s] %s\n' "$(date +%H:%M:%S)" "$*"; }

@@ -1,0 +1,11 @@
+[Unit]
+Description=Sync Dotfiles to GitHub every 15 minutes
+
+[Timer]
+OnCalendar=*:0/15
+Persistent=true
+AccuracySec=1m
+RandomizedDelaySec=1m
+
+[Install]
+WantedBy=timers.target

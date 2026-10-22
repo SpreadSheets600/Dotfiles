@@ -16,9 +16,15 @@ node_modules/
 
 # ==== backups & logs ====
 *.bak
+*.bak.*
+*.bak[0-9]*
 *.backup
 *.backup.*
+*.backup[0-9]*
+*.dmsbackup*
 *.old
+*.orig
+*.rej
 *.log
 *.wcursor-bak
 

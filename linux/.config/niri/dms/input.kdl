@@ -5,11 +5,11 @@
 
 input {
     mouse {
-        accel-speed 0.0
+        accel-speed 0.5
     }
     touchpad {
         tap
-        accel-speed 0.0
+        accel-speed 0.4
         natural-scroll
         dwt
     }

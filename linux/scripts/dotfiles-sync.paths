@@ -1,0 +1,22 @@
+# Paths that dotfiles-sync.sh commits and pushes to GitHub.
+#
+# Only what is needed to rebuild the Linux setup on another machine belongs
+# here. One git pathspec per line; comments and blank lines are ignored.
+# Add a line if you want more (e.g. wallpapers/ or windows/).
+
+# Linux setup: shell files, every app config install.sh links, helpers, units
+linux/
+
+# Installer, docs, repo ignore rules
+install.sh
+README.md
+SYSTEM.md
+.gitignore
+
+# Cross-platform editor/theme configs
+shared/
+
+# Optional assets — not needed to rebuild the setup:
+# wallpapers/
+# windows/
+# .github/

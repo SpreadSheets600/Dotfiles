@@ -1,20 +1,23 @@
 #!/usr/bin/env bash
 # =============================================================================
-#  dotfiles-sync.sh — keep ~/Dotfiles committed and pushed to GitHub
+#  dotfiles-sync.sh — commit and push the setup configs to GitHub
 #
-#  GitHub is the backup: each run stages the repo, commits real changes,
-#  rebases on the remote branch, and pushes. If the network is down the commit
-#  stays local and the next timer tick retries.
+#  GitHub is the backup. Only the paths listed in
+#  linux/scripts/dotfiles-sync.paths are staged (Linux setup, installer, docs,
+#  shared editor configs) — not screenshots, wallpapers, or Windows files.
 #
 #  Usage:
-#    dotfiles-sync.sh [run]      sync now (default; used by the timer)
-#    dotfiles-sync.sh status     pending changes + ahead/behind
+#    dotfiles-sync.sh [run]      sync the manifest now (default; timer uses this)
+#    dotfiles-sync.sh run --all  sync the whole repo (includes assets)
+#    dotfiles-sync.sh list       show the manifest
+#    dotfiles-sync.sh status     pending manifest changes + ahead/behind
 #    dotfiles-sync.sh --dry-run  show what would be committed
 #    dotfiles-sync.sh --help
 #
 #  Environment:
-#    DOTFILES_DIR    repository path (default: ~/Dotfiles)
-#    DOTFILES_REMOTE remote name    (default: origin)
+#    DOTFILES_DIR         repository path (default: ~/Dotfiles)
+#    DOTFILES_REMOTE      remote name    (default: origin)
+#    DOTFILES_SYNC_PATHS  manifest path  (default: <repo>/linux/scripts/dotfiles-sync.paths)
 # =============================================================================
 
 set -euo pipefail
@@ -23,6 +26,8 @@ export GIT_TERMINAL_PROMPT=0
 
 REPO="${DOTFILES_DIR:-$HOME/Dotfiles}"
 REMOTE="${DOTFILES_REMOTE:-origin}"
+MANIFEST="${DOTFILES_SYNC_PATHS:-$REPO/linux/scripts/dotfiles-sync.paths}"
+PATHS=()
 
 log()  { printf '[%s] %s\n' "$(date +%H:%M:%S)" "$*"; }
 die()  { printf 'dotfiles-sync: %s\n' "$*" >&2; exit 1; }
@@ -32,13 +37,22 @@ notify() {
 }
 
 usage() {
-  sed -n '3,17p' "$0" | sed 's/^# \{0,1\}//'
+  sed -n '3,20p' "$0" | sed 's/^# \{0,1\}//'
 }
 
 [[ -d $REPO/.git ]] || die "not a git repository: $REPO"
 cd -- "$REPO"
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
 [[ $BRANCH != HEAD ]] || die "detached HEAD; check out a branch first"
+
+load_paths() {
+  [[ -f $MANIFEST ]] || die "manifest not found: $MANIFEST"
+  mapfile -t PATHS < <(
+    sed -e 's/[[:space:]]*#.*$//' -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' -e '/^$/d' "$MANIFEST"
+  )
+  ((${#PATHS[@]} > 0)) || die "manifest is empty: $MANIFEST"
+}
+load_paths
 
 # One run at a time (timer + manual sync can overlap).
 exec 9>"${XDG_RUNTIME_DIR:-/tmp}/dotfiles-sync.lock"
@@ -85,15 +99,25 @@ scan_staged() {
 }
 
 cmd_run() {
+  local mode=${1:-}
+
   if [[ -d .git/rebase-merge || -d .git/rebase-apply || -f .git/MERGE_HEAD ]]; then
     notify "merge/rebase already in progress in $REPO"
     die "merge/rebase in progress; finish or abort it first"
   fi
 
-  git add -A
+  # Start from a clean index so unrelated staged files never sneak in.
+  git reset -q
+  if [[ $mode == --all ]]; then
+    git add -A
+    log "staging whole repo (--all)"
+  else
+    git add -A -- "${PATHS[@]}"
+    log "staging ${#PATHS[@]} manifest paths"
+  fi
 
   if git diff --cached --quiet; then
-    log "no local changes"
+    log "no changes in the synced paths"
   else
     scan_staged
     git commit -q -m "auto: dotfiles sync $(date '+%Y-%m-%d %H:%M')"
@@ -135,30 +159,38 @@ cmd_run() {
 }
 
 cmd_status() {
-  printf 'repo:   %s\n' "$REPO"
-  printf 'branch: %s\n' "$BRANCH"
-  git status --short --branch
-  printf 'last:   %s\n' "$(git log -1 --format='%h %s (%cr)')"
+  printf 'repo:     %s\n' "$REPO"
+  printf 'branch:   %s\n' "$BRANCH"
+  printf 'manifest: %s (%d paths)\n\n' "$MANIFEST" "${#PATHS[@]}"
+  git status --short --branch -- "${PATHS[@]}"
+  printf 'last:     %s\n' "$(git log -1 --format='%h %s (%cr)')"
   if git rev-parse --abbrev-ref --symbolic-full-name '@{u}' >/dev/null 2>&1; then
     local counts
     counts=$(git rev-list --left-right --count '@{u}...HEAD')
-    printf 'remote: %s behind, %s ahead\n' "${counts%%$'\t'*}" "${counts##*$'\t'}"
+    printf 'remote:   %s behind, %s ahead\n' "${counts%%$'\t'*}" "${counts##*$'\t'}"
   else
-    printf 'remote: no upstream configured\n'
+    printf 'remote:   no upstream configured\n'
   fi
 }
 
 cmd_dry() {
-  printf 'repo:   %s (%s)\n\n' "$REPO" "$BRANCH"
-  git status --short
+  printf 'repo:     %s (%s)\n' "$REPO" "$BRANCH"
+  printf 'manifest: %s (%d paths)\n\n' "$MANIFEST" "${#PATHS[@]}"
+  git status --short -- "${PATHS[@]}"
   printf '\n'
-  git diff --stat
+  git diff --stat -- "${PATHS[@]}"
+}
+
+cmd_list() {
+  printf 'manifest: %s\n\n' "$MANIFEST"
+  grep -vE '^[[:space:]]*(#|$)' "$MANIFEST"
 }
 
 case ${1:-run} in
-  run)        cmd_run ;;
-  status)     cmd_status ;;
+  run)          shift; cmd_run "${1:-}" ;;
+  list|paths)   cmd_list ;;
+  status)       cmd_status ;;
   --dry-run|-n) cmd_dry ;;
-  -h|--help)  usage ;;
-  *)          usage; exit 1 ;;
+  -h|--help)    usage ;;
+  *)            usage; exit 1 ;;
 esac

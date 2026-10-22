@@ -3,7 +3,7 @@
 Living notes for this machine and the dotfiles repo. Updated whenever the
 setup changes.
 
-- **Last updated:** 2026-10-21
+- **Last updated:** 2026-10-22
 - **Host OS:** CachyOS Linux (Arch-based, rolling)
 - **Kernel:** 7.2.11-1-cachyos
 - **Compositor:** niri (Wayland) + DankMaterialShell (DMS)
@@ -45,9 +45,12 @@ setup changes.
     helper, and installed **Spotify**, **Discord** (with **Equicord** patched on
     top).
 13. Set up **WCursor** in `~/Projects/wcursor`, converted and installed the
-    **Camellya** and **Chisa** Windows cursor packs (six themes), and added a
-    systemd path unit that mirrors DMS cursor changes to GTK, X11, GSettings,
-    and niri.
+    **Camellya** and **Chisa** Windows cursor packs (six themes), linked them
+    into `~/.icons` so niri can see them, and added a systemd path unit that
+    mirrors DMS cursor changes to GTK, X11, GSettings, and niri.
+14. Added automatic hardlink-snapshot backups (`backup.sh` + a daily systemd
+    timer) and moved wallpapers into the repo (`wallpapers/`, symlinked from
+    `~/Pictures/Wallpapers`).
 
 ---
 
@@ -58,6 +61,7 @@ Dotfiles/
 ├── install.sh              # link linux/ configs into $HOME (backs up first)
 ├── SYSTEM.md               # this file
 ├── README.md
+├── wallpapers/             # images; ~/Pictures/Wallpapers links here
 ├── linux/                  # machine-local Linux (CachyOS/niri) configs
 │   ├── .zshrc              # interactive shell
 │   ├── .zshenv             # environment for every zsh
@@ -78,6 +82,7 @@ Dotfiles/
 │   │   ├── conky/
 │   │   ├── goverlay/
 │   │   ├── MangoHud/
+│   │   ├── backup/          # backup.sh settings
 │   │   └── autostart/
 │   ├── scripts/            # Linux helpers (linked into ~/.local/bin)
 │   └── systemd/user/       # user units (linked individually into ~/.config)
@@ -133,8 +138,10 @@ Current links:
 | `~/.p10k.zsh` | `linux/.p10k.zsh` |
 | `~/.gitconfig` | `linux/.gitconfig` |
 | `~/.config/{kitty,niri,paru,fastfetch,lazygit,cava,conky,goverlay,MangoHud,autostart,nvim}` | `linux/.config/...` |
-| `~/.local/bin/{game.sh,VirtualPhoneCam.sh,cheatenginelaunch.sh,webapp.sh,dms-theme-refresh.sh,dms-cursor-sync.sh}` | `linux/scripts/...` |
-| `~/.config/systemd/user/dms-cursor-sync.{path,service}` | `linux/systemd/user/...` |
+| `~/.local/bin/{game.sh,VirtualPhoneCam.sh,cheatenginelaunch.sh,webapp.sh,dms-theme-refresh.sh,dms-cursor-sync.sh,backup.sh}` | `linux/scripts/...` |
+| `~/.config/backup` | `linux/.config/backup/` |
+| `~/.config/systemd/user/{dms-cursor-sync.path,dms-cursor-sync.service,backup.service,backup.timer}` | `linux/systemd/user/...` |
+| `~/Pictures/Wallpapers` | `wallpapers/` |
 
 Website app-menu entries are generated (not tracked) by `webapp.sh` at
 `~/.local/share/applications/webapp-<slug>.desktop`.
@@ -154,8 +161,8 @@ git commit -m "feat: describe the change"
 git push
 ```
 
-There is no automatic backup script any more. The repo **is** the source of
-truth; `install.sh` never deletes user data.
+`install.sh` never deletes user data: conflicts are moved to the timestamped
+backup dir above. Automatic home snapshots are covered in §16.
 
 ---
 
@@ -324,9 +331,10 @@ after changing the theme.
 ### Cursors (WCursor)
 
 **WCursor** (private repo `SpreadSheets600/WCursor`) converts Windows `.ani` /
-`.cur` packs to Linux Xcursor themes, adds the 24/32/48/64 px sizes, installs
-them under `~/.local/share/icons`, and applies the theme + size consistently to
-DMS, niri, X11, GTK 3/4, and GSettings.
+`.cur` packs to Linux Xcursor themes, adds the 24/32/48/64 px sizes, keeps the
+converted theme in `~/Documents/Cursors/<Theme>`, installs a copy under
+`~/.local/share/icons`, and applies the theme + size consistently to DMS, niri,
+X11, GTK 3/4, and GSettings.
 
 Setup (requires an authenticated `gh` account):
 
@@ -358,19 +366,44 @@ unzip -q -o ~/Downloads/camellya_fbd4ebf39e_VSTHEMES-ORG.zip \
 unzip -q -o ~/Downloads/chibi-chisa-wuwa_dd9b80d3fb_VSTHEMES-ORG.zip \
   -d ~/Projects/cursor-packs/chisa
 
-wcursor install ~/Projects/cursor-packs/camellya/Cursors/Red \
-  --name 'Camellya Red' --sizes 24,32,48,64
-wcursor install ~/Projects/cursor-packs/camellya/Cursors/White \
-  --name 'Camellya White' --sizes 24,32,48,64
-wcursor install ~/Projects/cursor-packs/camellya/Static/Red \
-  --name 'Camellya Red Static' --sizes 24,32,48,64
-wcursor install ~/Projects/cursor-packs/camellya/Static/White \
-  --name 'Camellya White Static' --sizes 24,32,48,64
-wcursor install ~/Projects/cursor-packs/chisa/Windows \
-  --name Chisa --sizes 24,32,48,64
-wcursor install ~/Projects/cursor-packs/chisa/Static \
-  --name 'Chisa Static' --sizes 24,32,48,64
+mkdir -p ~/Documents/Cursors
+conv() { wcursor convert "$1" -o "$HOME/Documents/Cursors/$2" --name "$2" -q; }
+conv ~/Projects/cursor-packs/camellya/Cursors/Red   Camellya-Red-Animated
+conv ~/Projects/cursor-packs/camellya/Cursors/White Camellya-White-Animated
+conv ~/Projects/cursor-packs/camellya/Static/Red    Camellya-Red-Static
+conv ~/Projects/cursor-packs/camellya/Static/White  Camellya-White-Static
+conv ~/Projects/cursor-packs/chisa/Windows          Chisa-Animated
+conv ~/Projects/cursor-packs/chisa/Static           Chisa-Static
+
+# install (copy) into the icon dir and expose to niri via ~/.icons
+for n in Camellya-Red-Animated Camellya-White-Animated \
+         Camellya-Red-Static Camellya-White-Static \
+         Chisa-Animated Chisa-Static; do
+  rm -rf ~/.local/share/icons/"$n"
+  cp -a ~/Documents/Cursors/"$n" ~/.local/share/icons/"$n"
+  ln -sfn ~/.local/share/icons/"$n" ~/.icons/"$n"
+done
 ```
+
+**niri does not search `~/.local/share/icons` here.** niri loads cursors with
+the Rust `xcursor` crate, which — when `XDG_DATA_HOME` is set — looks in
+`~/.local/share` instead of `~/.local/share/icons`. Themes that exist only in
+`~/.local/share/icons` are invisible to niri and it silently draws its built-in
+black arrow (`WARN niri::cursor: error loading xcursor ...: no default icon` in
+the journal). The `ln -sfn` loop above is therefore required, not cosmetic;
+`~/.icons` is searched by niri, libwayland-cursor and Xcursor alike.
+
+**Move cursor / open hand.** The Move slot (`fleur`) prefers an open-palm image
+when a pack ships one (`OpenHand.*`, `Palm.*`, `Hand1.*`, or an INF key such as
+`openhand = ...`). Windows packs almost never include one, so it falls back to
+the pack's own 4-corner move arrow (`Move.ani`/`Move.cur`). The open-hand/grab
+names (`grab`, `grabbing`, `closedhand`, `hand1`, `openhand`) are aliases of
+`fleur`, so they show the same image instead of falling back to Adwaita's open
+hand. The link slot (`hand2`, plus `pointer`/`pointing_hand`, i.e.
+hover/buttons/link-click) is deliberately left alone and keeps the pack's own
+pointing hand. Implemented in `wcursor/pack.py` (`find_palm_source`) and the
+`ALIASES` table in `wcursor/roles.py`; covered by `tests/test_pack.py` and
+`tests/test_roles.py`.
 
 **DMS is the source of truth for the active theme and size.** It writes
 `cursorSettings`, `niri/dms/cursor.kdl`, and `.Xresources`, and sets
@@ -406,11 +439,16 @@ Switch variants from the DMS cursor settings or with `wcursor set`, for
 example:
 
 ```bash
-wcursor set 'Camellya Red' --size 32
-wcursor set 'Camellya White' --size 32
-wcursor set 'Chisa' --size 32
-wcursor set 'Chisa Static' --size 32
+wcursor set Camellya-Red-Animated   --size 64
+wcursor set Camellya-White-Animated --size 64
+wcursor set Camellya-Red-Static     --size 64
+wcursor set Camellya-White-Static   --size 64
+wcursor set Chisa-Animated          --size 64
+wcursor set Chisa-Static            --size 64
 ```
+
+Apps started before a cursor change keep the old `XCURSOR_THEME` in their
+environment; restart them (or log out/in) to pick up the new theme.
 
 All six themes include 24/32/48/64 px; use `--size 24` for a smaller cursor.
 `wcursor set` may restart DMS when it has to rewrite DMS's files; the sync
@@ -774,3 +812,62 @@ this automatically when the wallpaper changes.
 - Add `starship` config only if you decide to switch away from p10k.
 - Add a `chezmoi`/`stow` workflow if the repo grows beyond one machine.
 - Capture a fresh screenshot set for the README (`fastfetch` + kitty + niri).
+
+---
+
+## 16. Backups & wallpapers
+
+### Home snapshots (`backup.sh`)
+
+`backup.sh` makes rsync **hardlink snapshots** of `$HOME`. Unchanged files are
+linked to the previous snapshot, so a daily run only stores what changed
+(the first snapshot is ~1.5 GB; later runs are a few MB unless a lot changed).
+
+| Thing | Where |
+|---|---|
+| script | `linux/scripts/backup.sh` → `~/.local/bin/backup.sh` |
+| config | `linux/.config/backup/backup.conf` → `~/.config/backup/backup.conf` |
+| snapshots | `~/Backups/snapshots/<YYYY-MM-DD_HH-MM-SS>/{home,_system}` |
+| latest link | `~/Backups/latest` |
+| timer | `backup.timer` — daily, `Persistent=true`, ~15 min jitter |
+| logs | `journalctl --user -u backup.service` |
+
+Each snapshot holds the home tree (excluding rebuildable caches, Flatpak/
+Steam/web-app bundles, `node_modules`, `.venv`, and `~/Backups` itself) plus
+`_system/` with `pacman -Qqe`, AUR packages, enabled units, `fstab`,
+`pacman.conf`, and `system-info.txt`.
+
+```bash
+backup.sh run            # snapshot now
+backup.sh list           # snapshots, newest first
+backup.sh status         # config + latest snapshot
+backup.sh restore latest .config/kitty/kitty.conf
+                         # -> ~/restore-<timestamp>/.config/kitty/kitty.conf
+```
+
+`restore` never writes over the live file; it copies into a fresh directory.
+Retention is `KEEP_SNAPSHOTS` (default 7). Excludes are in `backup.sh`
+(`DEFAULT_EXCLUDES`) with per-machine additions in `EXTRA_EXCLUDES`.
+
+To use an external drive, point `BACKUP_ROOT` at its mount path and set
+`REQUIRE_MOUNT=1` so the timer skips cleanly when the disk is unplugged.
+
+> A snapshot on the same disk protects against mistakes and bad edits, not
+> disk failure. Move `BACKUP_ROOT` to another disk for real protection.
+
+### Wallpapers
+
+The real files live in `wallpapers/` in this repo so git tracks and syncs
+them; `~/Pictures/Wallpapers` is a symlink to that folder. Drop an image into
+either path and it appears in both, and `git add wallpapers/` picks it up.
+(A symlink in the other direction would only store a path in git, not the
+images.)
+
+```text
+~/Dotfiles/wallpapers/   <-- real files (tracked)
+~/Pictures/Wallpapers -> ~/Dotfiles/wallpapers
+~/Pictures/Wallapaper -> ~/Dotfiles/wallpapers   # old spelling, kept for apps
+```
+
+`install.sh` recreates the `~/Pictures/Wallpapers` link. If the collection
+grows large, consider Git LFS.

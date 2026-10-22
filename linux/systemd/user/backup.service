@@ -1,0 +1,11 @@
+[Unit]
+Description=Snapshot $HOME with backup.sh
+Documentation=file:%h/Dotfiles/SYSTEM.md
+After=local-fs.target
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/backup.sh run
+Nice=10
+IOSchedulingClass=idle
+TimeoutStartSec=3h

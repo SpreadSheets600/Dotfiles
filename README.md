@@ -18,10 +18,11 @@
 ## Layout
 
 ```text
-linux/     CachyOS configs (installed by install.sh via symlinks)
-windows/   Windows 11 configs (copied manually)
-shared/    VS Code, Zed, Discord themes
-SYSTEM.md  what was done, how it works, troubleshooting
+linux/      CachyOS configs (installed by install.sh via symlinks)
+windows/    Windows 11 configs (copied manually)
+shared/     VS Code, Zed, Discord themes
+wallpapers/ images tracked in git; ~/Pictures/Wallpapers links here
+SYSTEM.md   what was done, how it works, troubleshooting
 ```
 
 Full details — tool list, keybinds, aliases, install notes, Windows target
@@ -40,6 +41,13 @@ exec zsh -l
 
 `install.sh` links `linux/` into `~/.config` and `$HOME`; it never deletes
 anything. Previous files go to `~/.local/state/dotfiles-backups/<timestamp>/`.
+It also links `~/Pictures/Wallpapers` to `wallpapers/` and enables the daily
+backup timer. Take the first snapshot manually:
+
+```bash
+backup.sh run     # now; the timer takes over after that
+backup.sh list
+```
 
 ### Packages
 

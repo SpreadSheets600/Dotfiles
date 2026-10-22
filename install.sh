@@ -89,6 +89,11 @@ if [[ -d $LINUX_DIR/scripts ]]; then
   done
 fi
 
+# --- wallpapers ---------------------------------------------------------------
+# Images live in the repo (wallpapers/) so git tracks them; ~/Pictures/Wallpapers
+# is just a symlink to that directory.
+link_path "$REPO_DIR/wallpapers" "$HOME/Pictures/Wallpapers"
+
 # --- systemd user units -------------------------------------------------------
 # Link only the unit files, not the whole ~/.config/systemd directory.
 if [[ -d $LINUX_DIR/systemd/user ]]; then
@@ -104,7 +109,12 @@ if [[ -d $LINUX_DIR/systemd/user ]]; then
       systemctl --user enable --now "$name.path" 2>/dev/null || true
       systemctl --user start "$name.service" 2>/dev/null || true
     done
-    ok "systemd user path units enabled"
+    for unit in "$LINUX_DIR"/systemd/user/*.timer; do
+      [[ -e $unit ]] || continue
+      name=$(basename -- "$unit" .timer)
+      systemctl --user enable --now "$name.timer" 2>/dev/null || true
+    done
+    ok "systemd user path units and timers enabled"
   fi
 fi
 

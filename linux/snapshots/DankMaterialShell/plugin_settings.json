@@ -1,0 +1,50 @@
+{
+  "emojiLauncher": {
+    "enabled": true
+  },
+  "quickCapture": {
+    "enabled": true,
+    "recordMic": true,
+    "recordSystemAudio": true,
+    "systemAudioDevice": "default_output",
+    "micDevice": "default_input"
+  },
+  "dankGifSearch": {
+    "enabled": true
+  },
+  "typingSounds": {
+    "enabled": true,
+    "selectedPackPath": "/home/soham/.config/DankMaterialShell/plugins/typingSounds/soundpacks/eg-crystal-purple",
+    "mouseEnabled": true,
+    "volume": 200
+  },
+  "systemMonitorPlus": {
+    "enabled": true,
+    "cpuTempEnabled": false,
+    "ramUsageEnabled": true,
+    "gpuTempEnabled": true,
+    "ramUsageIconName": "",
+    "networkSpeedEnabled": false,
+    "networkSpeedShortUnits": false,
+    "networkSpeedColorizeText": false,
+    "networkSpeedHideVerticalIcon": true,
+    "networkSpeedShowText": true,
+    "networkSpeedVisualStyle": "default"
+  },
+  "dankSoftwareDepot": {
+    "enabled": false,
+    "updatesSnapshot": {
+      "ts": 1792611004,
+      "packages": []
+    },
+    "hideWhenUpToDate": true,
+    "launcherPromptDone": true
+  },
+  "dankCleaner": {
+    "enabled": true,
+    "cleanupTmp": true
+  },
+  "dankFanStats": {
+    "enabled": true
+  }
+}

@@ -7,7 +7,7 @@
     "recordMic": true,
     "recordSystemAudio": true,
     "systemAudioDevice": "default_output",
-    "micDevice": "default_input",
+    "micDevice": "alsa_input.usb-046d_C270_HD_WEBCAM_9F7CE170-02.mono-fallback",
     "includeCursor": true,
     "recordingBackend": "gpu-screen-recorder",
     "recordingQuality": "high",

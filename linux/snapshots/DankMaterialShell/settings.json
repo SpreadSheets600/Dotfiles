@@ -1,7 +1,7 @@
 {
   "currentThemeName": "dynamic",
   "currentThemeCategory": "dynamic",
-  "matugenScheme": "scheme-smart",
+  "matugenScheme": "scheme-tonal-spot",
   "matugenContrast": 0.2,
   "popupTransparency": 0.8,
   "controlCenterTileColorMode": "primaryContainer",
@@ -433,5 +433,7 @@
   "blurBorderSeeded": true,
   "dmsWindowsFloatingSeeded": [
     "niri"
-  ]
+  ],
+  "matugenSpec": "dms",
+  "matugenSourceMode": "darkness"
 }

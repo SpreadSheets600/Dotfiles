@@ -129,5 +129,8 @@
     "maxTokens": 4096,
     "timeout": 30,
     "geminiWebSearch": false
+  },
+  "enteAuth": {
+    "enabled": true
   }
 }

@@ -168,7 +168,7 @@
     },
     {
       "id": "notifications",
-      "enabled": true
+      "enabled": false
     }
   ],
   "networkPreference": "wifi",
@@ -276,8 +276,7 @@
           "id": "controlCenterButton",
           "enabled": true,
           "showMicPercent": true
-        },
-        "notificationButton"
+        }
       ],
       "spacing": 4,
       "innerPadding": 4,
@@ -496,9 +495,9 @@
       "mode": "compact",
       "taskbarAlign": "center",
       "widgetExpansion": "inline",
-      "iconSize": 40,
-      "spacing": 4,
-      "itemSpacing": 4,
+      "iconSize": 42,
+      "spacing": 6,
+      "itemSpacing": 6,
       "margin": 5,
       "bottomGap": 0,
       "transparency": 0.7,
@@ -508,7 +507,7 @@
       "useOverlayLayer": false,
       "editOnRightClick": false,
       "showOnFullscreen": false,
-      "openOnOverview": false,
+      "openOnOverview": true,
       "groupByApp": true,
       "separatePinnedAndRunningApps": true,
       "restoreSpecialWorkspaceOnClick": false,
@@ -546,16 +545,12 @@
           "id": "dock_apps",
           "widgetId": "appsDock",
           "enabled": true,
-          "runningAppsCurrentWorkspace": false
+          "runningAppsCurrentWorkspace": false,
+          "appsDockColorizeActive": false
         },
         {
           "id": "dock_trash",
           "widgetId": "dockTrash",
-          "enabled": true
-        },
-        {
-          "id": "dock_1792762174890",
-          "widgetId": "quickCapture",
           "enabled": true
         }
       ]
@@ -577,5 +572,81 @@
   "springBounce": 2,
   "animationDuration": 300,
   "connectedFrameBarStyleBackups": {},
-  "frameEnabled": false
+  "frameEnabled": false,
+  "launcherStyle": "full",
+  "niriOverviewLauncherStyle": "full",
+  "dankLauncherV2BorderEnabled": true,
+  "dashTabPosition": "auto",
+  "dashOptions": {
+    "media": {
+      "playerStyle": "material"
+    },
+    "clock": {
+      "seconds": true
+    },
+    "weather": {
+      "city": true
+    },
+    "calendar": {
+      "weekends": true
+    },
+    "user": {
+      "compositor": false,
+      "uptime": false,
+      "badge": false
+    }
+  },
+  "dashCards": [
+    {
+      "id": "clock",
+      "w": 3,
+      "h": 1,
+      "col": 0,
+      "row": 0
+    },
+    {
+      "id": "notifications",
+      "w": 3,
+      "h": 5,
+      "col": 0,
+      "row": 1
+    },
+    {
+      "id": "calendar",
+      "w": 3,
+      "h": 4,
+      "col": 3,
+      "row": 1
+    },
+    {
+      "id": "wellbeing",
+      "w": 3,
+      "h": 1,
+      "col": 3,
+      "row": 0
+    },
+    {
+      "id": "sysmon",
+      "w": 3,
+      "h": 1,
+      "col": 3,
+      "row": 5
+    }
+  ],
+  "desktopWidgetInstances": [],
+  "osdWorkspaceEnabled": true,
+  "audioMono": false,
+  "soundLogin": true,
+  "useSystemSoundTheme": true,
+  "bluetoothMprisEnabled": true,
+  "powerMenuBootEntries": [
+    {
+      "id": "0003",
+      "label": "Windows Boot Manager"
+    },
+    {
+      "id": "0004",
+      "label": "UEFI OS"
+    }
+  ]
 }

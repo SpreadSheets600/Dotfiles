@@ -1,8 +1,8 @@
 binds {
-    Alt+Print hotkey-overlay-title="Screenshot: Window (Quick Capture)" { spawn "dms" "ipc" "call" "quickCapture" "screenshot" "window" "edit"; }
+    Alt+Print hotkey-overlay-title="Screenshot: Window" { spawn "dms" "ipc" "call" "quickCapture" "screenshot" "window" "edit"; }
     Alt+XF86Launch1 hotkey-overlay-title="Screenshot: Window (Quick Capture)" { spawn "dms" "ipc" "call" "quickCapture" "screenshot" "window" "edit"; }
     Ctrl+Alt+Delete hotkey-overlay-title="Task Manager" { spawn "dms" "ipc" "call" "processlist" "focusOrToggle"; }
-    Ctrl+Print hotkey-overlay-title="Screenshot: Full Screen (Quick Capture)" { spawn "dms" "ipc" "call" "quickCapture" "screenshot" "full" "edit"; }
+    Ctrl+Print hotkey-overlay-title="Screenshot: Full Screen" { spawn "dms" "ipc" "call" "quickCapture" "screenshot" "full" "edit"; }
     Ctrl+Shift+R hotkey-overlay-title="Rename Workspace" { spawn "dms" "ipc" "call" "workspace-rename" "open"; }
     Ctrl+XF86AudioLowerVolume allow-when-locked=true { spawn "dms" "ipc" "call" "mpris" "decrement" "3"; }
     Ctrl+XF86AudioRaiseVolume allow-when-locked=true { spawn "dms" "ipc" "call" "mpris" "increment" "3"; }

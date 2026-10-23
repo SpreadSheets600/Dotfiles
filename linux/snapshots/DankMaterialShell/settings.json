@@ -228,12 +228,14 @@
         {
           "id": "workspaceSwitcher",
           "enabled": true,
-          "showWorkspaceIndex": true,
-          "workspaceIndicatorStyle": "pills",
+          "showWorkspaceIndex": false,
+          "workspaceIndicatorStyle": "dots",
           "workspaceIndicatorCompact": false,
           "workspaceIndicatorRoundness": -1,
           "showWorkspaceApps": false,
-          "showOccupiedWorkspacesOnly": false
+          "showOccupiedWorkspacesOnly": false,
+          "showWorkspaceName": false,
+          "overflowMode": "bar"
         },
         {
           "id": "quickCapture",

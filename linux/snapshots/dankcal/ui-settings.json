@@ -4,7 +4,7 @@
     "allDayReminders": false,
     "animationDuration": 250,
     "closeBehavior": "minimize",
-    "colorSource": "matugen",
+    "colorSource": "auto",
     "coreHoursEnabled": false,
     "coreHoursEnd": 17,
     "coreHoursStart": 9,

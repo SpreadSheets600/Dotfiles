@@ -24,29 +24,40 @@
     {
       "id": "user",
       "enabled": true,
-      "w": 5,
-      "h": 1
+      "w": 4,
+      "h": 1,
+      "col": 0,
+      "row": 0,
+      "hostname": true,
+      "compositor": true,
+      "badge": false
     },
     {
       "id": "settings",
       "enabled": true,
       "w": 1,
       "h": 1,
-      "small": true
+      "small": true,
+      "col": 4,
+      "row": 0
     },
     {
       "id": "lock",
       "enabled": true,
       "w": 1,
       "h": 1,
-      "small": true
+      "small": true,
+      "col": 5,
+      "row": 0
     },
     {
       "id": "power",
       "enabled": true,
       "w": 1,
       "h": 1,
-      "small": true
+      "small": true,
+      "col": 6,
+      "row": 0
     },
     {
       "id": "brightnessSlider",
@@ -59,23 +70,23 @@
     {
       "id": "inputVolumeSlider",
       "enabled": true,
-      "w": 8,
-      "h": 1,
-      "col": 4,
-      "row": 1
-    },
-    {
-      "id": "volumeSlider",
-      "enabled": true,
-      "w": 16,
+      "w": 4,
       "h": 1,
       "col": 0,
       "row": 2
     },
     {
+      "id": "volumeSlider",
+      "enabled": true,
+      "w": 4,
+      "h": 1,
+      "col": 4,
+      "row": 2
+    },
+    {
       "id": "wifi",
       "enabled": true,
-      "w": 8,
+      "w": 4,
       "h": 1,
       "col": 0,
       "row": 3
@@ -83,7 +94,7 @@
     {
       "id": "bluetooth",
       "enabled": true,
-      "w": 8,
+      "w": 4,
       "h": 1,
       "col": 4,
       "row": 3
@@ -91,7 +102,7 @@
     {
       "id": "audioOutput",
       "enabled": true,
-      "w": 8,
+      "w": 4,
       "h": 1,
       "col": 0,
       "row": 4
@@ -99,10 +110,11 @@
     {
       "id": "audioInput",
       "enabled": true,
-      "w": 8,
+      "w": 4,
       "h": 1,
       "col": 4,
-      "row": 4
+      "row": 4,
+      "small": false
     },
     {
       "id": "doNotDisturb",
@@ -110,31 +122,24 @@
       "w": 4,
       "h": 1,
       "col": 4,
-      "row": 6
+      "row": 5
     },
     {
       "id": "idleInhibitor",
       "enabled": true,
       "w": 4,
       "h": 1,
-      "col": 6,
-      "row": 6
+      "col": 0,
+      "row": 5
     },
     {
       "id": "edit",
       "enabled": true,
       "w": 1,
       "h": 1,
-      "small": true
-    },
-    {
-      "id": "runningApps",
-      "enabled": true,
-      "w": 4,
-      "h": 1,
       "small": true,
-      "col": 0,
-      "row": 10
+      "col": 7,
+      "row": 0
     }
   ],
   "appIdSubstitutions": [],
@@ -838,5 +843,7 @@
   "lockScreenVideoEnabled": false,
   "clockFormat": "12h",
   "defaultTaskCalendarId": "ac7bb976-3973-467e-b96c-8c07c3933119",
-  "updaterPauseOnBattery": true
+  "updaterPauseOnBattery": true,
+  "matugenSeedColor": "",
+  "updaterIgnoredPackages": []
 }

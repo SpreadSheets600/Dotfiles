@@ -8,7 +8,7 @@
     "dankGifSearch": {
       "repo": "https://github.com/duxlabs-dev/dux-plugins",
       "path": "DankGifSearch",
-      "commit": "b827c2296cd45a73bf9318f16a261c9edeec8339"
+      "commit": "4b5adf9a1d6c09f93831ebd99b447ad8cae0d6a2"
     },
     "dankSoftwareDepot": {
       "repo": "https://github.com/vinceecniv/DuxSoftwareDepot",
@@ -21,7 +21,7 @@
     "quickCapture": {
       "repo": "https://github.com/hthienloc/dms-plugins",
       "path": "quickCapture",
-      "commit": "193ececfed4a15128be0ff815ca50867e88f3307"
+      "commit": "7c6e34bfecf68f392da9a55330e0fb112eaabbfd"
     },
     "systemMonitorPlus": {
       "repo": "https://github.com/Dadangdut33/dms-plugins",
@@ -31,7 +31,7 @@
     "typingSounds": {
       "repo": "https://github.com/hthienloc/dms-plugins",
       "path": "typingSounds",
-      "commit": "193ececfed4a15128be0ff815ca50867e88f3307"
+      "commit": "7c6e34bfecf68f392da9a55330e0fb112eaabbfd"
     }
   }
 }

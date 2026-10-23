@@ -7,7 +7,11 @@
     "recordMic": true,
     "recordSystemAudio": true,
     "systemAudioDevice": "default_output",
-    "micDevice": "default_input"
+    "micDevice": "default_input",
+    "includeCursor": true,
+    "recordingBackend": "gpu-screen-recorder",
+    "recordingQuality": "high",
+    "audioCodec": "opus"
   },
   "dankGifSearch": {
     "enabled": true

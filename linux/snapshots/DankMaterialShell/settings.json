@@ -589,7 +589,8 @@
       "playerStyle": "material"
     },
     "clock": {
-      "seconds": true
+      "seconds": true,
+      "date": true
     },
     "weather": {
       "city": true

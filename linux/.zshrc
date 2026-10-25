@@ -343,3 +343,8 @@ if [[ -z $NOFETCH && -z $TMUX && -z $ZELLIJ ]]; then
       fastfetch --config "$XDG_CONFIG_HOME/fastfetch/config.jsonc" 2>/dev/null
   }
 fi
+
+# Added by DevRelay installer
+export PATH="$HOME/.devrelay/bin:$PATH"
+
+. "$HOME/.local/share/../bin/env"

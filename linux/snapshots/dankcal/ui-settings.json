@@ -35,7 +35,7 @@
     "showTasks": true,
     "showTrayIcon": true,
     "showWeekNumbers": false,
-    "sidebarCollapsed": false,
+    "sidebarCollapsed": true,
     "sidebarWidth": 278,
     "snoozeMinutes": 5,
     "springBounce": 1,

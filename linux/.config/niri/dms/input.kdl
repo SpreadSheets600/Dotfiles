@@ -6,6 +6,7 @@
 input {
     mouse {
         accel-speed 0.5
+        scroll-factor 1.5
     }
     touchpad {
         tap

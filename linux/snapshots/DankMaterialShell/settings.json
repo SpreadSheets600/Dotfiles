@@ -849,5 +849,7 @@
   "updaterPauseOnBattery": true,
   "matugenSeedColor": "",
   "updaterIgnoredPackages": [],
-  "useAutoLocation": true
+  "useAutoLocation": true,
+  "mouseScrollFactor": 1.5,
+  "mouseAccelProfile": "default"
 }

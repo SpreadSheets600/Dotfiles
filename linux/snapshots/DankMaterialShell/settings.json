@@ -848,5 +848,6 @@
   "defaultTaskCalendarId": "ac7bb976-3973-467e-b96c-8c07c3933119",
   "updaterPauseOnBattery": true,
   "matugenSeedColor": "",
-  "updaterIgnoredPackages": []
+  "updaterIgnoredPackages": [],
+  "useAutoLocation": true
 }

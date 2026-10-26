@@ -11,7 +11,7 @@
 # browser/profile you already use. Pass --isolated for a separate profile.
 #
 # Environment:
-#   WEBAPP_BROWSER   Chromium browser command (default: brave-origin, brave, chromium)
+#   WEBAPP_BROWSER   Chromium browser command (default: helium-browser, brave-origin, brave, chromium)
 #   WEBAPP_ISOLATED  1 = use a dedicated profile (same as --isolated)
 #   WEBAPP_DATA_DIR  isolated profile directory (default: ${XDG_DATA_HOME:-~/.local/share}/webapps)
 set -euo pipefail
@@ -33,7 +33,7 @@ Options:
   -I, --isolated  use a dedicated profile instead of your normal browser profile
 
 Environment:
-  WEBAPP_BROWSER   Chromium browser command (default: brave-origin, brave, chromium)
+  WEBAPP_BROWSER   Chromium browser command (default: helium-browser, brave-origin, brave, chromium)
   WEBAPP_ISOLATED  1 = use a dedicated profile (same as --isolated)
   WEBAPP_DATA_DIR  isolated profile directory (default: ${XDG_DATA_HOME:-~/.local/share}/webapps)
 EOF
@@ -77,6 +77,7 @@ default_name() {
 browser_app_prefix() {
   local browser=${1##*/}
   case $browser in
+    helium*) printf 'chrome' ;;
     brave*) printf 'brave' ;;
     chromium*) printf 'chromium' ;;
     google-chrome*) printf 'google-chrome' ;;
@@ -93,7 +94,7 @@ pick_browser() {
   fi
 
   local browser
-  for browser in brave-origin brave brave-browser chromium chromium-browser google-chrome-stable; do
+  for browser in helium-browser helium brave-origin brave brave-browser chromium chromium-browser google-chrome-stable; do
     if command -v "$browser" >/dev/null 2>&1; then
       printf '%s\n' "$browser"
       return
@@ -144,7 +145,7 @@ write_desktop() {
   host="$(url_host "$url")"
   prefix="$(browser_app_prefix "$browser")"
   case $prefix in
-    brave|chromium|google-chrome) wm_class="$prefix-${host}__-Default" ;;
+    brave|chromium|google-chrome|chrome) wm_class="$prefix-${host}__-Default" ;;
     *) wm_class="webapp-$slug" ;;
   esac
 

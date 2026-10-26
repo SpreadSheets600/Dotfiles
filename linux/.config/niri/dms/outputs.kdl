@@ -4,6 +4,12 @@ output "HDMI-A-1" {
     mode "1920x1080@74.986"
     scale 1
     position x=0 y=0
+    hot-corners {
+        top-left
+    }
+    layout {
+        always-center-single-column
+    }
 }
 
 output "eDP-1" {

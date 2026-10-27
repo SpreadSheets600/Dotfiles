@@ -1,6 +1,7 @@
 {
   "emojiLauncher": {
-    "enabled": true
+    "enabled": true,
+    "recentEmojis": "🔫"
   },
   "quickCapture": {
     "enabled": true,

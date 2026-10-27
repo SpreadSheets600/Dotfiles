@@ -16,8 +16,8 @@ SYSTEM.md
 # Cross-platform editor/theme configs
 shared/
 
-# Optional assets:
-# Wallpapers you drop into ~/Pictures/Wallpapers (synced so you never lose them)
+# Wallpaper collection: a submodule of github.com/SpreadSheets600/Wallpapers
+# (the sync commits and pushes new images inside it, then records the commit)
 wallpapers/
 # windows/
 # .github/

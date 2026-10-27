@@ -5,6 +5,11 @@
       "repo": "https://github.com/NordicsSys/dankCleaner",
       "commit": "bdf499182f39427ba0d720656e6fd131ddd57280"
     },
+    "dankDesktopWeather": {
+      "repo": "https://github.com/duxlabs-dev/dux-plugins",
+      "path": "DankDesktopWeather",
+      "commit": "f53b2813b9a782b0e2df4444357fb488136733ba"
+    },
     "dankGifSearch": {
       "repo": "https://github.com/duxlabs-dev/dux-plugins",
       "path": "DankGifSearch",

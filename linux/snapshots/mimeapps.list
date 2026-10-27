@@ -44,6 +44,7 @@ audio/ogg=dms-open.desktop
 audio/wav=dms-open.desktop
 audio/webm=dms-open.desktop
 audio/x-flac=dms-open.desktop
+x-scheme-handler/webcal=helium.desktop
 
 [Added Associations]
 image/jpeg=com.danklinux.dankview.desktop;

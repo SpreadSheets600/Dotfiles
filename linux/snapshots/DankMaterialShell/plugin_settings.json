@@ -133,5 +133,9 @@
   },
   "enteAuth": {
     "enabled": true
+  },
+  "dankPomodoroTimer": {
+    "enabled": true,
+    "workDuration": "45"
   }
 }

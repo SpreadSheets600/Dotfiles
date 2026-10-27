@@ -921,3 +921,9 @@ git submodule update --init --recursive   # for an existing clone
 `install.sh` recreates the `~/Pictures/Wallpapers` link and initialises the
 submodule when it is empty. The submodule keeps the wallpaper repo's full
 history, so its `.git` is far bigger than the images it holds.
+
+The wallpaper repo also builds its own site: a push runs
+`.github/workflows/site.yml`, which renders 480 px WebP thumbnails, rebuilds the
+READMEs and force-pushes the result to the `gh-pages` branch
+(<https://spreadsheets600.github.io/Wallpapers/>). Thumbnails live only on that
+branch — the source images never leave `master`.

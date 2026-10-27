@@ -90,9 +90,13 @@ if [[ -d $LINUX_DIR/scripts ]]; then
 fi
 
 # --- wallpapers ---------------------------------------------------------------
-# Images live in the repo (wallpapers/) so git tracks them; ~/Pictures/Wallpapers
-# is just a symlink to that directory.
-link_path "$REPO_DIR/wallpapers" "$HOME/Pictures/Wallpapers"
+# wallpapers/ is a git submodule of github.com/SpreadSheets600/Wallpapers and
+# the images live in wallpapers/Wallpapers/<Category>/. The link points at the
+# image root so file pickers and DMS only ever see pictures.
+if [[ ! -d $REPO_DIR/wallpapers/Wallpapers ]] && [[ $DRY_RUN == 0 ]]; then
+  git -C "$REPO_DIR" submodule update --init --recursive 2>/dev/null || true
+fi
+link_path "$REPO_DIR/wallpapers/Wallpapers" "$HOME/Pictures/Wallpapers"
 
 # --- systemd user units -------------------------------------------------------
 # Link only the unit files, not the whole ~/.config/systemd directory.

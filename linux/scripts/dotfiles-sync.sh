@@ -127,6 +127,34 @@ snapshot_configs() {
   log "refreshed $count config snapshot(s)"
 }
 
+submodule_sync() {
+  local sub="$REPO/wallpapers" branch
+  [[ -d $sub ]] || return 0
+  git -C "$sub" rev-parse --git-dir >/dev/null 2>&1 || return 0   # not initialised
+
+  branch=$(git config -f "$REPO/.gitmodules" --get submodule.wallpapers.branch 2>/dev/null || true)
+  branch=${branch:-master}
+
+  # A freshly cloned submodule is on a detached HEAD; commits made there would
+  # never reach a branch, so move onto the tracking branch first.
+  if ! git -C "$sub" symbolic-ref -q HEAD >/dev/null; then
+    git -C "$sub" checkout -q "$branch" \
+      || { log "wallpapers: detached HEAD, checkout $branch failed; skipping"; return 0; }
+  fi
+
+  if [[ -n $(git -C "$sub" status --porcelain) ]]; then
+    log "staging wallpapers submodule"
+    git -C "$sub" add -A
+    git -C "$sub" commit -q -m "auto: wallpapers sync $(date '+%Y-%m-%d %H:%M')" || true
+  fi
+
+  if git -C "$sub" rev-parse --abbrev-ref --symbolic-full-name '@{u}' >/dev/null 2>&1; then
+    git -C "$sub" push --quiet || log "wallpapers: push failed, will retry next tick"
+  else
+    git -C "$sub" push --quiet -u origin "$branch" || log "wallpapers: push failed, will retry next tick"
+  fi
+}
+
 cmd_run() {
   local mode=${1:-}
 
@@ -137,6 +165,10 @@ cmd_run() {
 
   # Refresh the copies of configs that cannot be symlinked, then stage.
   snapshot_configs
+
+  # wallpapers/ is a submodule: commit and push it first, otherwise the parent
+  # would pin a commit that does not exist on GitHub yet.
+  submodule_sync
 
   # Start from a clean index so unrelated staged files never sneak in.
   git reset -q

@@ -1,0 +1,4 @@
+[submodule "wallpapers"]
+	path = wallpapers
+	url = https://github.com/SpreadSheets600/Wallpapers.git
+	branch = master

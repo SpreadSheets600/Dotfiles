@@ -12,6 +12,7 @@ install.sh
 README.md
 SYSTEM.md
 .gitignore
+.gitmodules
 
 # Cross-platform editor/theme configs
 shared/

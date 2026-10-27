@@ -238,11 +238,15 @@
           "overflowMode": "bar"
         },
         {
-          "id": "quickCapture",
+          "id": "dankPomodoroTimer",
           "enabled": true
         },
         {
           "id": "dankFanStats",
+          "enabled": true
+        },
+        {
+          "id": "quickCapture",
           "enabled": true
         },
         {
@@ -288,7 +292,7 @@
       "spacing": 4,
       "innerPadding": 4,
       "barInsetPadding": 4,
-      "barLengthPadding": 0,
+      "barLengthPadding": 100,
       "bottomGap": 0,
       "attachToScreenEdge": false,
       "transparency": 0.6,
@@ -336,7 +340,7 @@
       "widgetFollowInterfaceStyle": false,
       "dot": false,
       "widgetStyle": "segments",
-      "barLengthMode": "percent",
+      "barLengthMode": "full",
       "barLengthPercent": 80,
       "middleClickAction": "none"
     },
@@ -851,5 +855,6 @@
   "updaterIgnoredPackages": [],
   "useAutoLocation": true,
   "mouseScrollFactor": 1.5,
-  "mouseAccelProfile": "default"
+  "mouseAccelProfile": "default",
+  "barInsetPaddingShared": -1
 }

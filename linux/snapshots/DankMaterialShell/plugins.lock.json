@@ -8,7 +8,12 @@
     "dankGifSearch": {
       "repo": "https://github.com/duxlabs-dev/dux-plugins",
       "path": "DankGifSearch",
-      "commit": "4b5adf9a1d6c09f93831ebd99b447ad8cae0d6a2"
+      "commit": "f53b2813b9a782b0e2df4444357fb488136733ba"
+    },
+    "dankPomodoroTimer": {
+      "repo": "https://github.com/duxlabs-dev/dux-plugins",
+      "path": "DankPomodoroTimer",
+      "commit": "f53b2813b9a782b0e2df4444357fb488136733ba"
     },
     "dankSoftwareDepot": {
       "repo": "https://github.com/vinceecniv/DuxSoftwareDepot",

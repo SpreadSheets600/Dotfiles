@@ -49,8 +49,9 @@ setup changes.
     into `~/.icons` so niri can see them, and added a systemd path unit that
     mirrors DMS cursor changes to GTK, X11, GSettings, and niri.
 14. Added automatic GitHub sync for the setup configs (`dotfiles-sync.sh` +
-    a 15-minute timer) and moved wallpapers into the repo (`wallpapers/`,
-    symlinked from `~/Pictures/Wallpapers`).
+    a 15-minute timer). The wallpaper collection moved into its own repo
+    (`SpreadSheets600/Wallpapers`), mounted here as the `wallpapers/` submodule
+    and symlinked from `~/Pictures/Wallpapers`.
 
 ---
 
@@ -61,7 +62,7 @@ Dotfiles/
 ├── install.sh              # link linux/ configs into $HOME (backs up first)
 ├── SYSTEM.md               # this file
 ├── README.md
-├── wallpapers/             # images; ~/Pictures/Wallpapers links here
+├── wallpapers/             # submodule: SpreadSheets600/Wallpapers (images)
 ├── linux/                  # machine-local Linux (CachyOS/niri) configs
 │   ├── .zshrc              # interactive shell
 │   ├── .zshenv             # environment for every zsh
@@ -139,7 +140,7 @@ Current links:
 | `~/.config/{kitty,niri,paru,fastfetch,lazygit,cava,conky,goverlay,MangoHud,autostart,nvim}` | `linux/.config/...` |
 | `~/.local/bin/{game.sh,VirtualPhoneCam.sh,cheatenginelaunch.sh,webapp.sh,dms-theme-refresh.sh,dms-cursor-sync.sh,dotfiles-sync.sh}` | `linux/scripts/...` |
 | `~/.config/systemd/user/{dms-cursor-sync.path,dms-cursor-sync.service,dotfiles-sync.service,dotfiles-sync.timer}` | `linux/systemd/user/...` |
-| `~/Pictures/Wallpapers` | `wallpapers/` |
+| `~/Pictures/Wallpapers` | `wallpapers/Wallpapers/` |
 
 Website app-menu entries are generated (not tracked) by `webapp.sh` at
 `~/.local/share/applications/webapp-<slug>.desktop`.
@@ -829,7 +830,7 @@ README.md
 SYSTEM.md
 .gitignore      repo ignore rules
 shared/         VS Code / Zed / Discord configs (cross-platform)
-wallpapers/     wallpaper collection (~/Pictures/Wallpapers)
+wallpapers/     submodule pin for the wallpaper collection
 ```
 
 Deliberately **not** synced: `.github/images` (old README images) and
@@ -884,15 +885,39 @@ copies it into `linux/snapshots/` (for apps that cannot be symlinked).
 
 ### Wallpapers
 
-The real files live in `wallpapers/` in this repo and are tracked, so
-`~/Pictures/Wallpapers` can be a symlink to them. Drop an image into either
-path and the 15-minute sync commits and pushes it to GitHub automatically.
+Wallpapers live in their own repository,
+[SpreadSheets600/Wallpapers](https://github.com/SpreadSheets600/Wallpapers),
+mounted here as the `wallpapers/` submodule. The images are in
+`wallpapers/Wallpapers/<Category>/` (sorted by subject, then by colour) and
+`~/Pictures/Wallpapers` is a symlink to that image root.
 
 ```text
-~/Dotfiles/wallpapers/   <-- real files (tracked)
-~/Pictures/Wallpapers -> ~/Dotfiles/wallpapers
-~/Pictures/Wallapaper -> ~/Dotfiles/wallpapers   # old spelling, kept for apps
+~/Dotfiles/wallpapers/             <-- submodule -> SpreadSheets600/Wallpapers
+~/Dotfiles/wallpapers/Wallpapers/  <-- images, one folder per category
+~/Pictures/Wallpapers -> ~/Dotfiles/wallpapers/Wallpapers
+~/Pictures/Wallapaper -> ~/Dotfiles/wallpapers/Wallpapers   # old spelling, kept
 ```
 
-`install.sh` recreates the `~/Pictures/Wallpapers` link. If the collection
-grows large, consider Git LFS.
+Drop an image into a category folder and the 15-minute sync commits and pushes
+it inside the submodule first, then records the new commit in Dotfiles. By
+hand:
+
+```bash
+cd ~/Dotfiles/wallpapers
+python3 scripts/organize.py       # HEIC -> JPEG, renumber loose files
+python3 scripts/build_readme.py   # refresh READMEs
+python3 scripts/build_site.py     # refresh the gallery
+git add -A && git commit -m "feat: add wallpapers" && git push
+cd .. && git add wallpapers && git commit -m "chore: bump wallpapers"
+```
+
+A fresh clone needs the submodule too:
+
+```bash
+git clone --recurse-submodules https://github.com/SpreadSheets600/Dotfiles.git ~/Dotfiles
+git submodule update --init --recursive   # for an existing clone
+```
+
+`install.sh` recreates the `~/Pictures/Wallpapers` link and initialises the
+submodule when it is empty. The submodule keeps the wallpaper repo's full
+history, so its `.git` is far bigger than the images it holds.

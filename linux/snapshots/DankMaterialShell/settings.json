@@ -2,7 +2,7 @@
   "currentThemeName": "dynamic",
   "currentThemeCategory": "dynamic",
   "matugenScheme": "scheme-neutral",
-  "matugenContrast": 0.3,
+  "matugenContrast": 0,
   "popupTransparency": 0.8,
   "controlCenterTileColorMode": "primaryContainer",
   "niriLayoutGapsOverride": 8,
@@ -571,7 +571,7 @@
   "dmsWindowsFloatingSeeded": [
     "niri"
   ],
-  "matugenSpec": "dms",
+  "matugenSpec": "2025",
   "matugenSourceMode": "dominant",
   "wallpaperBackgroundColorMode": "surface",
   "terminalOpacity": 80,

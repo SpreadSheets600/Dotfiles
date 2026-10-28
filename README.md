@@ -33,7 +33,7 @@
 - **Theme**: matugen, generated from the current wallpaper
 - **Font**: ZedMono Nerd Font
 - **Icons**: Numix-Square
-- **Cursors**: WCursor packs (Camellya, Chisa)
+- **Cursors**: [WCurso](https://github.com/SpreadSheets600/WCursor)r packs (Camellya, Chisa)
 - **Wallpapers**: [SpreadSheets600/Wallpapers](https://github.com/SpreadSheets600/Wallpapers)
 
 ---

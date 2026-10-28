@@ -1,38 +1,36 @@
 #!/usr/bin/env bash
-# =============================================================================
-#  install.sh — link the Linux dotfiles into $HOME
-#
-#  Usage:
-#    ./install.sh            # back up conflicting files, then symlink
-#    ./install.sh --dry-run  # show what would happen
-#
-#  Every existing file is moved to:
-#    ~/.local/state/dotfiles-backups/<timestamp>/
-#  Nothing is deleted.
-# =============================================================================
 
 set -euo pipefail
 
 REPO_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 LINUX_DIR="$REPO_DIR/linux"
-BACKUP_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles-backups/$(date +%Y%m%d-%H%M%S)"
 CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+BIN_HOME="$HOME/.local/bin"
+BACKUP_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles-backups/$(date +%Y%m%d-%H%M%S)"
 
 DRY_RUN=0
+
+usage() {
+  printf '%s\n' \
+    'Usage:' \
+    '  ./install.sh            back up conflicting files, then symlink' \
+    '  ./install.sh --dry-run  show what would happen' \
+    '' \
+    'Existing files are moved to:' \
+    '  ~/.local/state/dotfiles-backups/<timestamp>/'
+}
+
+ok() { printf '  \033[32m✓\033[0m %s\n' "$*"; }
+moved() { printf '  \033[33m↳\033[0m %s\n' "$*"; }
+dry() { printf '  \033[36m·\033[0m %s\n' "$*"; }
+
 for arg in "$@"; do
   case $arg in
     -n|--dry-run) DRY_RUN=1 ;;
-    -h|--help)
-      sed -n '2,15p' "$0" | sed 's/^# \{0,1\}//'
-      exit 0
-      ;;
+    -h|--help) usage; exit 0 ;;
     *) printf 'unknown option: %s\n' "$arg" >&2; exit 1 ;;
   esac
 done
-
-ok()     { printf '  \033[32m✓\033[0m %s\n' "$*"; }
-moved()  { printf '  \033[33m↳\033[0m %s\n' "$*"; }
-dry()    { printf '  \033[36m·\033[0m %s\n' "$*"; }
 
 link_path() {
   local src=$1 dest=$2
@@ -63,16 +61,36 @@ link_path() {
   ok "$dest -> $src"
 }
 
+prune_links() {
+  local dir=$1 link target
+
+  [[ -d $dir ]] || return 0
+
+  for link in "$dir"/*; do
+    [[ -L $link ]] || continue
+    target=$(readlink -f -- "$link" 2>/dev/null || true)
+    [[ $target == "$REPO_DIR"/* ]] || continue
+    [[ -e $target ]] && continue
+
+    if [[ $DRY_RUN == 1 ]]; then
+      dry "would remove stale link $link"
+    else
+      rm -f -- "$link"
+      moved "removed stale link $link"
+    fi
+  done
+}
+
 printf '\n\033[1mDotfiles installer\033[0m\n'
 printf 'repo:   %s\n' "$REPO_DIR"
 printf 'backup: %s\n\n' "$BACKUP_DIR"
 
-# --- shell files in $HOME -----------------------------------------------------
+prune_links "$BIN_HOME"
+
 for file in .zshenv .zprofile .zshrc .p10k.zsh .gitconfig; do
   [[ -e $LINUX_DIR/$file ]] && link_path "$LINUX_DIR/$file" "$HOME/$file"
 done
 
-# --- XDG configs --------------------------------------------------------------
 if [[ -d $LINUX_DIR/.config ]]; then
   for src in "$LINUX_DIR"/.config/*; do
     [[ -e $src ]] || continue
@@ -80,51 +98,20 @@ if [[ -d $LINUX_DIR/.config ]]; then
   done
 fi
 
-# --- helper scripts -----------------------------------------------------------
 if [[ -d $LINUX_DIR/scripts ]]; then
   for src in "$LINUX_DIR"/scripts/*.sh; do
     [[ -e $src ]] || continue
     chmod +x "$src"
-    link_path "$src" "$HOME/.local/bin/$(basename -- "$src")"
+    link_path "$src" "$BIN_HOME/$(basename -- "$src")"
   done
 fi
 
-# --- wallpapers ---------------------------------------------------------------
-# wallpapers/ is a git submodule of github.com/SpreadSheets600/Wallpapers and
-# the images live flat in wallpapers/Wallpapers/. The link points at the
-# image root so file pickers and DMS only ever see pictures.
 if [[ ! -d $REPO_DIR/wallpapers/Wallpapers ]] && [[ $DRY_RUN == 0 ]]; then
   git -C "$REPO_DIR" submodule update --init --recursive 2>/dev/null || true
 fi
+
 link_path "$REPO_DIR/wallpapers/Wallpapers" "$HOME/Pictures/Wallpapers"
 
-# --- systemd user units -------------------------------------------------------
-# Link only the unit files, not the whole ~/.config/systemd directory.
-if [[ -d $LINUX_DIR/systemd/user ]]; then
-  for src in "$LINUX_DIR"/systemd/user/*; do
-    [[ -e $src ]] || continue
-    link_path "$src" "$CONFIG_HOME/systemd/user/$(basename -- "$src")"
-  done
-  if [[ $DRY_RUN == 0 ]] && command -v systemctl >/dev/null 2>&1; then
-    systemctl --user daemon-reload 2>/dev/null || true
-    for unit in "$LINUX_DIR"/systemd/user/*.path; do
-      [[ -e $unit ]] || continue
-      name=$(basename -- "$unit" .path)
-      systemctl --user enable --now "$name.path" 2>/dev/null || true
-      systemctl --user start "$name.service" 2>/dev/null || true
-    done
-    for unit in "$LINUX_DIR"/systemd/user/*.timer; do
-      [[ -e $unit ]] || continue
-      name=$(basename -- "$unit" .timer)
-      systemctl --user enable --now "$name.timer" 2>/dev/null || true
-    done
-    ok "systemd user path units and timers enabled"
-  fi
-fi
-
-# --- desktop font / icon theme ------------------------------------------------
-# These are stored in dconf (gsettings), so they are applied per user at install
-# time. Safe to skip on systems without a desktop session.
 if [[ $DRY_RUN == 0 ]] && command -v gsettings >/dev/null 2>&1; then
   gsettings set org.gnome.desktop.interface font-name 'ZedMono Nerd Font 11' 2>/dev/null || true
   gsettings set org.gnome.desktop.interface monospace-font-name 'ZedMono Nerd Font 11' 2>/dev/null || true
@@ -135,6 +122,7 @@ if [[ $DRY_RUN == 0 ]] && command -v gsettings >/dev/null 2>&1; then
 fi
 
 printf '\nDone. Open a new terminal (or run: exec zsh -l).\n'
+
 if [[ $DRY_RUN == 0 ]]; then
   printf 'Previous files are safe in: %s\n\n' "$BACKUP_DIR"
 fi

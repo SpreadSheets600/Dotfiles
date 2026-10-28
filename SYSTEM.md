@@ -887,25 +887,25 @@ copies it into `linux/snapshots/` (for apps that cannot be symlinked).
 
 Wallpapers live in their own repository,
 [SpreadSheets600/Wallpapers](https://github.com/SpreadSheets600/Wallpapers),
-mounted here as the `wallpapers/` submodule. The images are in
-`wallpapers/Wallpapers/<Category>/` (sorted by subject, then by colour) and
-`~/Pictures/Wallpapers` is a symlink to that image root.
+mounted here as the `wallpapers/` submodule. The images live flat in
+`wallpapers/Wallpapers/`, numbered in a stable order, and `~/Pictures/Wallpapers`
+is a symlink to that image root.
 
 ```text
 ~/Dotfiles/wallpapers/             <-- submodule -> SpreadSheets600/Wallpapers
-~/Dotfiles/wallpapers/Wallpapers/  <-- images, one folder per category
+~/Dotfiles/wallpapers/Wallpapers/  <-- the images, no subfolders
 ~/Pictures/Wallpapers -> ~/Dotfiles/wallpapers/Wallpapers
 ~/Pictures/Wallapaper -> ~/Dotfiles/wallpapers/Wallpapers   # old spelling, kept
 ```
 
-Drop an image into a category folder and the 15-minute sync commits and pushes
+Drop an image into `Wallpapers/` and the 15-minute sync commits and pushes
 it inside the submodule first, then records the new commit in Dotfiles. By
 hand:
 
 ```bash
 cd ~/Dotfiles/wallpapers
 python3 scripts/organize.py       # HEIC -> JPEG, renumber loose files
-python3 scripts/build_readme.py   # refresh READMEs
+python3 scripts/build_readme.py   # refresh README
 python3 scripts/build_site.py     # refresh the gallery
 git add -A && git commit -m "feat: add wallpapers" && git push
 cd .. && git add wallpapers && git commit -m "chore: bump wallpapers"
@@ -924,6 +924,6 @@ history, so its `.git` is far bigger than the images it holds.
 
 The wallpaper repo also builds its own site: a push runs
 `.github/workflows/site.yml`, which renders 480 px WebP thumbnails, rebuilds the
-READMEs and force-pushes the result to the `gh-pages` branch
+README and force-pushes the result to the `gh-pages` branch
 (<https://spreadsheets600.github.io/Wallpapers/>). Thumbnails live only on that
 branch — the source images never leave `master`.

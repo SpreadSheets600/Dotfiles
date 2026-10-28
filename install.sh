@@ -91,7 +91,7 @@ fi
 
 # --- wallpapers ---------------------------------------------------------------
 # wallpapers/ is a git submodule of github.com/SpreadSheets600/Wallpapers and
-# the images live in wallpapers/Wallpapers/<Category>/. The link points at the
+# the images live flat in wallpapers/Wallpapers/. The link points at the
 # image root so file pickers and DMS only ever see pictures.
 if [[ ! -d $REPO_DIR/wallpapers/Wallpapers ]] && [[ $DRY_RUN == 0 ]]; then
   git -C "$REPO_DIR" submodule update --init --recursive 2>/dev/null || true

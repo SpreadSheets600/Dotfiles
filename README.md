@@ -126,9 +126,10 @@ windows/scripts/system-cleanup.ps1  run as Administrator
 ## wallpapers
 
 [**SpreadSheets600/Wallpapers**](https://github.com/SpreadSheets600/Wallpapers)
-is mounted at `wallpapers/` and `~/Pictures/Wallpapers` points straight at the
-image folders, so any picker can use the collection. The repo also builds a
-thumbnail gallery automatically on every push.
+is mounted at `wallpapers/` and `~/Pictures/Wallpapers` points straight at
+`wallpapers/Wallpapers/`, one flat folder of images, so any picker can use the
+collection. The repo also builds a thumbnail gallery automatically on every
+push.
 
 ```bash
 cd ~/Dotfiles/wallpapers

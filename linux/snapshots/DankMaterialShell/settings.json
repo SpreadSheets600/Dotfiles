@@ -13,7 +13,7 @@
   "calendarBackend": "dankcal",
   "showSeconds": true,
   "padHours12Hour": true,
-  "motionEffect": 3,
+  "motionEffect": 1,
   "blurEnabled": true,
   "foregroundLayerTransparency": 0.6,
   "blurLayerOutlineOpacity": 0.2,
@@ -301,7 +301,7 @@
       "noBackground": false,
       "maximizeWidgetIcons": false,
       "maximizeWidgetText": false,
-      "widgetPadding": 6,
+      "widgetPadding": 4,
       "batteryColorMode": "theme",
       "gothCornersEnabled": false,
       "gothCornerRadiusOverride": false,
@@ -580,7 +580,7 @@
   "blurBorderCustomColor": "#ffffff",
   "radiusMode": "scale",
   "displayFontFamily": "ZedMono Nerd Font Mono",
-  "springBounce": 2,
+  "springBounce": 0,
   "animationDuration": 300,
   "connectedFrameBarStyleBackups": {},
   "frameEnabled": false,
@@ -856,5 +856,8 @@
   "useAutoLocation": true,
   "mouseScrollFactor": 1.5,
   "mouseAccelProfile": "default",
-  "barInsetPaddingShared": -1
+  "barInsetPaddingShared": -1,
+  "reduceMotion": false,
+  "widgetColorMode": "default",
+  "widgetBackgroundColor": "default"
 }

@@ -1,135 +1,148 @@
-# dotfiles
+<h1 align="center">My Linux + Windows Setup</h1>
 
-My daily driver: **CachyOS** with **niri** + **DankMaterialShell** on Linux,
-**Windows 11** on the other side of the boot menu. Linux configs are symlinked
-into `$HOME` by one script; Windows configs are copied by hand. If it is worth
-tweaking, it is in here.
+<div align="center">
+  <img src=".github/images/linux/image-1.png" alt="niri desktop with DankMaterialShell bar, cava and clock widgets" width="100%"/>
+</div>
 
-| Linux — niri + DankMaterialShell | Windows — Komorebi + YASB + Rainmeter |
-|:---:|:---:|
-| <img src="linux/screenshots/desktop-2026-10-22.png" width="620" alt="Linux desktop"> | <img src=".github/images/Image-1.jpg" width="620" alt="Windows desktop"> |
+<div align="center">
+  <img src=".github/images/linux/image-4.png" alt="clean niri desktop with wallpaper and dock" width="49%"/>
+  <img src=".github/images/linux/image-3.png" alt="fastfetch in kitty" width="49%"/>
+</div>
 
-```bash
-git clone --recurse-submodules https://github.com/SpreadSheets600/Dotfiles.git ~/Dotfiles
-cd ~/Dotfiles && ./install.sh
-```
+<div align="center">
+  <img src=".github/images/windows/image-1.png" alt="Windows desktop with YASB bar, cava and Rainmeter clock" width="49%"/>
+  <img src=".github/images/windows/image-3.png" alt="fastfetch in Windows Terminal" width="49%"/>
+</div>
 
-> These are my personal settings, published as a backup and for reference.
-> Read what `install.sh` does before running it, and expect to change keybinds,
-> paths and hardware-specific bits. Nothing is deleted: conflicts are moved to
-> `~/.local/state/dotfiles-backups/<timestamp>/` first.
+<p align="center">
+CachyOS with niri and DankMaterialShell on one side of the boot menu, Windows 11 with Komorebi and YASB on the other.<br/>
+Linux gets symlinked by one script, Windows gets copied by hand.
+</p>
 
-## contents
+---
 
-| path | what is in it |
-|---|---|
-| [`linux/`](linux/) | CachyOS configs: niri, DMS, kitty, nvim, zsh, fastfetch, cava, conky … |
-| [`linux/scripts/`](linux/scripts/) | helpers installed to `~/.local/bin` (`webapp.sh`, `dms-theme-refresh.sh`, sync scripts) |
-| [`linux/snapshots/`](linux/snapshots/) | live configs that cannot be symlinked, copied by the sync |
-| [`windows/`](windows/) | Komorebi, YASB, Windhawk, Windows Terminal, Rainmeter, WSL |
-| [`shared/`](shared/) | VS Code, Zed and Discord configs used on both platforms |
-| [`wallpapers/`](wallpapers/) | submodule → [SpreadSheets600/Wallpapers](https://github.com/SpreadSheets600/Wallpapers) |
-| [`SYSTEM.md`](SYSTEM.md) | the long version: setup steps, keybinds, packages, troubleshooting |
+## Stack
 
-## install
+| Piece | Linux | Windows |
+|:--|:--|:--|
+| Compositor | [niri](https://github.com/YaLTeR/niri) | [Komorebi](https://github.com/LGUG2Z/komorebi) + [WHKD](https://github.com/LGUG2Z/whkd) |
+| Desktop shell | DankMaterialShell | [YASB](https://github.com/amnweb/yasb) |
+| Taskbar mods | - | [Windhawk](https://windhawk.net/) |
+| Terminal | [kitty](https://github.com/kovidgoyal/kitty) | [Windows Terminal](https://github.com/microsoft/terminal) |
+| Shell | zsh + [Powerlevel10k](https://github.com/romkatv/powerlevel10k) | zsh in [WSL](https://learn.microsoft.com/windows/wsl/) (Debian) |
+| Editor | [Neovim](https://github.com/neovim/neovim) + [LazyVim](https://www.lazyvim.org/), Zed, VS Code | Zed, VS Code |
+| Widgets | [Conky](https://github.com/brndnmtthws/conky), btop | [Rainmeter](https://www.rainmeter.net/) |
+| Visualizer | [cava](https://github.com/karlstav/cava) | cava |
+| Fetch | [fastfetch](https://github.com/fastfetch-cli/fastfetch) | fastfetch |
+
+## Palette
+
+| Name | Choice |
+|:--|:--|
+| Theme | matugen palette built from the current wallpaper |
+| Font | ZedMono Nerd Font |
+| Icons | Numix-Square |
+| Cursors | WCursor packs (Camellya, Chisa) |
+| Wallpapers | [SpreadSheets600/Wallpapers](https://github.com/SpreadSheets600/Wallpapers) |
+
+---
+
+## Install
 
 ```bash
 git clone --recurse-submodules https://github.com/SpreadSheets600/Dotfiles.git ~/Dotfiles
 cd ~/Dotfiles
-
-./install.sh --dry-run   # show what would be linked
+./install.sh --dry-run   # show the links
 ./install.sh             # back up conflicts, then symlink
-chsh -s /usr/bin/zsh     # if zsh is not already your login shell
-exec zsh -l
+chsh -s /usr/bin/zsh     # if zsh is not your login shell yet
 ```
 
-The installer links `linux/` into `~/.config` and `$HOME`, installs the helper
-scripts, recreates `~/Pictures/Wallpapers`, initialises the wallpaper submodule
-and enables the 15-minute sync timer.
+> [!NOTE]
+> These are my personal settings, published as a backup and for reference. Read
+> `install.sh` before running it and expect to change keybinds, paths and
+> hardware bits. Existing files are moved to
+> `~/.local/state/dotfiles-backups/<timestamp>/` first, nothing is deleted.
 
-Already cloned without submodules?
-
-```bash
-git submodule update --init --recursive
-```
-
-### packages
+### Packages
 
 ```bash
 sudo pacman -S --needed zsh zsh-completions zsh-autosuggestions \
   zsh-syntax-highlighting zsh-history-substring-search zsh-theme-powerlevel10k \
-  kitty bat eza fzf fd ripgrep zoxide vivid yazi direnv stow lazygit btop \
-  fastfetch cava neovim nodejs npm tree-sitter-cli stylua shfmt jq \
-  discord spotify-launcher zellij git-delta duf dust procs glow pkgfile \
+  kitty eza bat fd ripgrep fzf zoxide vivid yazi lazygit btop fastfetch direnv \
+  git-delta duf dust procs glow tealdeer pkgfile zellij neovim nodejs npm \
+  tree-sitter-cli stylua shfmt jq discord spotify-launcher paru \
   ttf-zed-mono-nerd ttf-iosevka-nerd ttf-jetbrains-mono-nerd \
   ttf-nerd-fonts-symbols-mono
 
-sudo pacman -S --needed paru
-paru -S fzf-tab numix-square-icon-theme-git   # AUR
+paru -S pokeget fzf-tab numix-square-icon-theme-git numix-icon-theme-git
 ```
 
-## the setup
+---
 
-| area | linux | windows |
-|---|---|---|
-| compositor | niri | Komorebi + WHKD |
-| bar | DankMaterialShell | YASB |
-| terminal | kitty | Windows Terminal |
-| shell | zsh + Powerlevel10k | — |
-| editor | Neovim (LazyVim), Zed, VS Code | Zed, VS Code |
-| taskbar | — | Windhawk |
-| widgets | btop, Conky | Rainmeter |
-| fonts | ZedMono Nerd Font | — |
-| icons | Numix-Square | — |
-| cursors | WCursor (Camellya / Chisa) | Windows cursor |
-| theme | DMS matugen | custom |
+## Linux
 
-**One palette everywhere.** DankMaterialShell generates a matugen palette from
-the current wallpaper and writes it into Neovim (`colors/dms.lua` + lualine),
-kitty, GTK, Discord CSS and niri. Neovim hot-reloads the generated files, so
-the editor follows the wallpaper without a restart. `dms-theme-refresh.sh`
-forces a full regeneration after installing a themed app.
+niri tiles the windows, DankMaterialShell draws the bar, dock, widgets and lock
+screen, and matugen recolours Neovim, kitty, GTK, Discord and niri from the
+current wallpaper. The editor hot-reloads the generated palette, so a wallpaper
+change re-themes the whole desktop without a restart.
 
-**Shell.** No plugin manager, no network calls at startup. Powerlevel10k with a
-two-line prompt, `eza`, `bat`, `fd`, `ripgrep`, `fzf-tab`, `zoxide`, `yazi`,
-`lazygit`, `direnv`, `vivid`, `git-delta`, shared 100k history, and `fastfetch`
-with a random Pokémon sprite (`NOFETCH=1` to skip).
+Helpers live in `linux/scripts/` and land in `~/.local/bin`:
 
-**Editor.** LazyVim with Python, TypeScript, JSON, YAML, TOML, Markdown, Docker
-and Git extras. Mason installs LSPs, formatters and linters on demand;
-Treesitter uses the system CLI. Only the config is tracked — plugins live in
-`~/.local/share/nvim`.
+| Script | What it does |
+|:--|:--|
+| `webapp.sh` | any site in a browser app window, plus a menu entry |
+| `dotfiles-sync.sh` | commit and push this repo to GitHub |
+| `game-launch.sh` | gamescope + gamemode + MangoHud wrapper |
+| `phone-cam.sh` | Android phone as a virtual camera |
+| `pokemon-logo.sh` | random Pokémon sprite for fastfetch |
 
-**Web apps.** `webapp.sh <url> [name]` opens any site in a Brave window with no
-tabs or address bar and adds a menu entry. `--isolated` gives it its own
-profile; `--list` and `--remove` manage existing ones.
+Keybinds: `linux/.config/niri/dms/binds.kdl` and `linux/.config/niri/custom/`.
+Validate the config with `niri validate -c ~/.config/niri/config.kdl`.
 
-## windows
+---
 
-| piece | screenshot |
-|---|---|
-| YASB bar, Rainmeter widgets, dual monitor | <img src=".github/images/image-6.png" width="900" alt="Windows widgets"> |
+## Windows
 
-Copy the files to their targets — full table in
-[`SYSTEM.md` §10](SYSTEM.md#10-windows--shared-files):
+Komorebi tiles, YASB replaces the taskbar, Windhawk restyles it, and Rainmeter
+draws the clock and cava. WSL runs Debian with the same zsh setup as the Linux
+side.
 
-```text
-windows/terminal/settings.json      Windows Terminal
-windows/komorebi/                   %USERPROFILE%\.config\komorebi
-windows/yasb/                       %USERPROFILE%\.config\yasb
-windows/windhawk/                   paste into the Windhawk UI
-windows/rainmeter/                  import the .rmskin
-windows/wsl/wsl.conf                /etc/wsl.conf
-windows/scripts/system-cleanup.ps1  run as Administrator
-```
+| Repo path | Target |
+|:--|:--|
+| `windows/terminal/settings.json` | Windows Terminal `settings.json` |
+| `windows/komorebi/` | `%USERPROFILE%\.config\komorebi` |
+| `windows/yasb/` | `%USERPROFILE%\.config\yasb` |
+| `windows/windhawk/` | paste into the Windhawk UI |
+| `windows/rainmeter/` | import the `.rmskin` |
+| `windows/wsl/` | `wsl.conf` inside WSL, `wsl.config` as `%USERPROFILE%\.wslconfig` |
 
-## wallpapers
+> [!NOTE]
+> Windhawk mods are stored per mod in `windows/windhawk/*.json`. Paste them into
+> the mod's advanced settings and hit save. Full target paths are in
+> [`SYSTEM.md` §10](SYSTEM.md#10-windows--shared-files).
+
+---
+
+## Layout
+
+| Path | What is in it |
+|:--|:--|
+| [`linux/`](linux/) | CachyOS configs: niri, DankMaterialShell (DMS), kitty, nvim, zsh, fastfetch, cava, conky |
+| [`linux/scripts/`](linux/scripts/) | helpers installed to `~/.local/bin`, plus `wsl/` extras |
+| [`windows/`](windows/) | Komorebi, YASB, Windhawk, Windows Terminal, Rainmeter, WSL |
+| [`shared/`](shared/) | VS Code, Zed and Discord configs used on both platforms |
+| [`wallpapers/`](wallpapers/) | submodule with the wallpaper collection |
+| [`SYSTEM.md`](SYSTEM.md) | the long version: packages, keybinds, troubleshooting |
+
+---
+
+## Wallpapers
 
 [**SpreadSheets600/Wallpapers**](https://github.com/SpreadSheets600/Wallpapers)
 is mounted at `wallpapers/` and `~/Pictures/Wallpapers` points straight at
 `wallpapers/Wallpapers/`, one flat folder of images, so any picker can use the
-collection. The repo also builds a thumbnail gallery automatically on every
-push.
+collection. Every push rebuilds a gallery at
+[spreadsheets600.github.io/Wallpapers](https://spreadsheets600.github.io/Wallpapers/).
 
 ```bash
 cd ~/Dotfiles/wallpapers
@@ -137,12 +150,14 @@ python3 scripts/organize.py       # HEIC -> JPEG, renumber loose files
 python3 scripts/build_site.py     # thumbnails + site -> _site/
 ```
 
-## sync
+---
 
-`dotfiles-sync.sh` commits and pushes the setup to GitHub every 15 minutes.
-It stages only the paths in `linux/scripts/dotfiles-sync.paths`, refuses staged
-secrets and files over 95 MB, rebases if the remote moved, and pushes the
-wallpaper submodule before recording its new commit here.
+## Sync
+
+`dotfiles-sync.sh` commits and pushes the paths in `linux/scripts/dotfiles-sync.paths`.
+It stages only what rebuilds the Linux setup, refuses secrets and files over
+95 MB, rebases if the remote moved, and pushes the wallpaper submodule before
+recording its new commit here.
 
 ```bash
 dotfiles-sync.sh list       # what gets committed
@@ -151,23 +166,16 @@ dotfiles-sync.sh run        # commit + push now
 dotfiles-sync.sh --dry-run  # preview
 ```
 
-## notes
+---
 
-- Cursors: `wcursor current` shows the active theme; DMS owns the choice and a
-  systemd path unit mirrors it to GTK, X11, GSettings and niri.
-- Fonts and icons are re-applied by `install.sh` through `gsettings`.
-- Git identity, aliases and `gh` setup: [`SYSTEM.md` §8](SYSTEM.md#8-git-github-cli-and-identity).
-- Neovim plugin updates: `nvim --headless "+Lazy! sync" +qa`.
+## Thanks
 
-## thanks
-
-Ideas and structure borrowed from
-[mathiasbynens/dotfiles](https://github.com/mathiasbynens/dotfiles),
+Structure ideas from [mathiasbynens/dotfiles](https://github.com/mathiasbynens/dotfiles),
 [caarlos0/dotfiles](https://github.com/caarlos0/dotfiles),
 [driesvints/dotfiles](https://github.com/driesvints/dotfiles) and the
 [dotfiles.github.io](https://dotfiles.github.io/) index.
 
 Fonts: [ZedMono](https://github.com/zed-industries/zed-fonts),
 [Iosevka](https://github.com/be5invis/Iosevka),
-[JetBrains Mono](https://www.jetbrains.com/lp/mono/) ·
-Icons: [Numix-Square](https://github.com/numixproject/numix-icon-theme-square).
+[JetBrains Mono](https://www.jetbrains.com/lp/mono/). Icons:
+[Numix-Square](https://github.com/numixproject/numix-icon-theme-square).

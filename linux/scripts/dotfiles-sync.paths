@@ -4,7 +4,7 @@
 # here. One git pathspec per line; comments and blank lines are ignored.
 # Add a line if you want more (e.g. wallpapers/ or windows/).
 
-# Linux setup: shell files, every app config install.sh links, helpers, units
+# Linux setup: shell files, every app config install.sh links, helper scripts
 linux/
 
 # Installer, docs, repo ignore rules

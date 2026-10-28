@@ -41,15 +41,13 @@ setup changes.
     up **LazyVim** in `linux/.config/nvim` with Python/TypeScript/JSON/YAML/
     TOML/Markdown/Docker/Git extras.
 12. Added **DMS → Neovim** color sync through the `base46` plugin, a generic
-    **Brave web-app launcher** (`webapp.sh`), an on-demand **matugen refresh**
-    helper, and installed **Spotify**, **Discord** (with **Equicord** patched on
-    top).
+    **Brave web-app launcher** (`webapp.sh`), and installed **Spotify**,
+    **Discord** (with **Equicord** patched on top).
 13. Set up **WCursor** in `~/Projects/wcursor`, converted and installed the
-    **Camellya** and **Chisa** Windows cursor packs (six themes), linked them
-    into `~/.icons` so niri can see them, and added a systemd path unit that
-    mirrors DMS cursor changes to GTK, X11, GSettings, and niri.
-14. Added automatic GitHub sync for the setup configs (`dotfiles-sync.sh` +
-    a 15-minute timer). The wallpaper collection moved into its own repo
+    **Camellya** and **Chisa** Windows cursor packs (six themes), and linked them
+    into `~/.icons` so niri can see them.
+14. Added GitHub sync for the setup configs (`dotfiles-sync.sh`). The wallpaper
+    collection moved into its own repo
     (`SpreadSheets600/Wallpapers`), mounted here as the `wallpapers/` submodule
     and symlinked from `~/Pictures/Wallpapers`.
 
@@ -84,8 +82,7 @@ Dotfiles/
 │   │   ├── goverlay/
 │   │   ├── MangoHud/
 │   │   └── autostart/
-│   ├── scripts/            # Linux helpers (linked into ~/.local/bin)
-│   └── systemd/user/       # user units (linked individually into ~/.config)
+│   └── scripts/            # helpers (linked into ~/.local/bin)
 ├── windows/                # Windows 11 configs
 │   ├── terminal/           # Windows Terminal settings.json
 │   ├── komorebi/           # tiling WM + whkd keybinds
@@ -138,8 +135,7 @@ Current links:
 | `~/.p10k.zsh` | `linux/.p10k.zsh` |
 | `~/.gitconfig` | `linux/.gitconfig` |
 | `~/.config/{kitty,niri,paru,fastfetch,lazygit,cava,conky,goverlay,MangoHud,autostart,nvim}` | `linux/.config/...` |
-| `~/.local/bin/{game.sh,VirtualPhoneCam.sh,cheatenginelaunch.sh,webapp.sh,dms-theme-refresh.sh,dms-cursor-sync.sh,dotfiles-sync.sh}` | `linux/scripts/...` |
-| `~/.config/systemd/user/{dms-cursor-sync.path,dms-cursor-sync.service,dotfiles-sync.service,dotfiles-sync.timer}` | `linux/systemd/user/...` |
+| `~/.local/bin/{cheat-engine.sh,game-launch.sh,phone-cam.sh,pokemon-logo.sh,webapp.sh,dotfiles-sync.sh}` | `linux/scripts/...` |
 | `~/Pictures/Wallpapers` | `wallpapers/Wallpapers/` |
 
 Website app-menu entries are generated (not tracked) by `webapp.sh` at
@@ -410,24 +406,16 @@ pointing hand. Implemented in `wcursor/pack.py` (`find_palm_source`) and the
 GTK, GSettings, `~/.icons/default`, or reload niri, so changing the cursor only
 in DMS leaves some apps on the old cursor.
 
-`dms-cursor-sync.path` watches `~/.config/niri/dms/cursor.kdl`. When DMS
-changes it, the service runs:
+After picking a cursor in DMS, push the same theme through WCursor so GTK,
+GSettings, `~/.icons/default` and niri catch up:
 
 ```bash
 wcursor set "<theme>" --size <size> --no-dms
 ```
 
-This updates the remaining consumers and reloads niri without restarting DMS.
-DMS rewrites `cursor.kdl` several times while the cursor picker is open, so the
-service debounces rapid changes and only applies the final selection.
-`install.sh` links the units and enables the path unit. Check it with:
-
-```bash
-systemctl --user status dms-cursor-sync.path
-journalctl --user -u dms-cursor-sync.service -n 20
-```
-
-The active cursor is whatever DMS has selected. Check the full state with:
+DMS rewrites `cursor.kdl` several times while the cursor picker is open, so run
+the command once after choosing. The active cursor is whatever DMS has
+selected. Check the full state with:
 
 ```bash
 wcursor list
@@ -506,7 +494,7 @@ kitty @ --to unix:/tmp/kitty-$USER set-colors --all --configured ~/.config/kitty
 | `nodejs` / `npm` | LSP servers and Mason packages |
 | `tree-sitter-cli` | Treesitter parsers |
 | `stylua` / `shfmt` | Lua / shell formatting |
-| `jq` | reads DMS session/wallpaper state in `dms-theme-refresh.sh` |
+| `jq` | reads DMS session and wallpaper state from `~/.local/state/DankMaterialShell/session.json` |
 | `discord` | Discord desktop client (Equicord patched in) |
 | `spotify-launcher` | official Spotify client with self-updates |
 | `wcursor` | Windows cursor pack conversion/install + system-wide switching |
@@ -570,9 +558,8 @@ The live niri config was imported as-is into `linux/.config/niri/`:
 - DMS owns the generated `dms/` files and the kitty theme files. Editing them
   manually is fine, but DMS may overwrite them on a theme change.
 - DMS is set to `currentThemeName: "dynamic"`; matugen derives every palette
-  from the current wallpaper (`~/.local/state/DankMaterialShell/session.json`).
-  `dms-theme-refresh.sh` re-runs all enabled templates from that wallpaper
-  without changing the theme.
+  from the current wallpaper (`~/.local/state/DankMaterialShell/session.json`)
+  and re-runs the enabled templates when it changes.
 - Old `config.d/` modules and timestamped `config.kdl.backup*` files were
   removed; git history still contains them.
 - niri output config is currently for the laptop panel (`1920x1080@120`,
@@ -634,8 +621,6 @@ ls /usr/share/icons/Numix-Square
 wcursor list
 wcursor current
 wcursor doctor
-systemctl --user status dms-cursor-sync.path
-systemctl --user start dms-cursor-sync.service   # force one sync now
 
 # fastfetch logo
 pokemon-logo.sh | head -3
@@ -652,7 +637,6 @@ test -f ~/.config/Equicord/equicord.asar && echo "Equicord patched"
 command -v webapp.sh
 webapp.sh --list
 desktop-file-validate ~/.local/share/applications/webapp-whatsapp.desktop
-dms-theme-refresh.sh   # re-theme every matugen template from the wallpaper
 
 # config links
 ls -l ~/.zshrc ~/.p10k.zsh ~/.config/kitty ~/.config/niri ~/.config/nvim
@@ -678,7 +662,7 @@ kitty --config ~/.config/kitty/kitty.conf sh -c 'sleep 0.2'
 | System font did not change | `gsettings set …` again, restart the app; GTK apps may need a re-login. |
 | Icon theme did not change | `gsettings get … icon-theme`, then restart the app; some Qt/Flatpak apps need their own override. |
 | Cursor theme did not change | `wcursor set '<theme>' --size 32`, then restart the app; check `wcursor current` for mismatched targets. |
-| DMS cursor changed but GTK/X11 apps still use the old one | `systemctl --user start dms-cursor-sync.service`; check `wcursor current` and `journalctl --user -u dms-cursor-sync.service`. |
+| DMS cursor changed but GTK/X11 apps still use the old one | Run `wcursor set '<theme>' --size <size> --no-dms`, then check `wcursor current`. |
 | Cursor is too small or too large | Switch size with `wcursor set '<theme>' --size 24` (or 32/48/64); the theme includes all four sizes. |
 | WCursor cannot map a pack | Point it at the folder containing the `.ani`/`.cur` files and `install.inf`, e.g. `camellya/Cursors/White` — not the ZIP root. |
 | Prompt looks wrong | `p10k configure`, or check `~/.p10k.zsh` is linked. |
@@ -798,9 +782,8 @@ Each app gets:
 - X11 class: `webapp-<slug>` (passed as `--class`)
 
 The default browser is `brave-origin`; override it with
-`WEBAPP_BROWSER=brave` (or another Chromium binary). To theme the shell and
-apps from the current wallpaper, run `dms-theme-refresh.sh`; DMS normally does
-this automatically when the wallpaper changes.
+`WEBAPP_BROWSER=brave` (or another Chromium binary). The shell and apps re-theme
+themselves when DMS changes the wallpaper.
 
 ---
 
@@ -823,8 +806,7 @@ the manifest `linux/scripts/dotfiles-sync.paths` — the files needed to rebuild
 the Linux setup — instead of the whole repo:
 
 ```text
-linux/          shell files, every app config install.sh links, scripts, units,
-                plus snapshots/ (live config copies) and screenshots/
+linux/          shell files, every app config install.sh links, helper scripts
 install.sh      installer
 README.md
 SYSTEM.md
@@ -833,42 +815,17 @@ shared/         VS Code / Zed / Discord configs (cross-platform)
 wallpapers/     submodule pin for the wallpaper collection
 ```
 
-Deliberately **not** synced: `.github/images` (old README images) and
+Deliberately **not** synced: `.github/images` (README screenshots) and
 `windows/`. Add a line to the manifest to include either of them, or run
 `dotfiles-sync.sh run --all` for a one-off full sync.
 
-### Configs that cannot be symlinked (`snapshots/`)
-
-Some apps keep large state next to their config, or rewrite the config file
-atomically (which replaces a symlink). Those live in `~/.config` as real files
-and are backed up by **copying** them into `linux/snapshots/` before every
-sync commit. The list is `linux/scripts/dotfiles-backup.paths` (format
-`<source under $HOME> | <destination in repo>`), currently:
-
-- `DankMaterialShell/` — `settings.json` (bar layout, widgets, theme),
-  `plugin_settings.json`, `plugins.lock.json`, `monitors.json`,
-  `clsettings.json`
-- `dankcal/`, `dsearch/`, `dgop/` — companion app settings
-- `environment.d/90-dms.conf`, `mimeapps.list`, `user-dirs.dirs`,
-  `xdg-terminals.list`, `pavucontrol.ini`, `qt5ct/`, `qt6ct/`, `fish/`
-
-To restore on a new machine, copy the files back into `~/.config` (or pick the
-ones you need), then recreate the DMS plugin checkouts with
-`dms plugins install <id>` — the 167 MB `DankMaterialShell/plugins/` directory
-is intentionally not tracked. Browser profiles, app caches and credentials
-(`~/.config/gh/hosts.yml`) are never copied.
-
-The timer runs every 15 minutes, rebases on `origin/main`, and pushes. Offline
-runs keep the commit locally and retry on the next tick. Safety checks refuse
-known token formats, private keys, `.env`/`credentials` files, and files over
-95 MB.
+Run it by hand, or point your own timer at it:
 
 | Thing | Where |
 |---|---|
-| script | `linux/scripts/dotfiles-sync.sh` → `~/.local/bin/dotfiles-sync.sh` |
+| script | `linux/scripts/dotfiles-sync.sh` -> `~/.local/bin/dotfiles-sync.sh` |
 | manifest | `linux/scripts/dotfiles-sync.paths` |
-| timer | `dotfiles-sync.timer` — every 15 min, `Persistent=true` |
-| logs | `journalctl --user -u dotfiles-sync.service` |
+| safety | refuses token formats, private keys, `.env`/`credentials` files, >95 MB |
 
 ```bash
 dotfiles-sync.sh list          # paths included in the backup
@@ -878,10 +835,11 @@ dotfiles-sync.sh run           # commit + push now
 dotfiles-sync.sh run --all     # include wallpapers/windows/screenshots too
 ```
 
+It rebases on `origin/main` before pushing and keeps offline commits for the
+next run.
+
 Only files inside `~/Dotfiles` can be synced. If a config is not in the repo
-yet, either add it under `linux/.config/` and run `install.sh` so it gets
-symlinked, or add a line to `linux/scripts/dotfiles-backup.paths` so the sync
-copies it into `linux/snapshots/` (for apps that cannot be symlinked).
+yet, add it under `linux/.config/` and run `install.sh` so it gets symlinked.
 
 ### Wallpapers
 
@@ -898,9 +856,8 @@ is a symlink to that image root.
 ~/Pictures/Wallapaper -> ~/Dotfiles/wallpapers/Wallpapers   # old spelling, kept
 ```
 
-Drop an image into `Wallpapers/` and the 15-minute sync commits and pushes
-it inside the submodule first, then records the new commit in Dotfiles. By
-hand:
+Drop an image into `Wallpapers/` and run `dotfiles-sync.sh`: it commits and
+pushes the submodule first, then records the new commit in Dotfiles. By hand:
 
 ```bash
 cd ~/Dotfiles/wallpapers

@@ -1,19 +1,5 @@
 #!/usr/bin/env bash
-# webapp.sh — run any website in a Chromium app window and add it to the menu.
-#
-# Usage:
-#   webapp.sh <url> [name]              launch (and create/update the menu entry)
-#   webapp.sh --install <url> [name]    only create/update the menu entry
-#   webapp.sh --list                    list installed web apps
-#   webapp.sh --remove <name> [--purge] remove the entry (and optionally its profile)
-#
-# By default the app uses your normal browser profile, so links open in the
-# browser/profile you already use. Pass --isolated for a separate profile.
-#
-# Environment:
-#   WEBAPP_BROWSER   Chromium browser command (default: helium-browser, brave-origin, brave, chromium)
-#   WEBAPP_ISOLATED  1 = use a dedicated profile (same as --isolated)
-#   WEBAPP_DATA_DIR  isolated profile directory (default: ${XDG_DATA_HOME:-~/.local/share}/webapps)
+
 set -euo pipefail
 
 DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
@@ -52,6 +38,7 @@ slugify() {
 
 normalize_url() {
   local url=$1
+
   case $url in
     http://*|https://*) printf '%s\n' "$url" ;;
     *) printf 'https://%s\n' "$url" ;;
@@ -60,22 +47,27 @@ normalize_url() {
 
 url_host() {
   local host=${1#*://}
+
   host=${host%%/*}
   host=${host%%\?*}
   host=${host%%#*}
+
   printf '%s\n' "$host"
 }
 
 default_name() {
   local host
+
   host="$(url_host "$1")"
   host=${host#www.}
   host=${host%%:*}
+
   printf '%s\n' "${host:-Web App}"
 }
 
 browser_app_prefix() {
   local browser=${1##*/}
+
   case $browser in
     helium*) printf 'chrome' ;;
     brave*) printf 'brave' ;;
@@ -86,6 +78,8 @@ browser_app_prefix() {
 }
 
 pick_browser() {
+  local browser
+
   if [[ -n ${WEBAPP_BROWSER:-} ]]; then
     command -v "$WEBAPP_BROWSER" >/dev/null 2>&1 ||
       die "WEBAPP_BROWSER '$WEBAPP_BROWSER' not found"
@@ -93,18 +87,19 @@ pick_browser() {
     return
   fi
 
-  local browser
   for browser in helium-browser helium brave-origin brave brave-browser chromium chromium-browser google-chrome-stable; do
     if command -v "$browser" >/dev/null 2>&1; then
       printf '%s\n' "$browser"
       return
     fi
   done
+
   die "no Chromium browser found (set WEBAPP_BROWSER)"
 }
 
 pick_icon() {
   local slug=$1 icon
+
   for icon in "web-$slug" "$slug" web-browser applications-internet; do
     if compgen -G "/usr/share/icons/*/*/apps/$icon.svg" >/dev/null ||
       compgen -G "/usr/share/icons/*/*/apps/$icon.png" >/dev/null ||
@@ -113,17 +108,19 @@ pick_icon() {
       return
     fi
   done
+
   printf 'web-browser\n'
 }
 
-# Quote one argument for a Desktop Entry Exec line.
 desktop_quote() {
   local s=$1
+
   s=${s//\\/\\\\}
   s=${s//\"/\\\"}
   s=${s//\$/\\\\\$}
   s=${s//\`/\\\\\`}
   s=${s//%/%%}
+
   printf '"%s"' "$s"
 }
 
@@ -134,22 +131,23 @@ write_desktop() {
 
   browser="$(pick_browser)"
   icon="$(pick_icon "$slug")"
+
   if [[ $isolated == 1 ]]; then
     exec_line="$(desktop_quote "$SELF") $(desktop_quote "--isolated") $(desktop_quote "$url") $(desktop_quote "$name")"
   else
     exec_line="$(desktop_quote "$SELF") $(desktop_quote "$url") $(desktop_quote "$name")"
   fi
 
-  # Chromium app windows on Wayland derive their app_id from the URL, not
-  # from --class. Match it so niri associates the window with this launcher.
   host="$(url_host "$url")"
   prefix="$(browser_app_prefix "$browser")"
+
   case $prefix in
     brave|chromium|google-chrome|chrome) wm_class="$prefix-${host}__-Default" ;;
     *) wm_class="webapp-$slug" ;;
   esac
 
   mkdir -p "$DESKTOP_DIR"
+
   cat >"$desktop" <<EOF
 [Desktop Entry]
 Type=Application
@@ -174,6 +172,7 @@ EOF
   if command -v update-desktop-database >/dev/null 2>&1; then
     update-desktop-database "$DESKTOP_DIR" >/dev/null 2>&1 || true
   fi
+
   printf '%s\n' "$desktop"
 }
 
@@ -201,11 +200,13 @@ launch_webapp() {
   fi
 
   printf 'webapp: %s -> %s\n' "$name" "$desktop" >&2
+
   exec "$browser" "${args[@]}"
 }
 
 remove_webapp() {
   local target=$1 purge=${2:-0} slug desktop
+
   slug="$(slugify "$target")"
   desktop="$DESKTOP_DIR/webapp-$slug.desktop"
 
@@ -228,12 +229,16 @@ remove_webapp() {
 
 list_webapps() {
   local file name url
+  local -a files
+
   shopt -s nullglob
-  local files=("$DESKTOP_DIR"/webapp-*.desktop)
+  files=("$DESKTOP_DIR"/webapp-*.desktop)
+
   if ((${#files[@]} == 0)); then
     printf 'No web apps installed.\n'
     return
   fi
+
   for file in "${files[@]}"; do
     name=$(sed -n 's/^Name=//p' "$file" | head -n1)
     url=$(sed -n 's/^X-WebApp-URL=//p' "$file" | head -n1)
@@ -244,10 +249,12 @@ list_webapps() {
 mode="launch"
 purge=0
 isolated="${WEBAPP_ISOLATED:-0}"
+
 case $isolated in
   1|true|yes) isolated=1 ;;
   *) isolated=0 ;;
 esac
+
 url=""
 name=""
 
@@ -289,6 +296,7 @@ case $mode in
     name=${name//$'\n'/ }
     slug="$(slugify "$name")"
     [[ -n $slug ]] || die "could not derive a name; pass one explicitly"
+
     if [[ $mode == install ]]; then
       write_desktop "$url" "$name" "$slug" "$isolated"
     else

@@ -269,10 +269,11 @@ parse_excludes() {
   local raw=${EXCLUDES//,/ }
   local -a user=()
   read -r -a user <<<"$raw" 2>/dev/null || true
-  CACHE_EXCLUDES=("${PROTECTED_CACHE[@]}" "${BROWSER_NAMES[@]}" thumbnails "${user[@]}")
+  CACHE_EXCLUDES=("${PROTECTED_CACHE[@]}" "${BROWSER_NAMES[@]}" "${DEV_CACHE_NAMES[@]}" thumbnails "${user[@]}")
 }
 
 PROTECTED_CACHE=(yay paru pikaur)
+DEV_CACHE_NAMES=(yarn pip uv go-build electron electron-builder node-gyp)
 CACHE_EXCLUDES=()
 
 cache_excluded() {

@@ -806,8 +806,10 @@ Categories: `cache thumbnails browser trash tmp appcache` (user),
 `docker_images docker_containers docker_volumes docker_build`.
 
 `yay`, `paru` and `pikaur` cache names are always protected; add more with
-`--exclude` or the plugin's **Keep list** setting. The plugin bundles a copy of
-this script at `~/.config/dms/plugins/dankCleaner/cleaner.sh`; the copy in
+`--exclude` or the plugin's **Keep list** setting. The `cache` category also
+skips browser, developer and thumbnail folders so every byte belongs to one
+category and totals never double count. The plugin bundles a copy of this
+script at `~/.config/dms/plugins/dankCleaner/cleaner.sh`; the copy in
 `linux/scripts/` is authoritative.
 
 ---

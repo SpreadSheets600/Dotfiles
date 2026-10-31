@@ -71,6 +71,7 @@ Helpers live in `linux/scripts/` and land in `~/.local/bin`:
 | Script | What it does |
 | :-- | :-- |
 | `webapp.sh` | any site in a browser app window, plus a menu entry |
+| `cleaner.sh` | scan and reclaim disk space: caches, dev tools, Docker, disk analyzer |
 | `dotfiles-sync.sh` | commit and push this repo to GitHub |
 | `game-launch.sh` | gamescope + gamemode + MangoHud wrapper |
 | `phone-cam.sh` | Android phone as a virtual camera |

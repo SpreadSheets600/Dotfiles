@@ -135,7 +135,7 @@ Current links:
 | `~/.p10k.zsh` | `linux/.p10k.zsh` |
 | `~/.gitconfig` | `linux/.gitconfig` |
 | `~/.config/{kitty,niri,paru,fastfetch,lazygit,cava,conky,goverlay,MangoHud,autostart,nvim}` | `linux/.config/...` |
-| `~/.local/bin/{cheat-engine.sh,game-launch.sh,phone-cam.sh,pokemon-logo.sh,webapp.sh,dotfiles-sync.sh}` | `linux/scripts/...` |
+| `~/.local/bin/{cheat-engine.sh,cleaner.sh,game-launch.sh,phone-cam.sh,pokemon-logo.sh,webapp.sh,dotfiles-sync.sh}` | `linux/scripts/...` |
 | `~/Pictures/Wallpapers` | `wallpapers/Wallpapers/` |
 
 Website app-menu entries are generated (not tracked) by `webapp.sh` at
@@ -784,6 +784,31 @@ Each app gets:
 The default browser is `brave-origin`; override it with
 `WEBAPP_BROWSER=brave` (or another Chromium binary). The shell and apps re-theme
 themselves when DMS changes the wallpaper.
+
+### Disk cleanup (Dank Cleaner)
+
+`cleaner.sh` is the engine behind the **Dank Cleaner** DMS plugin and works on
+its own from a terminal. It measures every category before deleting anything,
+and refuses to touch anything outside the categories you name.
+
+```bash
+cleaner.sh scan                     # reclaimable space per category
+cleaner.sh clean cache trash        # prompt, then delete
+cleaner.sh clean browser --dry-run  # measure only
+cleaner.sh docker images --yes      # prune unused images
+cleaner.sh analyze ~/Downloads      # per-directory usage
+cleaner.sh scan --system            # pacman cache, journal, orphan check (sudo)
+```
+
+Categories: `cache thumbnails browser trash tmp appcache` (user),
+`npm yarn pnpm pip uv cargo go gradle electron` (dev),
+`pkgcache journal orphans` (system, needs `--system`), and
+`docker_images docker_containers docker_volumes docker_build`.
+
+`yay`, `paru` and `pikaur` cache names are always protected; add more with
+`--exclude` or the plugin's **Keep list** setting. The plugin bundles a copy of
+this script at `~/.config/dms/plugins/dankCleaner/cleaner.sh`; the copy in
+`linux/scripts/` is authoritative.
 
 ---
 

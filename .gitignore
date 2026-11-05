@@ -32,3 +32,6 @@ node_modules/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# ==== Claude Code (local settings, may name private orgs/repos) ====
+linux/.claude/

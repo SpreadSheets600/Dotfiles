@@ -1,5 +1,5 @@
 # =============================================================================
-#  ~/.zshenv  —  environment for every zsh invocation
+#  ~/.zshenv  —  environmeent for every zsh invocation
 #  Managed in ~/Dotfiles/linux/.zshenv  (see SYSTEM.md)
 #  Keep this file silent and fast: scripts and non-interactive shells read it.
 # =============================================================================
@@ -11,7 +11,13 @@ export XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
 export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
 
 # --- Locale -------------------------------------------------------------------
-export LANG="${LANG:-en_US.UTF-8}"
+# The desktop session exports a bare LANG=en_IN (no charset), so programs fall
+# back to a non-UTF-8 codepage. Force a UTF-8 locale whenever the charset is missing.
+case "${LANG:-}" in
+  *[Uu][Tt][Ff]-8*|*[Uu][Tt][Ff]8*) ;;
+  *) export LANG=en_IN.UTF-8 ;;
+esac
+export LC_CTYPE="$LANG"
 
 # Make child processes see the correct shell even in sessions started before chsh.
 export SHELL=/usr/bin/zsh

@@ -8,36 +8,36 @@
 /* via thairanaru on GitHub: */
 
 /* Destructive colors are basically error colors */
-@define-color destructive_bg_color #ee7d77;
-@define-color destructive_fg_color #490106;
+@define-color destructive_bg_color #ec7c8a;
+@define-color destructive_fg_color #490013;
 /* Follow material spec */
-@define-color error_bg_color #ee7d77;
-@define-color error_fg_color #490106;
+@define-color error_bg_color #ec7c8a;
+@define-color error_fg_color #490013;
 /* Follow material spec (also I think looks nicer) */
-@define-color accent_fg_color #39414c;
-@define-color accent_bg_color #c0c7d5;
+@define-color accent_fg_color #3c3e58;
+@define-color accent_bg_color #c3c4e4;
 /* Use surface instead of background */
-@define-color window_bg_color #0e0e0f;
-@define-color window_fg_color #e6e5e7;
+@define-color window_bg_color #0e0e12;
+@define-color window_fg_color #e5e4f4;
 /* Make it more similar to Adwaita */
-@define-color view_bg_color #0e0e0f;
-@define-color view_fg_color #e6e5e7;
-@define-color headerbar_bg_color #0e0e0f;
-@define-color headerbar_fg_color #e6e5e7;
-@define-color sidebar_bg_color #19191b;
-@define-color sidebar_fg_color #e6e5e7;
+@define-color view_bg_color #0e0e12;
+@define-color view_fg_color #e5e4f4;
+@define-color headerbar_bg_color #0e0e12;
+@define-color headerbar_fg_color #e5e4f4;
+@define-color sidebar_bg_color #191921;
+@define-color sidebar_fg_color #e5e4f4;
 /* There is only like one application I know that uses this, and there isn't a good way to get
 a color between surface and surface container so I think just giving this surface is a good enough fallback*/
-@define-color secondary_sidebar_bg_color #0e0e0f;
-@define-color secondary_sidebar_fg_color #e6e5e7;
-@define-color card_bg_color #19191b;
-@define-color card_fg_color #e6e5e7;
-@define-color overview_bg_color #19191b;
-@define-color overview_fg_color #e6e5e7;
-@define-color popover_bg_color #19191b;
-@define-color popover_fg_color #e6e5e7;
-@define-color dialog_bg_color #0e0e0f;
-@define-color dialog_fg_color #e6e5e7;
+@define-color secondary_sidebar_bg_color #0e0e12;
+@define-color secondary_sidebar_fg_color #e5e4f4;
+@define-color card_bg_color #191921;
+@define-color card_fg_color #e5e4f4;
+@define-color overview_bg_color #191921;
+@define-color overview_fg_color #e5e4f4;
+@define-color popover_bg_color #191921;
+@define-color popover_fg_color #e5e4f4;
+@define-color dialog_bg_color #0e0e12;
+@define-color dialog_fg_color #e5e4f4;
 
 /* Backdrop/unfocused states - prevents white flash on window unfocus */
 @define-color headerbar_backdrop_color @window_bg_color;

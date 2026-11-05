@@ -348,3 +348,10 @@ fi
 export PATH="$HOME/.devrelay/bin:$PATH"
 
 . "$HOME/.local/share/../bin/env"
+
+# kilo
+export PATH=/home/soham/.kilo/bin:$PATH
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/soham/.local/bin:$PATH"

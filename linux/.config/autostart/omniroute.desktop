@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=OmniRoute
+Comment=AI proxy router with auto fallback
+Exec=/usr/bin/node /home/soham/.local/lib/node_modules/omniroute/bin/omniroute.mjs serve --no-open --tray
+Terminal=false
+Hidden=false
+X-GNOME-Autostart-enabled=true

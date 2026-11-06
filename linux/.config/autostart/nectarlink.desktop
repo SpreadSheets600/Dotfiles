@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=NectarLink
+Comment=Link your Android phone and PC
+Exec="/home/soham/.local/bin/Nectarlink-0.1.5-nightly.8-x86_64.AppImage" --minimized
+Icon=nectarlink
+Terminal=false
+Categories=Utility;Network;
+StartupNotify=false
+X-GNOME-Autostart-enabled=true
